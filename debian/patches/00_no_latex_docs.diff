@@ -1,0 +1,67 @@
+commit 9a0af57d82b03a8bd37790e968faeee6b7c5a8f3
+Author: George Kiagiadakis <george.kiagiadakis@collabora.co.uk>
+Date:   Sun Apr 10 12:36:02 2011 +0300
+
+    Adjust UseDoxygen.cmake to disable latex output by default and to allow using dot without latex.
+
+diff --git a/cmake/modules/UseDoxygen.cmake b/cmake/modules/UseDoxygen.cmake
+index e1ee6da..283b8d3 100644
+--- a/cmake/modules/UseDoxygen.cmake
++++ b/cmake/modules/UseDoxygen.cmake
+@@ -62,30 +62,38 @@ if(DOXYGEN_FOUND AND DOXYFILE_IN_FOUND)
+ 	set_property(DIRECTORY APPEND PROPERTY
+ 			ADDITIONAL_MAKE_CLEAN_FILES "${DOXYFILE_OUTPUT_DIR}/${DOXYFILE_HTML_DIR}")
+ 
++
++	set(DOXYFILE_DOT "NO")
++
++	if(DOXYGEN_DOT_FOUND)
++		set(DOXYFILE_DOT "YES")
++	endif()
++
++
++	usedoxygen_set_default(DOXYFILE_ENABLE_LATEX_DOC OFF)
+ 	set(DOXYFILE_LATEX "NO")
+ 	set(DOXYFILE_PDFLATEX "NO")
+-	set(DOXYFILE_DOT "NO")
+ 
+-	find_package(LATEX)
+-	if(LATEX_COMPILER AND MAKEINDEX_COMPILER)
+-		set(DOXYFILE_LATEX "YES")
+-		usedoxygen_set_default(DOXYFILE_LATEX_DIR "latex")
++	if (DOXYFILE_ENABLE_LATEX_DOC)
++		find_package(LATEX)
+ 
+-		set_property(DIRECTORY APPEND PROPERTY
+-				ADDITIONAL_MAKE_CLEAN_FILES
+-				"${DOXYFILE_OUTPUT_DIR}/${DOXYFILE_LATEX_DIR}")
++		if(LATEX_COMPILER AND MAKEINDEX_COMPILER)
++			set(DOXYFILE_LATEX "YES")
++			usedoxygen_set_default(DOXYFILE_LATEX_DIR "latex")
+ 
+-		if(PDFLATEX_COMPILER)
+-			set(DOXYFILE_PDFLATEX "YES")
+-		endif()
+-		if(DOXYGEN_DOT_EXECUTABLE)
+-			set(DOXYFILE_DOT "YES")
+-		endif()
++			set_property(DIRECTORY APPEND PROPERTY
++					ADDITIONAL_MAKE_CLEAN_FILES
++					"${DOXYFILE_OUTPUT_DIR}/${DOXYFILE_LATEX_DIR}")
+ 
+-		add_custom_command(TARGET doxygen
+-			POST_BUILD
+-			COMMAND ${CMAKE_MAKE_PROGRAM}
+-			WORKING_DIRECTORY "${DOXYFILE_OUTPUT_DIR}/${DOXYFILE_LATEX_DIR}")
++			if(PDFLATEX_COMPILER)
++				set(DOXYFILE_PDFLATEX "YES")
++			endif()
++
++			add_custom_command(TARGET doxygen
++				POST_BUILD
++				COMMAND ${CMAKE_MAKE_PROGRAM}
++				WORKING_DIRECTORY "${DOXYFILE_OUTPUT_DIR}/${DOXYFILE_LATEX_DIR}")
++		endif()
+ 	endif()
+ 
+ 

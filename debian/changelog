@@ -1,0 +1,15 @@
+qt-gstreamer (0.10.1-2) unstable; urgency=low
+
+  * Import patch from upstream to fix FTBFS - disable building
+    latex documentation by default (Closes: #621892).
+  * Update symbols file for gcc 4.5.
+  * Add build dependency on graphviz to use dot for generating
+    graphs in the documentation.
+
+ -- George Kiagiadakis <kiagiadakis.george@gmail.com>  Thu, 14 Apr 2011 12:22:39 +0300
+
+qt-gstreamer (0.10.1-1) experimental; urgency=low
+
+  * Initial release. (Closes: #605040)
+
+ -- George Kiagiadakis <kiagiadakis.george@gmail.com>  Fri, 07 Jan 2011 23:41:31 +0200
