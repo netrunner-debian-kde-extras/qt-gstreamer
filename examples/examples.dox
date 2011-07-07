@@ -1,0 +1,71 @@
+/*
+    Copyright (C) 2011 Collabora Ltd.
+      @author George Kiagiadakis <george.kiagiadakis@collabora.co.uk>
+
+    This library is free software; you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published
+    by the Free Software Foundation; either version 2.1 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/*! \example player/main.cpp
+ * This is an example audio/video player using QtGStreamer.
+ *
+ * In this example, the GStreamer playbin2 element is used to perform most
+ * of the tasks. Our code is mostly integrating the UI with the pipeline,
+ * handling state changes, doing queries to learn about the position
+ * and duration of the stream, performing seeking, etc...
+ *
+ * player.h:
+ * \include player/player.h
+ *
+ * player.cpp:
+ * \include player/player.cpp
+ *
+ * mediaapp.h:
+ * \include player/mediaapp.h
+ *
+ * mediaapp.cpp:
+ * \include player/mediaapp.cpp
+ *
+ * main.cpp:
+ */
+
+/*! \example appsink-src/main.cpp
+ * This example demonstrates how to use QGst::Utils::ApplicationSource and
+ * QGst::Utils::ApplicationSink to create a custom source and sink respectively.
+ *
+ * In this example, we have two pipelines, one pipeline that gets data from a file,
+ * decodes the audio stream and sends the audio buffers to appsink, and a second
+ * pipeline that gets data from appsrc and pushes them to an audio sink. Appsink
+ * from the first pipeline is linked with appsrc from the second pipeline in our
+ * code, by listening to appsink's newBuffer() signal, getting the buffer
+ * and pushing it to appsrc with the pushBuffer() method. The result is a choppy
+ * audio player.
+ */
+
+/*! \example recorder/main.cpp
+ * This is a recording application that takes audio from a microphone
+ * and video from either a camera or the X11 screen, encodes them with
+ * theora and speex and saves the result in a file.
+ *
+ * The intention of this example is to show how simple it is to perform such
+ * complex tasks with GStreamer and how easy it is to change the functionality
+ * of the program by changing just one element (with autovideosrc it will
+ * do a webcam recording, but with ximagesrc it will do a screencast).
+ *
+ * Tasks demonstrated in this example include:
+ * \li How to create and link elements manually.
+ * \li How to create and link elements using a pipeline description.
+ * \li How to use the QGst::PropertyProbe interface.
+ * \li How to handle bus messages.
+ * \li Others...
+ */
