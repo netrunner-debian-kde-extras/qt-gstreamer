@@ -10,6 +10,7 @@ qt-gstreamer (0.10.2-1) unstable; urgency=low
   * Convert to multiarch.
     - Bump debhelper dependency to version 9.
     - Bump debian/compat to 9.
+    - Add build-dep on dpkg-dev (>= 1.16.1~).
     - Adjust packaging to install libraries and plugins
       to the mutliarch location.
   * Update symbols files.
