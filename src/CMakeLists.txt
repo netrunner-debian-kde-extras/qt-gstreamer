@@ -1,6 +1,3 @@
-# Common variables
-set(LIB_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib)
-set(INCLUDES_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/include/QtGStreamer)
 set(EXPORT_TARGET_SET QtGStreamerTargets)
 
 if (QTGSTREAMER_STATIC)
@@ -14,17 +11,26 @@ endif()
 
 # Macro to run codegen from the subdirs
 macro(run_codegen _dir_name _includes _headers)
-    set(_prefixed_headers "")
-    foreach(_header ${_headers})
-        list(APPEND _prefixed_headers ${_dir_name}/${_header})
-    endforeach()
+    if (QTGSTREAMER_CODEGEN)
+        set(_prefixed_headers "")
+        foreach(_header ${_headers})
+            list(APPEND _prefixed_headers ${_dir_name}/${_header})
+        endforeach()
 
-    add_custom_command(OUTPUT gen.cpp
-                       COMMAND codegen
-                       ARGS ${_includes} ${_prefixed_headers}
-                              > ${CMAKE_CURRENT_BINARY_DIR}/gen.cpp
-                       DEPENDS codegen ${_headers}
-                       WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/..)
+        add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/gen.cpp
+                           COMMAND codegen
+                           ARGS ${_includes} ${_prefixed_headers}
+                                > ${CMAKE_CURRENT_SOURCE_DIR}/gen.cpp
+                           DEPENDS codegen ${_headers}
+                           WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/..)
+    endif()
+
+    add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/gen.cpp
+                       COMMAND ${CMAKE_COMMAND}
+                       ARGS -E copy ${CMAKE_CURRENT_SOURCE_DIR}/gen.cpp
+                            ${CMAKE_CURRENT_BINARY_DIR}/gen.cpp
+                       DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/gen.cpp
+                       COMMENT "Copying gen.cpp to the build directory")
 endmacro()
 
 # Macro to install headers from the subdirs
@@ -43,6 +49,11 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${QTGSTREAMER_FLAGS}")
 # Build the libraries
 add_subdirectory(QGlib)
 add_subdirectory(QGst)
+
+# Build the qml plugin
+if (QT_QTDECLARATIVE_FOUND)
+    add_subdirectory(qml)
+endif()
 
 # Install the cmake scripts that are used to find the installed library from external projects
 install(EXPORT ${EXPORT_TARGET_SET} DESTINATION ${LIB_INSTALL_DIR}/QtGStreamer)

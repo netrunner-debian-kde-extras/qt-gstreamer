@@ -9,7 +9,7 @@
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+    GNU Lesser General Public License for more details.
 
     You should have received a copy of the GNU Lesser General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
@@ -44,6 +44,8 @@ public:
     bool setStateLocked(bool locked);
 
     bool addPad(const PadPtr & pad);
+    bool removePad(const PadPtr & pad);
+
     PadPtr getStaticPad(const char *name);
     PadPtr getRequestPad(const char *name);
     void releaseRequestPad(const PadPtr & pad);
@@ -59,9 +61,21 @@ public:
               const CapsPtr & filter = CapsPtr());
     bool link(const ElementPtr & dest, const CapsPtr & filter = CapsPtr());
 
+#ifndef DOXYGEN_RUN
+    //FIXME-0.11 Remove the default NULL parameter from the first version
+    //and remove entirely sinkPadName from the second version
     void unlink(const char *srcPadName, const ElementPtr & dest,
                 const char *sinkPadName = NULL);
     void unlink(const ElementPtr & dest, const char *sinkPadName = NULL);
+#else
+    //documentation should show those functions as they are meant to be used.
+    /*! Unlinks the pad named \a srcPadName of this element
+     * from the pad named \a sinkPadName of the \a dest element. */
+    void unlink(const char *srcPadName, const ElementPtr & dest, const char *sinkPadName);
+
+    /*! Unlinks this element from the \a dest element */
+    void unlink(const ElementPtr & dest);
+#endif
 
 #ifndef DOXYGEN_RUN
 private:

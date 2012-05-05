@@ -9,13 +9,18 @@
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+    GNU Lesser General Public License for more details.
 
     You should have received a copy of the GNU Lesser General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef QGLIB_GLOBAL_H
 #define QGLIB_GLOBAL_H
+
+// workaround for https://bugreports.qt-project.org/browse/QTBUG-22829
+#if defined(Q_MOC_RUN) && !defined(BOOST_TT_HAS_OPERATOR_HPP_INCLUDED)
+#define BOOST_TT_HAS_OPERATOR_HPP_INCLUDED
+#endif
 
 #include <QtCore/QtGlobal>
 #include <boost/config.hpp>
