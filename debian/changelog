@@ -15,6 +15,9 @@ qt-gstreamer (0.10.2-1) unstable; urgency=low
   * Update symbols files.
   * Add a new qtgstreamer-declarative package that contains
     the QtGStreamer QML plugin.
+  * Update some package descriptions.
+    - Remove articles from the description synopsis to satisfy lintian.
+    - Mention the new plugins in qtgstreamer-plugins' package descrption.
 
  -- George Kiagiadakis <kiagiadakis.george@gmail.com>  Sat, 05 May 2012 13:34:04 +0300
 

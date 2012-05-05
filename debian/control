@@ -52,7 +52,7 @@ Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends},
          ${misc:Depends}
 Suggests: qtgstreamer-plugins
-Description: The QtGStreamerUi library
+Description: QtGStreamerUi library
  This package contains the QtGStreamerUi library, a library that provides
  helper classes for integrating GStreamer better in graphical Qt applications.
  .
@@ -64,7 +64,7 @@ Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends},
          ${misc:Depends}
-Description: The QtGStreamerUtils library
+Description: QtGStreamerUtils library
  This package contains the QtGStreamerUtils library, a library that provides
  some high level utility classes that can be used with QtGStreamer.
  .
@@ -88,8 +88,8 @@ Description: GStreamer plugins from QtGStreamer
  the QtGStreamer bindings library. These plugins provide GStreamer elements
  that enable better integration of GStreamer in Qt applications.
  .
- Currently, this package contains the qwidgetvideosink element, a video sink
- that draws directly on QWidgets using the QPainter API.
+ Currently, this package contains the qtvideosink, qtglvideosink and
+ qwidgetvideosink elements.
 
 Package: qtgstreamer-declarative
 Architecture: any
