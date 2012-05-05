@@ -1,3 +1,10 @@
+qt-gstreamer (0.10.2-1) unstable; urgency=low
+
+  * New upstream release.
+    - Individual glib headers are no longer used (Closes: #665602)
+
+ -- George Kiagiadakis <kiagiadakis.george@gmail.com>  Sat, 05 May 2012 13:34:04 +0300
+
 qt-gstreamer (0.10.1-2.1) unstable; urgency=low
 
   * Non-Maintainer Upload.
