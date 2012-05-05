@@ -13,6 +13,8 @@ qt-gstreamer (0.10.2-1) unstable; urgency=low
     - Adjust packaging to install libraries and plugins
       to the mutliarch location.
   * Update symbols files.
+  * Add a new qtgstreamer-declarative package that contains
+    the QtGStreamer QML plugin.
 
  -- George Kiagiadakis <kiagiadakis.george@gmail.com>  Sat, 05 May 2012 13:34:04 +0300
 
