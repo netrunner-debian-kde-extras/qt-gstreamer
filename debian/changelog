@@ -18,6 +18,7 @@ qt-gstreamer (0.10.2-1) unstable; urgency=low
   * Update some package descriptions.
     - Remove articles from the description synopsis to satisfy lintian.
     - Mention the new plugins in qtgstreamer-plugins' package descrption.
+  * Update and convert debian/copyright to machine-readable format.
 
  -- George Kiagiadakis <kiagiadakis.george@gmail.com>  Sat, 05 May 2012 13:34:04 +0300
 
