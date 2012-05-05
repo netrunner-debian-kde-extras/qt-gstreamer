@@ -15,7 +15,7 @@ override_dh_auto_build:
 
 override_dh_auto_install:
 	dh_auto_install --parallel
-	cp -r obj-`dpkg-architecture -qDEB_HOST_GNU_TYPE`/doc debian/tmp/doc
+	cp -r obj-$(DEB_HOST_GNU_TYPE)/doc debian/tmp/doc
 
 override_dh_gencontrol:
 	mkdir -p debian/fake-home
