@@ -1,4 +1,4 @@
-# SymbolsHelper-Confirmed: 0.10.1 amd64
+# SymbolsHelper-Confirmed: 0.10.2 amd64
 libQtGStreamer-0.10.so.0 libqtgstreamer-0.10-0 #MINVER#
 * Build-Depends-Package: libqtgstreamer-dev
  _ZN4QGst10BufferList6createEv@Base 0.10.1
@@ -106,6 +106,7 @@ libQtGStreamer-0.10.so.0 libqtgstreamer-0.10-0 #MINVER#
  _ZN4QGst3Pad6unlinkERKN5QGlib10RefPointerIS0_EE@Base 0.10.1
  _ZN4QGst3Pad7setCapsERKN5QGlib10RefPointerINS_4CapsEEE@Base 0.10.1
  _ZN4QGst3Pad9sendEventERKN5QGlib10RefPointerINS_5EventEEE@Base 0.10.1
+ _ZN4QGst3Pad9setActiveEb@Base 0.10.2
  _ZN4QGst4Caps10fromStringEPKc@Base 0.10.1
  _ZN4QGst4Caps11createEmptyEv@Base 0.10.1
  _ZN4QGst4Caps12createSimpleEPKc@Base 0.10.1
@@ -153,6 +154,7 @@ libQtGStreamer-0.10.so.0 libqtgstreamer-0.10-0 #MINVER#
  _ZN4QGst7Element6unlinkERKN5QGlib10RefPointerIS0_EEPKc@Base 0.10.1
  _ZN4QGst7Element8setClockERKN5QGlib10RefPointerINS_5ClockEEE@Base 0.10.1
  _ZN4QGst7Element8setStateENS_5StateE@Base 0.10.1
+ _ZN4QGst7Element9removePadERKN5QGlib10RefPointerINS_3PadEEE@Base 0.10.2
  _ZN4QGst7Element9sendEventERKN5QGlib10RefPointerINS_5EventEEE@Base 0.10.1
  _ZN4QGst7Message17internalStructureEv@Base 0.10.1
  _ZN4QGst7Message17setSequenceNumberEj@Base 0.10.1
