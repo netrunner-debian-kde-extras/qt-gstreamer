@@ -4,14 +4,11 @@ Priority: optional
 Maintainer: Maintainers of GStreamer packages <pkg-gstreamer-maintainers@lists.alioth.debian.org>
 Uploaders: George Kiagiadakis <kiagiadakis.george@gmail.com>
 Build-Depends: debhelper (>= 8),
-               cmake (>= 2.8),
-               automoc,
-               flex,
-               bison,
-               libqt4-dev (>= 4:4.5),
+               cmake (>= 2.8.6),
+               libqt4-dev (>= 4:4.7),
                libboost-dev (>= 1.39),
-               libgstreamer0.10-dev (>= 0.10.31),
-               libgstreamer-plugins-base0.10-dev (>= 0.10.31),
+               libgstreamer0.10-dev (>= 0.10.33),
+               libgstreamer-plugins-base0.10-dev (>= 0.10.33),
                doxygen,
                graphviz
 Standards-Version: 3.9.1
@@ -92,7 +89,7 @@ Depends: ${misc:Depends},
          libqtgstreamer-0.10-0 (= ${binary:Version}),
          libqtgstreamerui-0.10-0 (= ${binary:Version}),
          libqtgstreamerutils-0.10-0 (= ${binary:Version}),
-         libqt4-dev (>= 4:4.5),
+         libqt4-dev (>= 4:4.7),
          libboost-dev (>= 1.39)
 Suggests: qtgstreamer-doc
 Description: Development headers for QtGStreamer
