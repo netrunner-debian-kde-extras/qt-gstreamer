@@ -9,7 +9,7 @@
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+    GNU Lesser General Public License for more details.
 
     You should have received a copy of the GNU Lesser General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
@@ -93,6 +93,11 @@ bool Pad::setCaps(const CapsPtr & caps)
 bool Pad::isActive() const
 {
     return gst_pad_is_active(object<GstPad>());
+}
+
+bool Pad::setActive(bool active)
+{
+    return gst_pad_set_active(object<GstPad>(), active);
 }
 
 bool Pad::isBlocked() const

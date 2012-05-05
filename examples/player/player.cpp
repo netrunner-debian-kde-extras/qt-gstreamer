@@ -11,13 +11,14 @@
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+    GNU Lesser General Public License for more details.
 
     You should have received a copy of the GNU Lesser General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "player.h"
 #include <QtCore/QDir>
+#include <QtCore/QUrl>
 #include <QGlib/Connect>
 #include <QGlib/Error>
 #include <QGst/Pipeline>
@@ -27,6 +28,7 @@
 #include <QGst/Query>
 #include <QGst/ClockTime>
 #include <QGst/Event>
+#include <QGst/StreamVolume>
 
 Player::Player(QWidget *parent)
     : QGst::Ui::VideoWidget(parent)
@@ -50,7 +52,7 @@ void Player::setUri(const QString & uri)
 
     //if uri is not a real uri, assume it is a file path
     if (realUri.indexOf("://") < 0) {
-        realUri = "file://" + QFileInfo(realUri).absoluteFilePath();
+        realUri = QUrl::fromLocalFile(realUri).toEncoded();
     }
 
     if (!m_pipeline) {
@@ -95,6 +97,33 @@ void Player::setPosition(const QTime & pos)
     );
 
     m_pipeline->sendEvent(evt);
+}
+
+int Player::volume() const
+{
+    if (m_pipeline) {
+        QGst::StreamVolumePtr svp =
+            m_pipeline.dynamicCast<QGst::StreamVolume>();
+
+        if (svp) {
+            return svp->volume(QGst::StreamVolumeFormatCubic) * 10;
+        }
+    }
+
+    return 0;
+}
+
+
+void Player::setVolume(int volume)
+{
+    if (m_pipeline) {
+        QGst::StreamVolumePtr svp =
+            m_pipeline.dynamicCast<QGst::StreamVolume>();
+
+        if(svp) {
+            svp->setVolume((double)volume / 10, QGst::StreamVolumeFormatCubic);
+        }
+    }
 }
 
 QTime Player::length() const
@@ -181,4 +210,4 @@ void Player::handlePipelineStateChange(const QGst::StateChangedMessagePtr & scm)
     Q_EMIT stateChanged();
 }
 
-#include "player.moc"
+#include "moc_player.cpp"

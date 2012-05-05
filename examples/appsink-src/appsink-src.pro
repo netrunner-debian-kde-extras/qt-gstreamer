@@ -3,11 +3,14 @@
 TEMPLATE = app
 TARGET = appsink-src
 
+# produce nice compilation output
+CONFIG += silent
+
 # Tell qmake to use pkg-config to find QtGStreamer.
 CONFIG += link_pkgconfig
 
-# Now tell qmake to link to QtGStreamerUtils-0.10 and also use its include path and Cflags.
-PKGCONFIG += QtGStreamerUtils-0.10
+# Now tell qmake to link to QtGStreamer and also use its include path and Cflags.
+PKGCONFIG += QtGStreamer-0.10 QtGStreamerUtils-0.10
 
 # Recommended if you are using g++ 4.5 or later. Must be removed for other compilers.
 #QMAKE_CXXFLAGS += -std=c++0x

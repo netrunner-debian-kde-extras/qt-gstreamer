@@ -9,7 +9,7 @@
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+    GNU Lesser General Public License for more details.
 
     You should have received a copy of the GNU Lesser General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
@@ -126,7 +126,8 @@ bool Caps::isFixed() const
 
 bool Caps::isWritable() const
 {
-    return (GST_CAPS_REFCOUNT_VALUE(object<GstCaps>()) == 1);
+    GstCaps *caps = object<GstCaps>(); //workaround for bug #653266
+    return (GST_CAPS_REFCOUNT_VALUE(caps) == 1);
 }
 
 bool Caps::equals(const CapsPtr & caps2) const

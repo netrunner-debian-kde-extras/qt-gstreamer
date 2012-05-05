@@ -1,6 +1,6 @@
 /*
     Copyright (C) 2010 George Kiagiadakis <kiagiadakis.george@gmail.com>
-    Copyright (C) 2011 Collabora Ltd.
+    Copyright (C) 2011-2012 Collabora Ltd.
       @author George Kiagiadakis <george.kiagiadakis@collabora.co.uk>
 
     This library is free software; you can redistribute it and/or modify
@@ -11,7 +11,7 @@
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+    GNU Lesser General Public License for more details.
 
     You should have received a copy of the GNU Lesser General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
@@ -22,6 +22,7 @@
 #include "../bus.h"
 #include "../message.h"
 #include "../../QGlib/connect.h"
+#include "../../QGlib/signal.h"
 #include <QtCore/QDebug>
 #include <QtCore/QMutex>
 #include <QtCore/QThread>
@@ -29,6 +30,11 @@
 #include <QtGui/QPaintEvent>
 #include <QtGui/QResizeEvent>
 #include <QtGui/QApplication>
+#include <QtGui/QHBoxLayout>
+
+#ifndef QTGSTREAMER_UI_NO_OPENGL
+# include <QtOpenGL/QGLWidget>
+#endif
 
 namespace QGst {
 namespace Ui {
@@ -114,6 +120,86 @@ private:
 };
 
 
+class QtVideoSinkRenderer : public QObject, public AbstractRenderer
+{
+public:
+    QtVideoSinkRenderer(const ElementPtr & sink, QWidget *parent)
+        : QObject(parent), m_sink(sink)
+    {
+        QGlib::connect(sink, "update", this, &QtVideoSinkRenderer::onUpdate);
+        parent->installEventFilter(this);
+        parent->setAttribute(Qt::WA_OpaquePaintEvent, true);
+    }
+
+    virtual ~QtVideoSinkRenderer()
+    {
+        widget()->removeEventFilter(this);
+        widget()->setAttribute(Qt::WA_OpaquePaintEvent, false);
+    }
+
+    virtual ElementPtr videoSink() const { return m_sink; }
+
+protected:
+    virtual bool eventFilter(QObject *filteredObject, QEvent *event)
+    {
+        if (filteredObject == parent() && event->type() == QEvent::Paint) {
+            QPainter painter(widget());
+            QRect targetArea = widget()->rect();
+            QGlib::emit<void>(m_sink, "paint", (void*) &painter,
+                              (qreal) targetArea.x(), (qreal) targetArea.y(),
+                              (qreal) targetArea.width(), (qreal) targetArea.height());
+            return true;
+        } else {
+            return QObject::eventFilter(filteredObject, event);
+        }
+    }
+
+private:
+    inline QWidget *widget() { return static_cast<QWidget*>(parent()); }
+    void onUpdate() { widget()->update(); }
+
+    ElementPtr m_sink;
+};
+
+
+#ifndef QTGSTREAMER_UI_NO_OPENGL
+
+class QtGLVideoSinkRenderer : public AbstractRenderer
+{
+public:
+    QtGLVideoSinkRenderer(const ElementPtr & sink, QWidget *parent)
+    {
+        m_layout = new QHBoxLayout(parent);
+        m_glWidget = new QGLWidget(parent);
+        m_layout->setContentsMargins(0, 0, 0, 0);
+        m_layout->addWidget(m_glWidget);
+        parent->setLayout(m_layout);
+
+        m_renderer = new QtVideoSinkRenderer(sink, m_glWidget);
+
+        m_glWidget->makeCurrent();
+        sink->setProperty("glcontext", (void*) QGLContext::currentContext());
+        m_glWidget->doneCurrent();
+    }
+
+    virtual ~QtGLVideoSinkRenderer()
+    {
+        delete m_renderer;
+        delete m_glWidget;
+        delete m_layout;
+    }
+
+    virtual ElementPtr videoSink() const { return m_renderer->videoSink(); }
+
+private:
+    QtVideoSinkRenderer *m_renderer;
+    QHBoxLayout *m_layout;
+    QGLWidget *m_glWidget;
+};
+
+#endif // QTGSTREAMER_UI_NO_OPENGL
+
+
 class QWidgetVideoSinkRenderer : public AbstractRenderer
 {
 public:
@@ -193,6 +279,16 @@ AbstractRenderer *AbstractRenderer::create(const ElementPtr & sink, QWidget *vid
         r->setVideoSink(overlay);
         return r;
     }
+
+    if (QGlib::Type::fromInstance(sink).name() == QLatin1String("GstQtVideoSink")) {
+        return new QtVideoSinkRenderer(sink, videoWidget);
+    }
+
+#ifndef QTGSTREAMER_UI_NO_OPENGL
+    if (QGlib::Type::fromInstance(sink).name() == QLatin1String("GstQtGLVideoSink")) {
+        return new QtGLVideoSinkRenderer(sink, videoWidget);
+    }
+#endif
 
     if (QGlib::Type::fromInstance(sink).name() == QLatin1String("GstQWidgetVideoSink")) {
         return new QWidgetVideoSinkRenderer(sink, videoWidget);
