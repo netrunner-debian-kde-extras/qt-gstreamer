@@ -7,6 +7,11 @@ qt-gstreamer (0.10.2-1) unstable; urgency=low
     - cmake >= 2.8.6
     - qt >= 4.7
     - gstreamer >= 0.10.33
+  * Convert to multiarch.
+    - Bump debhelper dependency to version 9.
+    - Bump debian/compat to 9.
+    - Adjust packaging to install libraries and plugins
+      to the mutliarch location.
 
  -- George Kiagiadakis <kiagiadakis.george@gmail.com>  Sat, 05 May 2012 13:34:04 +0300
 

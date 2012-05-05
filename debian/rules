@@ -1,11 +1,14 @@
 #!/usr/bin/make -f
 
+include /usr/share/dpkg/architecture.mk
+
 override_dh_auto_configure:
 	dh_auto_configure -- -DQTGSTREAMER_STATIC=OFF \
 	                     -DQTGSTREAMER_TESTS=OFF \
 	                     -DQTGSTREAMER_EXAMPLES=OFF \
 	                     -DGST_PACKAGE_NAME="QtGStreamer (Debian)" \
-	                     -DGST_PACKAGE_ORIGIN="http://packages.qa.debian.org/qt-gstreamer"
+	                     -DGST_PACKAGE_ORIGIN="http://packages.qa.debian.org/qt-gstreamer" \
+			     -DLIB_INSTALL_DIR=/usr/lib/$(DEB_HOST_MULTIARCH)
 
 override_dh_auto_build:
 	dh_auto_build --parallel -- all doc
@@ -17,7 +20,7 @@ override_dh_auto_install:
 override_dh_gencontrol:
 	mkdir -p debian/fake-home
 	HOME=debian/fake-home \
-	LD_LIBRARY_PATH=debian/qtgstreamer-plugins/usr/lib:$(LD_LIBRARY_PATH) \
+	LD_LIBRARY_PATH=debian/qtgstreamer-plugins/usr/lib/$(DEB_HOST_MULTIARCH):$(LD_LIBRARY_PATH) \
 	    dh_gstscancodecs
 	rm -rf debian/fake-home
 	dh_gencontrol

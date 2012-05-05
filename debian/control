@@ -3,7 +3,7 @@ Section: libs
 Priority: optional
 Maintainer: Maintainers of GStreamer packages <pkg-gstreamer-maintainers@lists.alioth.debian.org>
 Uploaders: George Kiagiadakis <kiagiadakis.george@gmail.com>
-Build-Depends: debhelper (>= 8),
+Build-Depends: debhelper (>= 9),
                cmake (>= 2.8.6),
                libqt4-dev (>= 4:4.7),
                libboost-dev (>= 1.39),
@@ -16,6 +16,8 @@ Homepage: http://gstreamer.freedesktop.org
 
 Package: libqtglib-2.0-0
 Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends},
          ${misc:Depends},
          libstdc++6 (>= 4.5.0~)
@@ -32,6 +34,8 @@ Description: C++ bindings library for GLib and GObject with a Qt-style API
 
 Package: libqtgstreamer-0.10-0
 Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends},
          ${misc:Depends}
 Description: C++ bindings library for GStreamer with a Qt-style API
@@ -43,6 +47,8 @@ Description: C++ bindings library for GStreamer with a Qt-style API
 
 Package: libqtgstreamerui-0.10-0
 Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends},
          ${misc:Depends}
 Suggests: qtgstreamer-plugins
@@ -54,6 +60,8 @@ Description: The QtGStreamerUi library
 
 Package: libqtgstreamerutils-0.10-0
 Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends},
          ${misc:Depends}
 Description: The QtGStreamerUtils library
@@ -64,6 +72,8 @@ Description: The QtGStreamerUtils library
 
 Package: qtgstreamer-plugins
 Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends},
          ${misc:Depends}
 XB-GStreamer-Version: ${gstreamer:Version}
