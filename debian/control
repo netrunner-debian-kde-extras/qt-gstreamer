@@ -6,7 +6,7 @@ Uploaders: George Kiagiadakis <kiagiadakis.george@gmail.com>
 Build-Depends: debhelper (>= 9),
                dpkg-dev (>= 1.16.1~),
                cmake (>= 2.8.6),
-               libqt4-dev (>= 4:4.7),
+               libqt4-dev (>= 4:4.8.1),
                libboost-dev (>= 1.39),
                libgstreamer0.10-dev (>= 0.10.33),
                libgstreamer-plugins-base0.10-dev (>= 0.10.33),
