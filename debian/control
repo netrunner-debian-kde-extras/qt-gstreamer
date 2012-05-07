@@ -12,7 +12,7 @@ Build-Depends: debhelper (>= 9),
                libgstreamer-plugins-base0.10-dev (>= 0.10.33),
                doxygen,
                graphviz
-Standards-Version: 3.9.1
+Standards-Version: 3.9.3
 Homepage: http://gstreamer.freedesktop.org
 
 Package: libqtglib-2.0-0
