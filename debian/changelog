@@ -6,6 +6,7 @@ qt-gstreamer (0.10.2-1) unstable; urgency=low
   * Bump versions of (build-)dependencies:
     - cmake >= 2.8.6
     - gstreamer >= 0.10.33
+  * Remove build-deps on automoc, flex and bison.
   * Convert to multiarch.
     - Bump debhelper dependency to version 9.
     - Bump debian/compat to 9.
