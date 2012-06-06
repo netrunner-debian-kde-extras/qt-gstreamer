@@ -7,6 +7,7 @@ Build-Depends: debhelper (>= 9),
                dpkg-dev (>= 1.16.1~),
                cmake (>= 2.8.6),
                libqt4-dev (>= 4:4.8.1),
+               libqt4-opengl-dev (>= 4:4.8.1),
                libboost-dev (>= 1.39),
                libgstreamer0.10-dev (>= 0.10.33),
                libgstreamer-plugins-base0.10-dev (>= 0.10.33),
@@ -111,7 +112,7 @@ Depends: ${misc:Depends},
          libqtgstreamer-0.10-0 (= ${binary:Version}),
          libqtgstreamerui-0.10-0 (= ${binary:Version}),
          libqtgstreamerutils-0.10-0 (= ${binary:Version}),
-         libqt4-dev (>= 4:4.7),
+         libqt4-dev (>= 4:4.8.1),
          libboost-dev (>= 1.39)
 Suggests: qtgstreamer-doc
 Description: Development headers for QtGStreamer
