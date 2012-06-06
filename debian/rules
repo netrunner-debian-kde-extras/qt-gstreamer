@@ -8,7 +8,8 @@ override_dh_auto_configure:
 	                     -DQTGSTREAMER_EXAMPLES=OFF \
 	                     -DGST_PACKAGE_NAME="QtGStreamer (Debian)" \
 	                     -DGST_PACKAGE_ORIGIN="http://packages.qa.debian.org/qt-gstreamer" \
-			     -DLIB_INSTALL_DIR=/usr/lib/$(DEB_HOST_MULTIARCH)
+			     -DLIB_INSTALL_DIR=/usr/lib/$(DEB_HOST_MULTIARCH) \
+			     -DUSE_QT_PLUGIN_DIR=OFF
 
 override_dh_auto_build:
 	dh_auto_build --parallel -- all doc

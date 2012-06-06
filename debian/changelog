@@ -23,6 +23,8 @@ qt-gstreamer (0.10.2-1) unstable; urgency=low
   * Update and convert debian/copyright to machine-readable format.
   * Bump standards-version to 3.9.3.
   * Add build dependency on libqt4-opengl-dev for compiling the opengl bits.
+  * Set -DUSE_QT_PLUGIN_DIR=OFF in debian/rules to workaround
+    a weird issue where QT_IMPORTS_DIR is not found.
 
  -- George Kiagiadakis <kiagiadakis.george@gmail.com>  Sat, 05 May 2012 13:34:04 +0300
 
