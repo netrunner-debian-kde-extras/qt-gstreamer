@@ -1,3 +1,11 @@
+qt-gstreamer (0.10.2-2) unstable; urgency=low
+
+  * Add patch include_path_multiarch.patch to fix the include path
+    indicated by QtGStreamerConfig.cmake so that projects using
+    cmake + QtGStreamer do not FTBFS (Closes: #676735).
+
+ -- George Kiagiadakis <kiagiadakis.george@gmail.com>  Sun, 10 Jun 2012 14:32:21 +0300
+
 qt-gstreamer (0.10.2-1) unstable; urgency=low
 
   * New upstream release.
