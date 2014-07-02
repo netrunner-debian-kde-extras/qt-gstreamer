@@ -25,7 +25,7 @@ else()
     set(GStreamer_FIND_QUIETLY FALSE)
 endif()
 
-set(GSTREAMER_ABI_VERSION "0.10")
+set(GSTREAMER_ABI_VERSION "1.0")
 
 
 # Find the main library
@@ -75,9 +75,7 @@ foreach(_component ${GStreamer_FIND_COMPONENTS})
     elseif (${_component} STREQUAL "check")
         _find_gst_component(CHECK gstcheck.h)
     elseif (${_component} STREQUAL "controller")
-        _find_gst_component(CONTROLLER gstcontroller.h)
-    elseif (${_component} STREQUAL "dataprotocol")
-        _find_gst_component(DATAPROTOCOL dataprotocol.h)
+        _find_gst_component(CONTROLLER gstargbcontrolbinding.h)
     elseif (${_component} STREQUAL "net")
         _find_gst_component(NET gstnet.h)
     else()

@@ -17,6 +17,7 @@
 */
 #include "qgsttest.h"
 #include <QGst/Buffer>
+#include <QGst/Memory>
 #include <QGst/Caps>
 
 class BufferTest : public QGstTest
@@ -24,9 +25,9 @@ class BufferTest : public QGstTest
     Q_OBJECT
 private Q_SLOTS:
     void simpleTest();
-    void capsTest();
     void flagsTest();
     void copyTest();
+    void memoryPeekTest();
 };
 
 void BufferTest::simpleTest()
@@ -34,46 +35,33 @@ void BufferTest::simpleTest()
     QGst::BufferPtr buffer = QGst::Buffer::create(10);
 
     QCOMPARE(buffer->size(), (quint32) 10);
-    QVERIFY(buffer->data());
-}
-
-void BufferTest::capsTest()
-{
-    QGst::BufferPtr buffer = QGst::Buffer::create(10);
-    QGst::CapsPtr caps = QGst::Caps::createSimple("video/x-raw-yuv");
-    caps->setValue("width", 320);
-    caps->setValue("height", 240);
-
-    buffer->setCaps(caps);
-
-    QGst::CapsPtr caps2 = buffer->caps();
-
-    QVERIFY(caps->equals(caps2));
+    QVERIFY(buffer->getMemory(0));
 }
 
 void BufferTest::flagsTest()
 {
     QGst::BufferPtr buffer = QGst::Buffer::create(10);
-    QGst::BufferFlags flags(QGst::BufferFlagReadOnly & QGst::BufferFlagDiscont);
+    QGst::BufferFlags flags(QGst::BufferFlagLive & QGst::BufferFlagDiscont);
     buffer->setFlags(flags);
 
     QGst::BufferFlags flags2 = buffer->flags();
     QCOMPARE(flags, flags2);
 
-    QGst::BufferFlags flags3(QGst::BufferFlagReadOnly);
+    QGst::BufferFlags flags3(QGst::BufferFlagLive);
     QVERIFY(flags2!=flags3);
 }
 
 void BufferTest::copyTest()
 {
     QGst::BufferPtr buffer = QGst::Buffer::create(10);
-    QGst::BufferFlags flags(QGst::BufferFlagReadOnly & QGst::BufferFlagDiscont);
+    QGst::BufferFlags flags(QGst::BufferFlagLive & QGst::BufferFlagDiscont);
     buffer->setFlags(flags);
 
     QGst::BufferPtr buffer2 = buffer->copy();
 
     QCOMPARE(buffer->size(), buffer2->size());
-    QCOMPARE(buffer->timeStamp(), buffer2->timeStamp());
+    QCOMPARE(buffer->decodingTimeStamp(), buffer2->decodingTimeStamp());
+    QCOMPARE(buffer->presentationTimeStamp(), buffer2->presentationTimeStamp());
     QCOMPARE(buffer->duration(), buffer2->duration());
 
     QGst::BufferFlags flags2(QGst::BufferFlagDiscont);
@@ -82,6 +70,24 @@ void BufferTest::copyTest()
     QVERIFY(buffer->flags() != buffer2->flags());
 }
 
+void BufferTest::memoryPeekTest()
+{
+    QGst::BufferPtr buffer = QGst::Buffer::create(10);
+    guint8 bytes[100];
+    size_t returned_bytes;
+
+    returned_bytes = buffer->extract(0, &bytes, 10);
+    QCOMPARE(returned_bytes, static_cast<size_t>(10));
+
+    returned_bytes = buffer->extract(0, &bytes, 20);
+    QCOMPARE(returned_bytes, static_cast<size_t>(10));
+
+    QGst::MemoryPtr m = buffer->getMemory(0);
+
+    QVERIFY(m);
+    QVERIFY(m->isWritable());
+
+}
 QTEST_APPLESS_MAIN(BufferTest)
 
 #include "moc_qgsttest.cpp"

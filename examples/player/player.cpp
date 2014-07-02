@@ -17,8 +17,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "player.h"
-#include <QtCore/QDir>
-#include <QtCore/QUrl>
+#include <QDir>
+#include <QUrl>
 #include <QGlib/Connect>
 #include <QGlib/Error>
 #include <QGst/Pipeline>
@@ -56,7 +56,7 @@ void Player::setUri(const QString & uri)
     }
 
     if (!m_pipeline) {
-        m_pipeline = QGst::ElementFactory::make("playbin2").dynamicCast<QGst::Pipeline>();
+        m_pipeline = QGst::ElementFactory::make("playbin").dynamicCast<QGst::Pipeline>();
         if (m_pipeline) {
             //let the video widget watch the pipeline for new video sinks
             watchPipeline(m_pipeline);
@@ -84,7 +84,7 @@ QTime Player::position() const
         m_pipeline->query(query);
         return QGst::ClockTime(query->position()).toTime();
     } else {
-        return QTime();
+        return QTime(0,0);
     }
 }
 
@@ -135,7 +135,7 @@ QTime Player::length() const
         m_pipeline->query(query);
         return QGst::ClockTime(query->duration()).toTime();
     } else {
-        return QTime();
+        return QTime(0,0);
     }
 }
 

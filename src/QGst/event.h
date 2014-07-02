@@ -56,12 +56,13 @@ class QTGSTREAMER_EXPORT Event : public MiniObject
 {
     QGST_WRAPPER(Event)
 public:
-    ObjectPtr source() const;
     quint64 timestamp() const;
     EventType type() const;
     QString typeName() const;
 
-    StructurePtr internalStructure();
+    StructureConstPtr internalStructure();
+
+    bool hasName(const char *name) const;
 
     quint32 sequenceNumber() const;
     void setSequenceNumber(quint32 num);
@@ -87,7 +88,9 @@ class QTGSTREAMER_EXPORT FlushStopEvent : public Event
 {
     QGST_WRAPPER_FAKE_SUBCLASS(FlushStop, Event)
 public:
-    static FlushStopEventPtr create();
+    static FlushStopEventPtr create(bool reset_time=true);
+
+    bool resetTime() const;
 };
 
 /*! \headerfile event.h <QGst/Event>
@@ -101,22 +104,27 @@ public:
 };
 
 /*! \headerfile event.h <QGst/Event>
- * \brief Wrapper class for events of type QGst::NewSegmentEvent
+ * \brief Wrapper class for events of type QGst::EventCaps
  */
-class QTGSTREAMER_EXPORT NewSegmentEvent : public Event
-{
-    QGST_WRAPPER_FAKE_SUBCLASS(NewSegment, Event)
+ class QTGSTREAMER_EXPORT CapsEvent : public Event
+ {
+     QGST_WRAPPER_FAKE_SUBCLASS(Caps, Event)
 public:
-    static NewSegmentEventPtr create(bool update, double rate, double appliedRate, Format format,
-                                     qint64 start, qint64 stop, qint64 position);
+     static CapsEventPtr create(const CapsPtr & caps);
 
-    bool isUpdate() const;
-    double rate() const;
-    double appliedRate() const;
-    Format format() const;
-    qint64 start() const;
-    qint64 stop() const;
-    qint64 position() const;
+     CapsPtr caps() const;
+ };
+
+/*! \headerfile event.h <QGst/Event>
+ * \brief Wrapper class for events of type QGst::SegmentEvent
+ */
+class QTGSTREAMER_EXPORT SegmentEvent : public Event
+{
+    QGST_WRAPPER_FAKE_SUBCLASS(Segment, Event)
+public:
+    static SegmentEventPtr create(const Segment & segment);
+
+    Segment segment() const;
 };
 
 /*! \headerfile event.h <QGst/Event>
@@ -153,7 +161,7 @@ class QTGSTREAMER_EXPORT SinkMessageEvent : public Event
 {
     QGST_WRAPPER_FAKE_SUBCLASS(SinkMessage, Event)
 public:
-    static SinkMessageEventPtr create(const MessagePtr & msg);
+    static SinkMessageEventPtr create(const QString &name, const MessagePtr & msg);
 
     MessagePtr message() const;
 };
@@ -165,8 +173,9 @@ class QTGSTREAMER_EXPORT QosEvent : public Event
 {
     QGST_WRAPPER_FAKE_SUBCLASS(Qos, Event)
 public:
-    static QosEventPtr create(double proportion, ClockTimeDiff diff, ClockTime timestamp);
+    static QosEventPtr create(QosType qos, double proportion, ClockTimeDiff diff, ClockTime timestamp);
 
+    QosType qosType() const;
     double proportion() const;
     ClockTimeDiff diff() const;
     ClockTime timestamp() const;
@@ -236,7 +245,8 @@ QGST_REGISTER_TYPE(QGst::Event)
 QGST_REGISTER_SUBCLASS(Event, FlushStart)
 QGST_REGISTER_SUBCLASS(Event, FlushStop)
 QGST_REGISTER_SUBCLASS(Event, Eos)
-QGST_REGISTER_SUBCLASS(Event, NewSegment)
+QGST_REGISTER_SUBCLASS(Event, Caps)
+QGST_REGISTER_SUBCLASS(Event, Segment)
 QGST_REGISTER_SUBCLASS(Event, Tag)
 QGST_REGISTER_SUBCLASS(Event, BufferSize)
 QGST_REGISTER_SUBCLASS(Event, SinkMessage)

@@ -21,41 +21,31 @@
 #include <gst/gst.h>
 
 namespace QGst {
+class MapInfo;
 
 BufferPtr Buffer::create(uint size)
 {
-    return BufferPtr::wrap(gst_buffer_try_new_and_alloc(size), false);
-}
-
-quint8 * Buffer::data() const
-{
-    return GST_BUFFER_DATA(object<GstBuffer>());
+    return BufferPtr::wrap(gst_buffer_new_allocate(NULL, size, NULL), false);
 }
 
 quint32 Buffer::size() const
 {
-    return GST_BUFFER_SIZE(object<GstBuffer>());
+    return gst_buffer_get_size(object<GstBuffer>());
 }
 
-ClockTime Buffer::timeStamp() const
+ClockTime Buffer::decodingTimeStamp() const
 {
-    return GST_BUFFER_TIMESTAMP(object<GstBuffer>());
+    return GST_BUFFER_DTS(object<GstBuffer>());
+}
+
+ClockTime Buffer::presentationTimeStamp() const
+{
+    return GST_BUFFER_PTS(object<GstBuffer>());
 }
 
 ClockTime Buffer::duration() const
 {
     return GST_BUFFER_DURATION(object<GstBuffer>());
-}
-
-CapsPtr Buffer::caps() const
-{
-    //wrap increasing the refcount
-    return QGst::CapsPtr::wrap(GST_BUFFER_CAPS(object<GstBuffer>()));
-}
-
-void Buffer::setCaps(const CapsPtr & caps)
-{
-    gst_buffer_set_caps(object<GstBuffer>(), caps);
 }
 
 quint64 Buffer::offset() const
@@ -81,6 +71,40 @@ void Buffer::setFlags(const BufferFlags flags)
 BufferPtr Buffer::copy() const
 {
     return BufferPtr::wrap(gst_buffer_copy(object<GstBuffer>()), false);
+}
+
+void Buffer::setSize(uint size)
+{
+    gst_buffer_set_size(object<GstBuffer>(), size);
+}
+
+uint Buffer::extract(uint offset, void *dest, uint size)
+{
+    return gst_buffer_extract(object<GstBuffer>(), offset, dest, size);
+}
+
+uint Buffer::memoryCount() const
+{
+    return gst_buffer_n_memory (object<GstBuffer>());
+}
+
+MemoryPtr Buffer::getMemory(uint index) const
+{
+    return MemoryPtr::wrap(gst_buffer_get_memory(object<GstBuffer>(), index), false);
+}
+
+bool Buffer::map(MapInfo &info, MapFlags flags)
+{
+    if (!gst_buffer_map(object<GstBuffer>(), static_cast<GstMapInfo *>(info.m_object),
+                        static_cast<GstMapFlags>(static_cast<int>(flags)))) {
+        return false;
+    }
+    return true;
+}
+
+void Buffer::unmap(MapInfo &info)
+{
+    gst_buffer_unmap(object<GstBuffer>(), static_cast<GstMapInfo *>(info.m_object));
 }
 
 } //namespace QGst

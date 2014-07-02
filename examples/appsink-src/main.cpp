@@ -16,7 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include <iostream>
-#include <QtCore/QCoreApplication>
+#include <QCoreApplication>
 #include <QGlib/Error>
 #include <QGlib/Connect>
 #include <QGst/Init>
@@ -40,9 +40,10 @@ protected:
         m_src->endOfStream();
     }
 
-    virtual QGst::FlowReturn newBuffer()
+    virtual QGst::FlowReturn newSample()
     {
-        m_src->pushBuffer(pullBuffer());
+        QGst::SamplePtr sample = pullSample();
+        m_src->pushBuffer(sample->buffer());
         return QGst::FlowOk;
     }
 
@@ -77,12 +78,12 @@ Player::Player(int argc, char **argv)
         std::exit(1);
     }
 
-    const char *caps = "audio/x-raw-int,channels=1,rate=8000,"
-                       "signed=(boolean)true,width=16,depth=16,endianness=1234";
+    const char *caps = "audio/x-raw, format=(string)S16LE, channels=(int)1,"
+                       " rate=(int)44100, layout=(string)interleaved";
 
     /* source pipeline */
     QString pipe1Descr = QString("filesrc location=\"%1\" ! "
-                                 "decodebin2 ! "
+                                 "decodebin ! "
                                  "audioconvert ! "
                                  "audioresample ! "
                                  "appsink name=\"mysink\" caps=\"%2\"").arg(argv[1], caps);
@@ -92,7 +93,8 @@ Player::Player(int argc, char **argv)
     pipeline1->bus()->addSignalWatch();
 
     /* sink pipeline */
-    QString pipe2Descr = QString("appsrc name=\"mysrc\" caps=\"%1\" ! autoaudiosink").arg(caps);
+    QString pipe2Descr = QString("appsrc name=\"mysrc\" caps=\"%1\" is-live=true format=3 ! "
+                                 "autoaudiosink").arg(caps);
     pipeline2 = QGst::Parse::launch(pipe2Descr).dynamicCast<QGst::Pipeline>();
     m_src.setElement(pipeline2->getElementByName("mysrc"));
     QGlib::connect(pipeline2->bus(), "message", this, &Player::onBusMessage);

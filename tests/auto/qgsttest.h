@@ -18,8 +18,18 @@
 #define QGSTTEST_H
 
 #include <QtTest/QtTest>
+#include <QGlib/Value>
+#include <QGst/ClockTime>
 #include <QGst/Init>
 #include <gst/gst.h>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+# define SkipSingle 0
+# define SkipAll 0
+# define QSKIP_PORT(m, a) QSKIP(m)
+#else
+# define QSKIP_PORT(m, a) QSKIP(m, a)
+#endif
 
 class QGstTest : public QObject
 {
@@ -28,5 +38,20 @@ private Q_SLOTS:
     void initTestCase() { QGst::init(); }
     void cleanupTestCase() { QGst::cleanup(); }
 };
+
+namespace QTest // teach QCOMPARE() printing of certain GStreamer values
+{
+template<> char *toString(const QGst::ClockTime &t)
+{
+    return toString(quint64(t));
+}
+
+template<> char *toString(const QGlib::Value &value)
+{
+    bool ok = false;
+    QString text = value.type().name() + "(" + value.toString(&ok) + ")";
+    return ok ? toString(text) : 0;
+}
+} // namespace QTest
 
 #endif

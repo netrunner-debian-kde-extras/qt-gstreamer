@@ -19,9 +19,9 @@
 #ifndef MEDIAAPP_H
 #define MEDIAAPP_H
 
-#include <QtGui/QWidget>
-#include <QtGui/QStyle>
-#include <QtCore/QTimer>
+#include <QTimer>
+#include <QWidget>
+#include <QStyle>
 
 class Player;
 class QBoxLayout;

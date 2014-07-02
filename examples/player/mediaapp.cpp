@@ -18,12 +18,13 @@
  */
 #include "mediaapp.h"
 #include "player.h"
-#include <QtGui/QBoxLayout>
-#include <QtGui/QFileDialog>
-#include <QtGui/QToolButton>
-#include <QtGui/QLabel>
-#include <QtGui/QSlider>
-#include <QtGui/QMouseEvent>
+
+#include <QBoxLayout>
+#include <QFileDialog>
+#include <QToolButton>
+#include <QLabel>
+#include <QSlider>
+#include <QMouseEvent>
 
 MediaApp::MediaApp(QWidget *parent)
     : QWidget(parent)
@@ -128,7 +129,7 @@ void MediaApp::onPositionChanged()
                              length.toString("hh:mm:ss.zzz"));
 
     if (length != QTime(0,0)) {
-        m_positionSlider->setValue(curpos.msecsTo(QTime()) * 1000 / length.msecsTo(QTime()));
+        m_positionSlider->setValue(curpos.msecsTo(QTime(0,0)) * 1000 / length.msecsTo(QTime(0,0)));
     } else {
         m_positionSlider->setValue(0);
     }
@@ -142,9 +143,9 @@ void MediaApp::onPositionChanged()
 /* Called when the user changes the slider's position */
 void MediaApp::setPosition(int value)
 {
-    uint length = -m_player->length().msecsTo(QTime());
+    uint length = -m_player->length().msecsTo(QTime(0,0));
     if (length != 0 && value > 0) {
-        QTime pos;
+        QTime pos(0,0);
         pos = pos.addMSecs(length * (value / 1000.0));
         m_player->setPosition(pos);
     }

@@ -17,8 +17,8 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "player.h"
-#include <QtCore/QUrl>
-#include <QtGui/QFileDialog>
+#include <QUrl>
+#include <QFileDialog>
 #include <QGlib/Connect>
 #include <QGlib/Error>
 #include <QGst/ElementFactory>
@@ -71,7 +71,7 @@ void Player::openFile(const QString & fileName)
 void Player::setUri(const QString & uri)
 {
     if (!m_pipeline) {
-        m_pipeline = QGst::ElementFactory::make("playbin2").dynamicCast<QGst::Pipeline>();
+        m_pipeline = QGst::ElementFactory::make("playbin").dynamicCast<QGst::Pipeline>();
         if (m_pipeline) {
             m_pipeline->setProperty("video-sink", m_videoSink);
 

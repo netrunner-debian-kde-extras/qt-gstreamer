@@ -16,8 +16,11 @@
 */
 
 #include "gstqtglvideosinkbase.h"
-#include "openglsurfacepainter.h"
-#include "qtvideosinkdelegate.h"
+#include "painters/openglsurfacepainter.h"
+#include "delegates/qtvideosinkdelegate.h"
+#include <QCoreApplication>
+
+#define CAPS_FORMATS "{ BGRA, BGRx, ARGB, xRGB, RGB, RGB16, BGR, v308, AYUV, YV12, I420 }"
 
 const char * const GstQtGLVideoSinkBase::s_colorbalance_labels[] = {
     "contrast", "brightness", "hue", "saturation"
@@ -27,18 +30,14 @@ GstQtVideoSinkBaseClass *GstQtGLVideoSinkBase::s_parent_class = 0;
 
 //------------------------------
 
-DEFINE_TYPE_FULL(GstQtGLVideoSinkBase, GST_TYPE_QT_VIDEO_SINK_BASE, init_interfaces)
+DEFINE_TYPE_WITH_CODE(GstQtGLVideoSinkBase, GST_TYPE_QT_VIDEO_SINK_BASE, init_interfaces)
 
 void GstQtGLVideoSinkBase::init_interfaces(GType type)
 {
-    static const GInterfaceInfo implementsiface_info = {
-        (GInterfaceInitFunc) &GstQtGLVideoSinkBase::implementsiface_init, NULL, NULL
-    };
     static const GInterfaceInfo colorbalance_info = {
         (GInterfaceInitFunc) &GstQtGLVideoSinkBase::colorbalance_init, NULL, NULL
     };
 
-    g_type_add_interface_static(type, GST_TYPE_IMPLEMENTS_INTERFACE, &implementsiface_info);
     g_type_add_interface_static(type, GST_TYPE_COLOR_BALANCE, &colorbalance_info);
 }
 
@@ -51,18 +50,7 @@ void GstQtGLVideoSinkBase::base_init(gpointer g_class)
 
     static GstStaticPadTemplate sink_pad_template =
         GST_STATIC_PAD_TEMPLATE("sink", GST_PAD_SINK, GST_PAD_ALWAYS,
-            GST_STATIC_CAPS(
-                "video/x-raw-rgb, "
-                "framerate = (fraction) [ 0, MAX ], "
-                "width = (int) [ 1, MAX ], "
-                "height = (int) [ 1, MAX ]"
-                "; "
-                "video/x-raw-yuv, "
-                "framerate = (fraction) [ 0, MAX ], "
-                "width = (int) [ 1, MAX ], "
-                "height = (int) [ 1, MAX ]"
-                "; "
-            )
+            GST_STATIC_CAPS (GST_VIDEO_CAPS_MAKE (CAPS_FORMATS))
         );
 
     gst_element_class_add_pad_template(
@@ -82,7 +70,7 @@ void GstQtGLVideoSinkBase::class_init(gpointer g_class, gpointer class_data)
 
     GstBaseSinkClass *base_sink_class = GST_BASE_SINK_CLASS(g_class);
     base_sink_class->start = GstQtGLVideoSinkBase::start;
-    base_sink_class->get_caps = GstQtGLVideoSinkBase::get_caps;
+    base_sink_class->set_caps = GstQtGLVideoSinkBase::set_caps;
 
     g_object_class_install_property(object_class, PROP_CONTRAST,
         g_param_spec_int("contrast", "Contrast", "The contrast of the video",
@@ -133,27 +121,14 @@ void GstQtGLVideoSinkBase::finalize(GObject *object)
 
 //------------------------------
 
-void GstQtGLVideoSinkBase::implementsiface_init(GstImplementsInterfaceClass *klass, gpointer data)
+
+void GstQtGLVideoSinkBase::colorbalance_init(GstColorBalanceInterface *interface, gpointer data)
 {
     Q_UNUSED(data);
-    klass->supported = &GstQtGLVideoSinkBase::interface_supported;
-}
-
-gboolean GstQtGLVideoSinkBase::interface_supported(GstImplementsInterface *iface, GType type)
-{
-    Q_UNUSED(iface);
-    return type == GST_TYPE_COLOR_BALANCE;
-}
-
-//------------------------------
-
-void GstQtGLVideoSinkBase::colorbalance_init(GstColorBalanceClass *klass, gpointer data)
-{
-    Q_UNUSED(data);
-    GST_COLOR_BALANCE_TYPE(klass) = GST_COLOR_BALANCE_HARDWARE;
-    klass->list_channels = GstQtGLVideoSinkBase::colorbalance_list_channels;
-    klass->set_value = GstQtGLVideoSinkBase::colorbalance_set_value;
-    klass->get_value = GstQtGLVideoSinkBase::colorbalance_get_value;
+    interface->list_channels = GstQtGLVideoSinkBase::colorbalance_list_channels;
+    interface->set_value = GstQtGLVideoSinkBase::colorbalance_set_value;
+    interface->get_value = GstQtGLVideoSinkBase::colorbalance_get_value;
+    interface->get_balance_type = GstQtGLVideoSinkBase::colorbalance_get_balance_type;
 }
 
 const GList *GstQtGLVideoSinkBase::colorbalance_list_channels(GstColorBalance *balance)
@@ -197,6 +172,12 @@ gint GstQtGLVideoSinkBase::colorbalance_get_value(GstColorBalance *balance,
     }
 
     return 0;
+}
+
+GstColorBalanceType GstQtGLVideoSinkBase::colorbalance_get_balance_type(GstColorBalance *balance)
+{
+    Q_UNUSED(balance);
+    return GST_COLOR_BALANCE_HARDWARE;
 }
 
 //------------------------------
@@ -265,15 +246,17 @@ gboolean GstQtGLVideoSinkBase::start(GstBaseSink *base)
     }
 }
 
-GstCaps *GstQtGLVideoSinkBase::get_caps(GstBaseSink *base)
+gboolean GstQtGLVideoSinkBase::set_caps(GstBaseSink *base, GstCaps *caps)
 {
-    Q_UNUSED(base);
+    GstQtVideoSinkBase *sink = GST_QT_VIDEO_SINK_BASE(base);
 
-    GstCaps *caps = gst_caps_new_empty();
-
-    Q_FOREACH(GstVideoFormat format, OpenGLSurfacePainter::supportedPixelFormats()) {
-        gst_caps_append(caps, BufferFormat::newTemplateCaps(format));
+    GST_LOG_OBJECT(sink, "new caps %" GST_PTR_FORMAT, caps);
+    BufferFormat format = BufferFormat::fromCaps(caps);
+    if (OpenGLSurfacePainter::supportedPixelFormats().contains(format.videoFormat())) {
+        QCoreApplication::postEvent(sink->delegate,
+                                    new BaseDelegate::BufferFormatEvent(format));
+        return TRUE;
+    } else {
+        return FALSE;
     }
-
-    return caps;
 }

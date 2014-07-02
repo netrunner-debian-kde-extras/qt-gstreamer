@@ -20,7 +20,12 @@
 
 #include "global.h"
 #include "../element.h"
-#include <QtGui/QGraphicsView>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+# include <QtWidgets/QGraphicsView>
+#else
+# include <QtGui/QGraphicsView>
+#endif
 
 namespace QGst {
 namespace Ui {
@@ -38,18 +43,19 @@ class GraphicsVideoSurfacePrivate;
  *
  * Example
  * \code
- * QGraphicsView *view = new QGraphicsView;
+ * QGraphicsScene *scene = new QGraphicsScene;
+ * QGraphicsView *view = new QGraphicsView (scene);
  * view->setViewport(new QGLWidget); //recommended
  * QGst::Ui::GraphicsVideoSurface *surface = new QGst::Ui::GraphicsVideoSurface(view);
  * ...
  * QGst::Ui::GraphicsVideoWidget *widget = new QGst::Ui::GraphicsVideoWidget;
  * widget->setSurface(surface);
- * view->addItem(widget);
+ * scene->addItem(widget);
  * \endcode
  *
  * This class internally creates and uses either a "qtglvideosink" or a "qtvideosink"
- * element. This element is created the first time it is requested and a reference is
- * kept internally.
+ * element ("qt5glvideosink" / "qt5videosink" in Qt5). This element is created the
+ * first time it is requested and a reference is kept internally.
  *
  * To make use of OpenGL hardware acceleration (using qtglvideosink), you need to set
  * a QGLWidget as the viewport of the QGraphicsView. Note that you must do this before
@@ -70,7 +76,7 @@ class GraphicsVideoSurfacePrivate;
  * view->rootContext()->setContextProperty(QLatin1String("videoSurface"), surface);
  * ...
  * // and in your qml file:
- * import QtGStreamer 0.10
+ * import QtGStreamer 1.0
  * ...
  * VideoItem {
  *      id: video

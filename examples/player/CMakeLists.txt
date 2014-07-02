@@ -1,24 +1,23 @@
 project(qtgst-example-player)
 
 if (NOT BUILDING_QTGSTREAMER)
-    find_package(QtGStreamer REQUIRED)
-
-    if (${CMAKE_VERSION} VERSION_LESS "2.8.6")
-        find_package(Automoc4 REQUIRED)
+    set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../cmake/modules)
+    find_package(Qt4or5 COMPONENTS Core Gui Widgets REQUIRED)
+    if (${QT_VERSION} STREQUAL "5")
+        find_package(Qt5GStreamer REQUIRED)
     else()
-        set(CMAKE_AUTOMOC TRUE)
-
-        macro(automoc4_add_executable)
-            add_executable(${ARGV})
-        endmacro()
+        find_package(QtGStreamer REQUIRED)
     endif()
+    set(CMAKE_AUTOMOC ON)
+    set(CMAKE_INCLUDE_CURRENT_DIR ON)
 endif()
 
-include_directories(${QTGSTREAMER_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR})
+include_directories(${QTGSTREAMER_INCLUDES})
 add_definitions(${QTGSTREAMER_DEFINITIONS})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${QTGSTREAMER_FLAGS}")
 
 set(player_SOURCES main.cpp player.cpp mediaapp.cpp)
 
-automoc4_add_executable(player ${player_SOURCES})
+add_executable(player ${player_SOURCES})
 target_link_libraries(player ${QTGSTREAMER_UI_LIBRARIES})
+qt4or5_use_modules(player Core Gui Widgets)

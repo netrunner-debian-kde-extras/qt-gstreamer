@@ -18,9 +18,9 @@
 #include <QGst/Init>
 #include <QGst/Pipeline>
 #include <QGst/ElementFactory>
-#include <QtGui/QApplication>
-#include <QtGui/QMessageBox>
-#include <QtGui/QButtonGroup>
+#include <QApplication>
+#include <QMessageBox>
+#include <QButtonGroup>
 
 class VideoWidgetTest : public QWidget
 {

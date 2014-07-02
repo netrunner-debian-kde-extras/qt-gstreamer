@@ -20,22 +20,44 @@
 #include "gstqtglvideosink.h"
 #include "gstqwidgetvideosink.h"
 
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+# include "gstqtquick2videosink.h"
+#endif
+
 GST_DEBUG_CATEGORY(gst_qt_video_sink_debug);
 
 /* entry point to initialize the plug-in */
 static gboolean plugin_init(GstPlugin *plugin)
 {
-    GST_DEBUG_CATEGORY_INIT(gst_qt_video_sink_debug, "qtvideosink", 0,
+    GST_DEBUG_CATEGORY_INIT(gst_qt_video_sink_debug,
+                            G_STRINGIFY(QTVIDEOSINK_NAME), 0,
                             "Debug category for GstQtVideoSink");
 
-    gst_element_register(plugin, "qtvideosink",
-            GST_RANK_NONE, GST_TYPE_QT_VIDEO_SINK);
+    if(!gst_element_register(plugin, G_STRINGIFY(QTVIDEOSINK_NAME),
+                GST_RANK_NONE, GST_TYPE_QT_VIDEO_SINK)) {
+        GST_ERROR("Failed to register " G_STRINGIFY(QTVIDEOSINK_NAME));
+        return FALSE;
+    }
 #ifndef GST_QT_VIDEO_SINK_NO_OPENGL
-    gst_element_register(plugin, "qtglvideosink",
-            GST_RANK_NONE, GST_TYPE_QT_GL_VIDEO_SINK);
+    if(!gst_element_register(plugin, G_STRINGIFY(QTGLVIDEOSINK_NAME),
+                GST_RANK_NONE, GST_TYPE_QT_GL_VIDEO_SINK)) {
+        GST_ERROR("Failed to register " G_STRINGIFY(QTGLVIDEOSINK_NAME));
+        return FALSE;
+    }
 #endif
-    gst_element_register(plugin, "qwidgetvideosink",
-            GST_RANK_NONE, GST_TYPE_QWIDGET_VIDEO_SINK);
+    if(!gst_element_register(plugin, G_STRINGIFY(QWIDGETVIDEOSINK_NAME),
+                GST_RANK_NONE, GST_TYPE_QWIDGET_VIDEO_SINK)) {
+        GST_ERROR("Failed to register " G_STRINGIFY(QWIDGETVIDEOSINK_NAME));
+        return FALSE;
+    }
+
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+    if (!gst_element_register(plugin, "qtquick2videosink",
+                GST_RANK_NONE, GST_TYPE_QT_QUICK2_VIDEO_SINK)) {
+        GST_ERROR("Failed to register qtquick2videosink");
+        return FALSE;
+    }
+#endif
 
     return TRUE;
 }
@@ -43,7 +65,7 @@ static gboolean plugin_init(GstPlugin *plugin)
 GST_PLUGIN_DEFINE (
     GST_VERSION_MAJOR,
     GST_VERSION_MINOR,
-    "qtvideosink",
+    QTVIDEOSINK_NAME,
     "A video sink that can draw on any Qt surface",
     plugin_init,
     PACKAGE_VERSION,

@@ -20,6 +20,7 @@
 #include <QGst/Object>
 #include <QGst/Message>
 #include <QGst/TagList>
+#include <QGst/Segment>
 
 class EventTest : public QGstTest
 {
@@ -43,19 +44,18 @@ private Q_SLOTS:
 void EventTest::baseTest()
 {
     QGst::Structure s("mystructure");
+    s.setValue("myfield", 365);
+
     QGst::EventPtr evt = QGst::NavigationEvent::create(s);
 
     QVERIFY(evt->type()==QGst::EventNavigation);
     QCOMPARE(evt->typeName(), QString("navigation"));
 
-    QGst::StructurePtr ss = evt->internalStructure();
+    QGst::StructureConstPtr ss = evt->internalStructure();
     QVERIFY(ss->isValid());
-
-    ss->setValue("myfield", 365);
     QCOMPARE(ss->value("myfield").get<int>(), 365);
 
     QVERIFY(evt->timestamp());
-    QVERIFY(evt->source().isNull());
 
     evt->setSequenceNumber(123445);
     QCOMPARE(evt->sequenceNumber(), static_cast<quint32>(123445));
@@ -72,7 +72,7 @@ void EventTest::copyTest()
     QCOMPARE(evt->type(), evt2->type());
     QCOMPARE(evt->timestamp(), evt2->timestamp());
 
-    QGst::StructurePtr ss = evt2->internalStructure();
+    QGst::StructureConstPtr ss = evt2->internalStructure();
     QVERIFY(ss->isValid());
     QCOMPARE(ss->value("myfield").get<int>(), 365);
 }
@@ -100,18 +100,14 @@ void EventTest::eosTest()
 
 void EventTest::newSegmentTest()
 {
-    QGst::NewSegmentEventPtr evt = QGst::NewSegmentEvent::create(true, 1.0, 0.5, QGst::FormatTime, 12345,
-                                                       234567, 12346);
-    QVERIFY(evt->type()==QGst::EventNewSegment);
-    QCOMPARE(evt->typeName(), QString("newsegment"));
+    QGst::Segment segment(QGst::FormatTime);
+    QGst::SegmentEventPtr evt = QGst::SegmentEvent::create(segment);
 
-    QVERIFY(evt->isUpdate());
-    QCOMPARE(evt->rate(), 1.0);
-    QCOMPARE(evt->appliedRate(), 0.5);
-    QVERIFY(evt->format() == QGst::FormatTime);
-    QCOMPARE(evt->start(), static_cast<qint64>(12345));
-    QCOMPARE(evt->stop(), static_cast<qint64>(234567));
-    QCOMPARE(evt->position(), static_cast<qint64>(12346));
+    QVERIFY(evt->type()==QGst::EventSegment);
+    QCOMPARE(evt->typeName(), QString("segment"));
+
+    QGst::Segment segment2 = evt->segment();
+    QCOMPARE(segment2.format(), QGst::FormatTime);
 };
 
 //TODO GST_EVENT_TAG
@@ -119,7 +115,7 @@ void EventTest::newSegmentTest()
 void EventTest::sinkMessageTest()
 {
     QGst::MessagePtr msg = QGst::BufferingMessage::create(QGst::ObjectPtr(), 90);
-    QGst::SinkMessageEventPtr evt = QGst::SinkMessageEvent::create(msg);
+    QGst::SinkMessageEventPtr evt = QGst::SinkMessageEvent::create("sink-message", msg);
     QVERIFY(evt->type()==QGst::EventSinkMessage);
     QCOMPARE(evt->typeName(), QString("sink-message"));
 
@@ -131,10 +127,11 @@ void EventTest::sinkMessageTest()
 
 void EventTest::qosTest()
 {
-    QGst::QosEventPtr evt = QGst::QosEvent::create(123.4, 23455, 98765432);
+    QGst::QosEventPtr evt = QGst::QosEvent::create(QGst::QosTypeUnderflow, 123.4, 23455, 98765432);
     QVERIFY(evt->type()==QGst::EventQos);
     QCOMPARE(evt->typeName(), QString("qos"));
 
+    QVERIFY(evt->qosType()==QGst::QosTypeUnderflow);
     QCOMPARE(evt->proportion(), 123.4);
     QCOMPARE(evt->diff(), QGst::ClockTimeDiff(23455));
     QCOMPARE(evt->timestamp(), QGst::ClockTime(98765432));
@@ -165,7 +162,7 @@ void EventTest::navigationTest()
     QVERIFY(evt->type()==QGst::EventNavigation);
     QCOMPARE(evt->typeName(), QString("navigation"));
 
-    QGst::StructurePtr ss = evt->internalStructure();
+    QGst::StructureConstPtr ss = evt->internalStructure();
     QVERIFY(ss->isValid());
     QCOMPARE(ss->value("myfield").get<int>(), 365);
 }

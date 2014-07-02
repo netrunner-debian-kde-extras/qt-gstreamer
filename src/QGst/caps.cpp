@@ -27,7 +27,7 @@ namespace QGst {
 //static
 CapsPtr Caps::createSimple(const char *mediaType)
 {
-    return CapsPtr::wrap(gst_caps_new_simple(mediaType, NULL), false);
+    return CapsPtr::wrap(gst_caps_new_empty_simple(mediaType), false);
 }
 
 //static
@@ -58,9 +58,9 @@ void Caps::append(const CapsPtr & caps2)
     gst_caps_append(object<GstCaps>(), gst_caps_copy(caps2));
 }
 
-void Caps::merge(const CapsPtr & caps2)
+CapsPtr Caps::merge(CapsPtr & caps2)
 {
-    gst_caps_merge(object<GstCaps>(), gst_caps_copy(caps2));
+    return CapsPtr::wrap(gst_caps_merge(object<GstCaps>(), caps2), false);
 }
 
 void Caps::setValue(const char *field, const QGlib::Value & value)
@@ -70,12 +70,12 @@ void Caps::setValue(const char *field, const QGlib::Value & value)
 
 bool Caps::simplify()
 {
-    return gst_caps_do_simplify(object<GstCaps>());
+    return gst_caps_simplify(object<GstCaps>());
 }
 
-void Caps::truncate()
+CapsPtr Caps::truncate()
 {
-    gst_caps_truncate(object<GstCaps>());
+    return CapsPtr::wrap(gst_caps_truncate(object<GstCaps>()), false);
 }
 
 StructurePtr Caps::internalStructure(uint index)
@@ -89,9 +89,9 @@ void Caps::appendStructure(const Structure & structure)
     gst_caps_append_structure(object<GstCaps>(), gst_structure_copy(structure));
 }
 
-void Caps::mergeStructure(const Structure & structure)
+CapsPtr Caps::mergeStructure(Structure & structure)
 {
-    gst_caps_merge_structure(object<GstCaps>(), gst_structure_copy(structure));
+    return CapsPtr::wrap(gst_caps_merge_structure(object<GstCaps>(), structure), false);
 }
 
 void Caps::removeStructure(uint index)
@@ -124,12 +124,6 @@ bool Caps::isFixed() const
     return gst_caps_is_fixed(object<GstCaps>());
 }
 
-bool Caps::isWritable() const
-{
-    GstCaps *caps = object<GstCaps>(); //workaround for bug #653266
-    return (GST_CAPS_REFCOUNT_VALUE(caps) == 1);
-}
-
 bool Caps::equals(const CapsPtr & caps2) const
 {
     return gst_caps_is_equal(object<GstCaps>(), caps2);
@@ -155,12 +149,7 @@ CapsPtr Caps::getIntersection(const CapsPtr & caps2) const
     return CapsPtr::wrap(gst_caps_intersect(object<GstCaps>(), caps2), false);
 }
 
-CapsPtr Caps::getUnion(const CapsPtr & caps2) const
-{
-    return CapsPtr::wrap(gst_caps_union(object<GstCaps>(), caps2), false);
-}
-
-CapsPtr Caps::getNormal() const
+CapsPtr Caps::getNormal()
 {
     return CapsPtr::wrap(gst_caps_normalize(object<GstCaps>()), false);
 }
@@ -180,51 +169,10 @@ CapsPtr Caps::copyNth(uint index) const
     return CapsPtr::wrap(gst_caps_copy_nth(object<GstCaps>(), index), false);
 }
 
-void Caps::ref(bool increaseRef)
-{
-    if (Private::ObjectStore::put(this)) {
-        if (increaseRef) {
-            gst_caps_ref(GST_CAPS(m_object));
-        }
-    }
-}
-
-void Caps::unref()
-{
-    if (Private::ObjectStore::take(this)) {
-        gst_caps_unref(GST_CAPS(m_object));
-        delete this;
-    }
-}
-
-CapsPtr Caps::makeWritable() const
-{
-    /*
-     * Calling gst_*_make_writable() below is tempting but wrong.
-     * Since MiniObjects and Caps do not share the same C++ instance in various wrappings, calling
-     * gst_*_make_writable() on an already writable object and wrapping the result is wrong,
-     * since it would just return the same pointer and we would wrap it in a new C++ instance.
-     */
-    if (!isWritable()) {
-        return copy();
-    } else {
-        return CapsPtr(const_cast<Caps*>(this));
-    }
-}
-
 QDebug operator<<(QDebug debug, const CapsPtr & caps)
 {
     debug.nospace() << "QGst::Caps(" << caps->toString() << ")";
     return debug.space();
 }
 
-
-namespace Private {
-
-QGlib::RefCountedObject *wrapCaps(void *caps)
-{
-    return QGlib::constructWrapper(GST_CAPS(caps)->type, caps);
-}
-
-} //namespace Private
 } //namespace QGst

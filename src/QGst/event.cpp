@@ -15,18 +15,15 @@
     You should have received a copy of the GNU Lesser General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include "caps.h"
 #include "event.h"
 #include "message.h"
 #include "object.h"
+#include "segment.h"
 #include <QtCore/QDebug>
 #include <gst/gst.h>
 
 namespace QGst {
-
-ObjectPtr Event::source() const
-{
-    return ObjectPtr::wrap(GST_EVENT_SRC(object<GstEvent>()));
-}
 
 quint64 Event::timestamp() const
 {
@@ -40,12 +37,18 @@ EventType Event::type() const
 
 QString Event::typeName() const
 {
-    return QString::fromUtf8(GST_EVENT_TYPE_NAME(object<GstQuery>()));
+    return QString::fromUtf8(GST_EVENT_TYPE_NAME(object<GstEvent>()));
 }
 
-StructurePtr Event::internalStructure()
+StructureConstPtr Event::internalStructure()
 {
-    return SharedStructure::fromMiniObject(object<GstEvent>()->structure, MiniObjectPtr(this));
+    const GstStructure *structure = gst_event_get_structure(object<GstEvent>());
+    return SharedStructure::fromMiniObject(const_cast<GstStructure *>(structure), MiniObjectPtr(this));
+}
+
+bool Event::hasName(const char *name) const
+{
+    return gst_event_has_name(object<GstEvent>(), name);
 }
 
 quint32 Event::sequenceNumber() const
@@ -72,9 +75,16 @@ FlushStartEventPtr FlushStartEvent::create()
 
 //********************************************************
 
-FlushStopEventPtr FlushStopEvent::create()
+FlushStopEventPtr FlushStopEvent::create(bool reset_time)
 {
-    return FlushStopEventPtr::wrap(gst_event_new_flush_stop(), false);
+    return FlushStopEventPtr::wrap(gst_event_new_flush_stop(reset_time), false);
+}
+
+bool FlushStopEvent::resetTime() const
+{
+    gboolean r;
+    gst_event_parse_flush_stop(object<GstEvent>(), &r);
+    return r;
 }
 
 //********************************************************
@@ -85,68 +95,34 @@ EosEventPtr EosEvent::create()
 }
 
 //********************************************************
-
-NewSegmentEventPtr NewSegmentEvent::create(bool update, double rate, double appliedRate,
-                                          Format format, qint64 start, qint64 stop, qint64 position)
+CapsEventPtr CapsEvent::create(const CapsPtr &caps)
 {
-    GstEvent * e = gst_event_new_new_segment_full(update, rate, appliedRate,
-                                                  static_cast<GstFormat>(format), start, stop,
-                                                  position);
-
-    return NewSegmentEventPtr::wrap(e, false);
+    return CapsEventPtr::wrap(gst_event_new_caps(caps), false);
 }
 
-bool NewSegmentEvent::isUpdate() const
+CapsPtr CapsEvent::caps() const
 {
-    gboolean u;
-    gst_event_parse_new_segment_full(object<GstEvent>(), &u, NULL, NULL, NULL, NULL, NULL, NULL);
-    return u;
-}
-
-double NewSegmentEvent::rate() const
-{
-    double r;
-    gst_event_parse_new_segment_full(object<GstEvent>(), NULL, &r, NULL, NULL, NULL, NULL, NULL);
-    return r;
-}
-
-double NewSegmentEvent::appliedRate() const
-{
-    double r;
-    gst_event_parse_new_segment_full(object<GstEvent>(), NULL, NULL, &r, NULL, NULL, NULL, NULL);
-    return r;
-}
-
-Format NewSegmentEvent::format() const
-{
-    GstFormat f;
-    gst_event_parse_new_segment_full(object<GstEvent>(), NULL, NULL, NULL, &f, NULL, NULL, NULL);
-    return static_cast<Format>(f);
-}
-
-qint64 NewSegmentEvent::start() const
-{
-    gint64 s;
-    gst_event_parse_new_segment_full(object<GstEvent>(), NULL, NULL, NULL, NULL, &s, NULL, NULL);
-    return s;
-}
-
-qint64 NewSegmentEvent::stop() const
-{
-    gint64 s;
-    gst_event_parse_new_segment_full(object<GstEvent>(), NULL, NULL, NULL, NULL, NULL, &s, NULL);
-    return s;
-}
-
-qint64 NewSegmentEvent::position() const
-{
-    gint64 p;
-    gst_event_parse_new_segment_full(object<GstEvent>(), NULL, NULL, NULL, NULL, NULL, NULL, &p);
-    return p;
+    GstCaps *c;
+    gst_event_parse_caps (object<GstEvent>(), &c);
+    return CapsPtr::wrap (c);
 }
 
 //********************************************************
 
+SegmentEventPtr SegmentEvent::create(const Segment & segment)
+{
+    return SegmentEventPtr::wrap(gst_event_new_segment(segment), false);
+}
+
+Segment SegmentEvent::segment() const
+{
+    const GstSegment *s;
+    gst_event_parse_segment(object<GstEvent>(), &s);
+
+    return Segment(s);
+}
+
+//********************************************************
 TagEventPtr TagEvent::create(const TagList & taglist)
 {
     GstEvent * e = gst_event_new_tag(gst_tag_list_copy(taglist));
@@ -202,9 +178,9 @@ bool BufferSizeEvent::isAsync() const
 
 //********************************************************
 
-SinkMessageEventPtr SinkMessageEvent::create(const MessagePtr & msg)
+SinkMessageEventPtr SinkMessageEvent::create(const QString &name, const MessagePtr & msg)
 {
-    GstEvent * e = gst_event_new_sink_message(msg);
+    GstEvent * e = gst_event_new_sink_message(name.toUtf8().constData(), msg);
     return SinkMessageEventPtr::wrap(e, false);
 }
 
@@ -218,30 +194,37 @@ MessagePtr SinkMessageEvent::message() const
 
 //********************************************************
 
-QosEventPtr QosEvent::create(double proportion, ClockTimeDiff diff, ClockTime timeStamp)
+QosEventPtr QosEvent::create(QosType qos, double proportion, ClockTimeDiff diff, ClockTime timeStamp)
 {
-    GstEvent * e = gst_event_new_qos(proportion, diff, static_cast<GstClockTime>(timeStamp));
+    GstEvent * e = gst_event_new_qos(static_cast<GstQOSType>(qos), proportion, diff, static_cast<GstClockTime>(timeStamp));
     return QosEventPtr::wrap(e, false);
+}
+
+QosType QosEvent::qosType() const
+{
+    GstQOSType t;
+    gst_event_parse_qos(object<GstEvent>(), &t, NULL, NULL, NULL);
+    return static_cast<QosType>(t);
 }
 
 double QosEvent::proportion() const
 {
     double d;
-    gst_event_parse_qos(object<GstEvent>(), &d, NULL, NULL);
+    gst_event_parse_qos(object<GstEvent>(), NULL, &d, NULL, NULL);
     return d;
 }
 
 ClockTimeDiff QosEvent::diff() const
 {
     GstClockTimeDiff c;
-    gst_event_parse_qos(object<GstEvent>(), NULL, &c, NULL);
+    gst_event_parse_qos(object<GstEvent>(), NULL, NULL, &c, NULL);
     return c;
 }
 
 ClockTime QosEvent::timestamp() const
 {
     GstClockTime c;
-    gst_event_parse_qos(object<GstEvent>(), NULL, NULL, &c);
+    gst_event_parse_qos(object<GstEvent>(), NULL, NULL, NULL, &c);
     return c;
 }
 

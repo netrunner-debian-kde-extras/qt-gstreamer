@@ -20,6 +20,7 @@
 
 #include "miniobject.h"
 #include "clocktime.h"
+#include "memory.h"
 
 namespace QGst {
 
@@ -37,14 +38,11 @@ class QTGSTREAMER_EXPORT Buffer : public MiniObject
 public:
     static BufferPtr create(uint size);
 
-    quint8 * data() const;
     quint32 size() const;
 
-    ClockTime timeStamp() const;
+    ClockTime decodingTimeStamp() const;
+    ClockTime presentationTimeStamp() const;
     ClockTime duration() const;
-
-    CapsPtr caps() const;
-    void setCaps(const CapsPtr & caps);
 
     quint64 offset() const;
     quint64 offsetEnd() const;
@@ -52,8 +50,18 @@ public:
     BufferFlags flags() const;
     void setFlags(const BufferFlags flags);
 
+    void setSize(uint size);
+
+    uint extract(uint offset, void *dest, uint size);
+
+    uint memoryCount() const;
+    MemoryPtr getMemory(uint index) const;
+
     BufferPtr copy() const;
     inline BufferPtr makeWritable() const;
+
+    bool map(MapInfo &info, MapFlags flags);
+    void unmap(MapInfo &info);
 };
 
 BufferPtr Buffer::makeWritable() const
