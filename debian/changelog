@@ -1,3 +1,9 @@
+qt-gstreamer (1.1.90-1) UNRELEASED; urgency=medium
+
+  * Import upstream version 1.1.90
+
+ -- Diane Trout <diane@ghic.org>  Tue, 01 Jul 2014 20:13:24 -0700
+
 qt-gstreamer (0.10.2-2) unstable; urgency=low
 
   * Add patch include_path_multiarch.patch to fix the include path
