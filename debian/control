@@ -10,8 +10,8 @@ Build-Depends: debhelper (>= 9),
                libqt4-dev (>= 4:4.8.1),
                libqt4-opengl-dev (>= 4:4.8.1),
                libboost-dev (>= 1.39),
-               libgstreamer0.10-dev (>= 0.10.33),
-               libgstreamer-plugins-base0.10-dev (>= 0.10.33),
+               libgstreamer1.0-dev (>= 1.1.90),
+               libgstreamer-plugins-base1.0-dev (>= 1.1.90),
                doxygen,
                graphviz
 Standards-Version: 3.9.5
@@ -35,7 +35,7 @@ Description: C++ bindings library for GLib and GObject with a Qt-style API
  .
  This package is part of QtGStreamer.
 
-Package: libqtgstreamer-0.10-0
+Package: libqtgstreamer-1.0-0
 Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
@@ -48,7 +48,7 @@ Description: C++ bindings library for GStreamer with a Qt-style API
  also provide easier integration with Qt by using Qt's data types where
  applicable.
 
-Package: libqtgstreamerui-0.10-0
+Package: libqtgstreamerui-1.0-0
 Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
@@ -61,7 +61,7 @@ Description: QtGStreamerUi library
  .
  This package is part of QtGStreamer.
 
-Package: libqtgstreamerutils-0.10-0
+Package: libqtgstreamerutils-1.0-0
 Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
@@ -110,9 +110,9 @@ Section: libdevel
 Architecture: any
 Depends: ${misc:Depends},
          libqtglib-2.0-0 (= ${binary:Version}),
-         libqtgstreamer-0.10-0 (= ${binary:Version}),
-         libqtgstreamerui-0.10-0 (= ${binary:Version}),
-         libqtgstreamerutils-0.10-0 (= ${binary:Version}),
+         libqtgstreamer-1.0-0 (= ${binary:Version}),
+         libqtgstreamerui-1.0-0 (= ${binary:Version}),
+         libqtgstreamerutils-1.0-0 (= ${binary:Version}),
          libqt4-dev (>= 4:4.8.1),
          libboost-dev (>= 1.39)
 Suggests: qtgstreamer-doc
@@ -141,9 +141,9 @@ Priority: extra
 Architecture: any
 Depends: ${misc:Depends},
          libqtglib-2.0-0 (= ${binary:Version}),
-         libqtgstreamer-0.10-0 (= ${binary:Version}),
-         libqtgstreamerui-0.10-0 (= ${binary:Version}),
-         libqtgstreamerutils-0.10-0 (= ${binary:Version}),
+         libqtgstreamer-1.0-0 (= ${binary:Version}),
+         libqtgstreamerui-1.0-0 (= ${binary:Version}),
+         libqtgstreamerutils-1.0-0 (= ${binary:Version}),
          qtgstreamer-plugins (= ${binary:Version})
 Description: Debug symbols for QtGStreamer
  QtGStreamer provides C++ bindings for GStreamer with a Qt-style API,

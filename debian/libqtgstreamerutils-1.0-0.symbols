@@ -1,5 +1,5 @@
 # SymbolsHelper-Confirmed: 0.10.1 amd64
-libQtGStreamerUtils-0.10.so.0 libqtgstreamerutils-0.10-0 #MINVER#
+libQtGStreamerUtils-1.0.so.0 libqtgstreamerutils-1.0-0 #MINVER#
 * Build-Depends-Package: libqtgstreamer-dev
  _ZN4QGst5Utils15ApplicationSink10enableDropEb@Base 0.10.1
  _ZN4QGst5Utils15ApplicationSink10newPrerollEv@Base 0.10.1

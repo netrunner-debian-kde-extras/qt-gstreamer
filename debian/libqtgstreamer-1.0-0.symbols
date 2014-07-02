@@ -1,5 +1,5 @@
 # SymbolsHelper-Confirmed: 0.10.2 amd64
-libQtGStreamer-0.10.so.0 libqtgstreamer-0.10-0 #MINVER#
+libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
 * Build-Depends-Package: libqtgstreamer-dev
  _ZN4QGst10BufferList6createEv@Base 0.10.1
  _ZN4QGst10EosMessage6createERKN5QGlib10RefPointerINS_6ObjectEEE@Base 0.10.1

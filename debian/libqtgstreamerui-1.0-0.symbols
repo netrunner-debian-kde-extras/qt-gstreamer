@@ -1,5 +1,5 @@
 # SymbolsHelper-Confirmed: 0.10.2 amd64
-libQtGStreamerUi-0.10.so.0 libqtgstreamerui-0.10-0 #MINVER#
+libQtGStreamerUi-1.0.so.0 libqtgstreamerui-1.0-0 #MINVER#
 * Build-Depends-Package: libqtgstreamer-dev
  _ZN4QGst2Ui11VideoWidget10paintEventEP11QPaintEvent@Base 0.10.1
  _ZN4QGst2Ui11VideoWidget11qt_metacallEN11QMetaObject4CallEiPPv@Base 0.10.1

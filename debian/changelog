@@ -5,6 +5,7 @@ qt-gstreamer (1.1.90-1) UNRELEASED; urgency=medium
   * Bump Standards-Version to 3.9.5. No changes needed.
   * Add myself to uploaders.
   * Removed include_path_multiarch.patch build is multiarch compatible.
+  * Update names for packages from 0.10 to 1.0 to reflect change in api.
 
  -- Diane Trout <diane@ghic.org>  Tue, 01 Jul 2014 20:13:24 -0700
 
