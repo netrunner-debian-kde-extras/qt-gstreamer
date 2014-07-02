@@ -3,6 +3,7 @@ qt-gstreamer (1.1.90-1) UNRELEASED; urgency=medium
   * Import upstream version 1.1.90
   * Add watch file.
   * Bump Standards-Version to 3.9.5. No changes needed.
+  * Add myself to uploaders.
 
  -- Diane Trout <diane@ghic.org>  Tue, 01 Jul 2014 20:13:24 -0700
 
