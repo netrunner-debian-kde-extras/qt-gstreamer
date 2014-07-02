@@ -18,6 +18,7 @@
 #define QGST_STRUCTS_H
 
 #include "global.h"
+#include <QtCore/QDebug>
 
 namespace QGst {
 
@@ -63,7 +64,7 @@ namespace QGst {
         } value;
     };
 }
-QGST_REGISTER_TYPE(QGst::Fourcc)
+QGST_REGISTER_TYPE(QGst::Fourcc) //codegen: GType=G_TYPE_UINT
 
 namespace QGst {
     /*! \headerfile structs.h <QGst/Fraction>
@@ -75,9 +76,19 @@ namespace QGst {
         inline Fraction(int numerator, int denominator)
             : numerator(numerator), denominator(denominator) {}
 
+        inline bool operator==(const Fraction & other) const
+        { return numerator == other.numerator && denominator == other.denominator; }
+        inline bool operator!=(const Fraction & other) const
+        { return !operator==(other); }
+
         int numerator;
         int denominator;
     };
+
+    inline QDebug operator<<(QDebug debug, const Fraction &f)
+    {
+        return (debug.nospace() << f.numerator << "/" << f.denominator).maybeSpace();
+    }
 }
 QGST_REGISTER_TYPE(QGst::Fraction)
 

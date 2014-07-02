@@ -58,7 +58,6 @@ private:
 
     static GstStateChangeReturn change_state(GstElement *element, GstStateChange transition);
 
-    static GstCaps *get_caps(GstBaseSink *sink);
     static gboolean set_caps(GstBaseSink *sink, GstCaps *caps);
 
     static GstFlowReturn show_frame(GstVideoSink *sink, GstBuffer *buffer);
@@ -67,8 +66,6 @@ public:
     QtVideoSinkDelegate *delegate;
 
 private:
-    bool formatDirty;
-
     static GstVideoSinkClass *s_parent_class;
 };
 

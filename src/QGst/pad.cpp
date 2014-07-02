@@ -70,9 +70,9 @@ bool Pad::unlink(const PadPtr & sink)
     return gst_pad_unlink(object<GstPad>(), sink);
 }
 
-CapsPtr Pad::caps() const
+CapsPtr Pad::currentCaps() const
 {
-    return CapsPtr::wrap(gst_pad_get_caps_reffed(object<GstPad>()), false);
+    return CapsPtr::wrap(gst_pad_get_current_caps(object<GstPad>()), false);
 }
 
 CapsPtr Pad::allowedCaps() const
@@ -80,14 +80,9 @@ CapsPtr Pad::allowedCaps() const
     return CapsPtr::wrap(gst_pad_get_allowed_caps(object<GstPad>()), false);
 }
 
-CapsPtr Pad::negotiatedCaps() const
+CapsPtr Pad::padTemplateCaps() const
 {
-    return CapsPtr::wrap(gst_pad_get_negotiated_caps(object<GstPad>()), false);
-}
-
-bool Pad::setCaps(const CapsPtr & caps)
-{
-    return gst_pad_set_caps(object<GstPad>(), caps);
+    return CapsPtr::wrap(gst_pad_get_pad_template_caps(object<GstPad>()), false);
 }
 
 bool Pad::isActive() const
@@ -108,11 +103,6 @@ bool Pad::isBlocked() const
 bool Pad::isBlocking() const
 {
     return gst_pad_is_blocking(object<GstPad>());
-}
-
-bool Pad::setBlocked(bool blocked)
-{
-    return gst_pad_set_blocked(object<GstPad>(), blocked);
 }
 
 bool Pad::query(const QueryPtr & query)

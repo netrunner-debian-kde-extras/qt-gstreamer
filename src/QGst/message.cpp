@@ -43,9 +43,10 @@ MessageType Message::type() const
     return static_cast<MessageType>(GST_MESSAGE_TYPE(object<GstMessage>()));
 }
 
-StructurePtr Message::internalStructure()
+StructureConstPtr Message::internalStructure()
 {
-    return SharedStructure::fromMiniObject(object<GstMessage>()->structure, MiniObjectPtr(this));
+    const GstStructure *structure = gst_message_get_structure(object<GstMessage>());
+    return SharedStructure::fromMiniObject(const_cast<GstStructure *>(structure), MiniObjectPtr(this));
 }
 
 quint32 Message::sequenceNumber() const
@@ -383,24 +384,10 @@ qint64 SegmentDoneMessage::position() const
 
 //********************************************************
 
-DurationMessagePtr DurationMessage::create(const ObjectPtr & source, Format format, qint64 duration)
+DurationChangedMessagePtr DurationChangedMessage::create(const ObjectPtr & source)
 {
-    GstMessage *m = gst_message_new_duration(source, static_cast<GstFormat>(format), duration);
-    return DurationMessagePtr::wrap(m, false);
-}
-
-Format DurationMessage::format() const
-{
-    GstFormat f;
-    gst_message_parse_duration(object<GstMessage>(), &f, NULL);
-    return static_cast<Format>(f);
-}
-
-qint64 DurationMessage::duration() const
-{
-    gint64 d;
-    gst_message_parse_duration(object<GstMessage>(), NULL, &d);
-    return d;
+    GstMessage *m = gst_message_new_duration_changed(source);
+    return DurationChangedMessagePtr::wrap(m, false);
 }
 
 //********************************************************
@@ -412,9 +399,16 @@ LatencyMessagePtr LatencyMessage::create(const ObjectPtr & source)
 
 //********************************************************
 
-AsyncDoneMessagePtr AsyncDoneMessage::create(const ObjectPtr & source)
+AsyncDoneMessagePtr AsyncDoneMessage::create(const ObjectPtr & source, ClockTime running_time)
 {
-    return AsyncDoneMessagePtr::wrap(gst_message_new_async_done(source), false);
+    return AsyncDoneMessagePtr::wrap(gst_message_new_async_done(source, running_time), false);
+}
+
+ClockTime AsyncDoneMessage::runningTime() const
+{
+    GstClockTime c;
+    gst_message_parse_async_done(object<GstMessage>(), &c);
+    return static_cast<ClockTime>(c);
 }
 
 //********************************************************

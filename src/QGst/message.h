@@ -17,6 +17,7 @@
 #ifndef QGST_MESSAGE_H
 #define QGST_MESSAGE_H
 
+#include "clocktime.h"
 #include "miniobject.h"
 #include "structure.h"
 #include "taglist.h"
@@ -53,7 +54,7 @@ public:
     QString typeName() const;
     MessageType type() const;
 
-    StructurePtr internalStructure();
+    StructureConstPtr internalStructure();
 
     quint32 sequenceNumber() const;
     void setSequenceNumber(quint32 num);
@@ -236,14 +237,12 @@ public:
 /*! \headerfile message.h <QGst/Message>
  * \brief Wrapper class for messages of type QGst::MessageDuration
  */
-class QTGSTREAMER_EXPORT DurationMessage : public Message
+class QTGSTREAMER_EXPORT DurationChangedMessage : public Message
 {
-    QGST_WRAPPER_FAKE_SUBCLASS(Duration, Message)
+    QGST_WRAPPER_FAKE_SUBCLASS(DurationChanged, Message)
 public:
-    static DurationMessagePtr create(const ObjectPtr & source, Format format, qint64 duration);
+    static DurationChangedMessagePtr create(const ObjectPtr & source);
 
-    Format format() const;
-    qint64 duration() const;
 };
 
 /*! \headerfile message.h <QGst/Message>
@@ -265,7 +264,9 @@ class QTGSTREAMER_EXPORT AsyncDoneMessage : public Message
 {
     QGST_WRAPPER_FAKE_SUBCLASS(AsyncDone, Message)
 public:
-    static AsyncDoneMessagePtr create(const ObjectPtr & source);
+    static AsyncDoneMessagePtr create(const ObjectPtr & source, ClockTime running_time);
+
+    ClockTime runningTime() const;
 };
 
 /*! \headerfile message.h <QGst/Message>
@@ -339,7 +340,7 @@ QGST_REGISTER_SUBCLASS(Message, StreamStatus)
 QGST_REGISTER_SUBCLASS(Message, Application)
 QGST_REGISTER_SUBCLASS(Message, Element)
 QGST_REGISTER_SUBCLASS(Message, SegmentDone)
-QGST_REGISTER_SUBCLASS(Message, Duration)
+QGST_REGISTER_SUBCLASS(Message, DurationChanged)
 QGST_REGISTER_SUBCLASS(Message, Latency)
 QGST_REGISTER_SUBCLASS(Message, AsyncDone)
 QGST_REGISTER_SUBCLASS(Message, RequestState)

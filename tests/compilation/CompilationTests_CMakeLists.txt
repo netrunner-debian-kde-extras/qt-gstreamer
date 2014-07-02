@@ -2,11 +2,16 @@
 # We misuse cmake here by running tests with the try_compile command and basing
 # the result of the whole test suite on the cmake exit status.
 
-cmake_minimum_required(VERSION 2.8)
-find_package(QtGStreamer REQUIRED)
+cmake_minimum_required(VERSION 2.8.9)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+find_package(Boost 1.39 REQUIRED)
+find_package(Qt4or5 COMPONENTS Core REQUIRED)
+
+include(QtGStreamerConfigCommon)
 include(MacroCXXCompilationTest)
 
-set(CMAKE_REQUIRED_LIBRARIES ${QTGSTREAMER_LIBRARIES})
+set(CMAKE_REQUIRED_LIBRARIES ${QTGSTREAMER_LIBRARY} ${QTGLIB_LIBRARY} ${Qt4or5_Core_LIBRARIES})
 set(CMAKE_REQUIRED_INCLUDES ${QTGSTREAMER_INCLUDES})
 set(CMAKE_REQUIRED_DEFINITIONS ${QTGSTREAMER_DEFINITIONS})
 set(CMAKE_REQUIRED_FLAGS "${QTGSTREAMER_FLAGS}")
@@ -18,6 +23,9 @@ if (QTGSTREAMER_STATIC)
                                  ${GSTREAMER_LIBRARY}
                                  ${GSTREAMER_INTERFACES_LIBRARY})
 endif()
+
+include(HandleImportedTargetsInCMakeRequiredLibraries)
+handle_imported_targets_in_cmake_required_libraries(CMAKE_REQUIRED_LIBRARIES)
 
 message("********* Begin running compilation tests *********")
 include(CompilationTests.cmake)

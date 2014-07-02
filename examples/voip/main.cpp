@@ -43,14 +43,14 @@
                               '-------'      |          |
                                              '----------'
 
-    In the two sessions, the gstrtpbin element is common and the sessions are
+    In the two sessions, the rtpbin element is common and the sessions are
     distinguished from the number at the end of rtpbin's pad names.
 */
 
 #include "ui_voip.h"
 
-#include <QtGui/QApplication>
-#include <QtGui/QDialog>
+#include <QApplication>
+#include <QDialog>
 
 #include <QGlib/Connect>
 #include <QGlib/Error>
@@ -106,9 +106,9 @@ void VoipExample::on_startCallButton_clicked()
 {
     m_pipeline = QGst::Pipeline::create();
 
-    QGst::ElementPtr rtpbin = QGst::ElementFactory::make("gstrtpbin");
+    QGst::ElementPtr rtpbin = QGst::ElementFactory::make("rtpbin");
     if (!rtpbin) {
-        qFatal("Failed to create gstrtpbin");
+        qFatal("Failed to create rtpbin");
     }
     m_pipeline->add(rtpbin);
 
@@ -118,7 +118,7 @@ void VoipExample::on_startCallButton_clicked()
         QGst::ElementPtr audiosrc;
         try {
             audiosrc = QGst::Bin::fromDescription(
-                "autoaudiosrc ! queue ! audioconvert ! audiorate ! audio/x-raw-int,rate=8000 "
+                "autoaudiosrc ! queue ! audioconvert ! audiorate ! audio/x-raw,rate=8000 "
                 "! speexenc ! rtpspeexpay"
             );
         } catch (const QGlib::Error & error) {
@@ -173,7 +173,7 @@ void VoipExample::on_startCallButton_clicked()
         QGst::ElementPtr videosrc;
         try {
             videosrc = QGst::Bin::fromDescription(
-                "videotestsrc is-live=true ! video/x-raw-yuv,width=320,height=240,framerate=15/1 "
+                "videotestsrc is-live=true ! video/x-raw,width=320,height=240,framerate=15/1 "
                 "! x264enc tune=zerolatency byte-stream=true bitrate=300 ! rtph264pay"
             );
         } catch (const QGlib::Error & error) {
@@ -242,13 +242,14 @@ void VoipExample::onRtpBinPadAdded(const QGst::PadPtr & pad)
     QGst::ElementPtr bin;
 
     try {
-        if (pad->caps()->internalStructure(0)->value("media").toString() == QLatin1String("audio")) {
+        //recv_rtp_src_1_* -> session 1 - audio
+        if (pad->name().startsWith(QLatin1String("recv_rtp_src_1"))) {
             bin = QGst::Bin::fromDescription(
                 "rtpspeexdepay ! speexdec ! audioconvert ! autoaudiosink"
             );
-        } else {
+        } else { //recv_rtp_src_2_* -> session 2 - video
             bin = QGst::Bin::fromDescription(
-                "rtph264depay ! ffdec_h264 ! ffmpegcolorspace ! autovideosink"
+                "rtph264depay ! avdec_h264 ! videoconvert ! autovideosink"
             );
         }
     } catch (const QGlib::Error & error) {

@@ -34,7 +34,7 @@ private Q_SLOTS:
 
 void CapsTest::simpleTest()
 {
-    QGst::CapsPtr caps = QGst::Caps::createSimple("video/x-raw-yuv");
+    QGst::CapsPtr caps = QGst::Caps::createSimple("video/x-raw");
     QVERIFY(caps->isSimple());
     QVERIFY(!caps->isEmpty());
     QVERIFY(!caps->isAny());
@@ -69,7 +69,7 @@ void CapsTest::anyTest()
 
 void CapsTest::fullTest()
 {
-    QGst::Structure s("video/x-raw-yuv");
+    QGst::Structure s("video/x-raw");
     s.setValue("width", 320);
     s.setValue("height", 240);
 
@@ -85,7 +85,7 @@ void CapsTest::fullTest()
     QVERIFY(!caps->isAny());
     QVERIFY(caps->size() == 1);
 
-    QGst::CapsPtr caps2 = QGst::Caps::createSimple("video/x-raw-yuv");
+    QGst::CapsPtr caps2 = QGst::Caps::createSimple("video/x-raw");
     caps2->setValue("width", 320);
     caps2->setValue("height", 240);
 
@@ -94,21 +94,21 @@ void CapsTest::fullTest()
 
 void CapsTest::writabilityTest()
 {
-    QGst::CapsPtr caps = QGst::Caps::createSimple("video/x-raw-yuv");
-    QVERIFY(GST_CAPS_REFCOUNT_VALUE(caps) == 1);
+    QGst::CapsPtr caps = QGst::Caps::createSimple("video/x-raw");
+    QVERIFY(GST_CAPS_REFCOUNT_VALUE(static_cast<GstCaps *>(caps)) == 1);
 
     {
         QGst::CapsPtr caps2 = caps;
-        QCOMPARE(GST_CAPS_REFCOUNT_VALUE(caps), 1);
+        QCOMPARE(GST_CAPS_REFCOUNT_VALUE(static_cast<GstCaps *>(caps)), 1);
         QVERIFY(static_cast<GstCaps*>(caps2) == static_cast<GstCaps*>(caps));
     }
 
     GstCaps *oldPtr = caps;
-    QVERIFY(GST_CAPS_REFCOUNT_VALUE(caps) == 1);
+    QVERIFY(GST_CAPS_REFCOUNT_VALUE(static_cast<GstCaps *>(caps)) == 1);
     //Increase external refcount to lock it
     gst_caps_ref(oldPtr);
     QVERIFY(oldPtr == static_cast<GstCaps*>(caps));
-    QVERIFY(GST_CAPS_REFCOUNT_VALUE(caps) == 2);
+    QVERIFY(GST_CAPS_REFCOUNT_VALUE(static_cast<GstCaps *>(caps)) == 2);
     QVERIFY(!caps->isWritable());
 
     caps = caps->makeWritable(); //creates a copy
@@ -118,7 +118,7 @@ void CapsTest::writabilityTest()
 
 void CapsTest::setValueTest()
 {
-    QGst::CapsPtr caps = QGst::Caps::createSimple("video/x-raw-yuv");
+    QGst::CapsPtr caps = QGst::Caps::createSimple("video/x-raw");
 
     QGst::BinPtr bin = QGst::Bin::create();
 

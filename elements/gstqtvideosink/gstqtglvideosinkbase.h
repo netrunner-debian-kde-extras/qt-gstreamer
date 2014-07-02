@@ -19,7 +19,7 @@
 #define GST_QT_GL_VIDEO_SINK_BASE_H
 
 #include "gstqtvideosinkbase.h"
-#include <gst/interfaces/colorbalance.h>
+#include <gst/video/colorbalance.h>
 
 #ifndef GST_QT_VIDEO_SINK_NO_OPENGL
 
@@ -61,16 +61,14 @@ private:
     static void init(GTypeInstance *instance, gpointer g_class);
     static void finalize(GObject *object);
 
-    static void implementsiface_init(GstImplementsInterfaceClass *klass, gpointer data);
-    static gboolean interface_supported(GstImplementsInterface *iface, GType type);
-
-    static void colorbalance_init(GstColorBalanceClass *klass, gpointer data);
+    static void colorbalance_init(GstColorBalanceInterface *interface, gpointer data);
     static const GList *colorbalance_list_channels(GstColorBalance *balance);
     static void colorbalance_set_value(GstColorBalance *balance,
                                        GstColorBalanceChannel *channel,
                                        gint value);
     static gint colorbalance_get_value(GstColorBalance *balance,
                                        GstColorBalanceChannel *channel);
+    static GstColorBalanceType colorbalance_get_balance_type(GstColorBalance *balance);
 
     static void set_property(GObject *object, guint prop_id,
                              const GValue *value, GParamSpec *pspec);
@@ -78,7 +76,7 @@ private:
                              GValue *value, GParamSpec *pspec);
 
     static gboolean start(GstBaseSink *sink);
-    static GstCaps *get_caps(GstBaseSink *sink);
+    static gboolean set_caps(GstBaseSink *sink, GstCaps *caps);
 
 
     GList *m_channels_list;

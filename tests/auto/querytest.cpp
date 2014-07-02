@@ -36,13 +36,9 @@ private Q_SLOTS:
 
 void QueryTest::baseTest()
 {
-    QGst::Structure s("mystructure");
     QGst::PositionQueryPtr query = QGst::PositionQuery::create(QGst::FormatBytes);
-
-    QGst::StructurePtr ss = query->internalStructure();
+    QGst::StructureConstPtr ss = query->internalStructure();
     QVERIFY(ss->isValid());
-    ss->setValue("myfield", 365);
-    QCOMPARE(ss->value("myfield").get<int>(), 365);
 }
 
 void QueryTest::positionTest()
@@ -52,21 +48,18 @@ void QueryTest::positionTest()
     QCOMPARE(query->typeName(), QString("position"));
     QVERIFY(query->format()==QGst::FormatBytes);
 
-    query->setValues(QGst::FormatTime, 1234567);
-    QVERIFY(query->format()!=QGst::FormatBytes);
-    QVERIFY(query->format()==QGst::FormatTime);
+    query->setValues(QGst::FormatBytes, 1234567);
     QCOMPARE(query->position(), static_cast<qint64>(1234567));
 }
 
 void QueryTest::durationTest()
 {
-    QGst::DurationQueryPtr query = QGst::DurationQuery::create(QGst::FormatBytes);
+    QGst::DurationQueryPtr query = QGst::DurationQuery::create(QGst::FormatTime);
     QVERIFY(query->type()==QGst::QueryDuration);
     QCOMPARE(query->typeName(), QString("duration"));
-    QVERIFY(query->format()==QGst::FormatBytes);
+    QVERIFY(query->format()==QGst::FormatTime);
 
     query->setValues(QGst::FormatTime, 1234567);
-    QVERIFY(query->format()!=QGst::FormatBytes);
     QVERIFY(query->format()==QGst::FormatTime);
     QCOMPARE(query->duration(), static_cast<qint64>(1234567));
 }

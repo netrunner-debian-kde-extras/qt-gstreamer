@@ -18,8 +18,11 @@
 */
 #include "qgsttest.h"
 #include <QGst/Structure>
-#include <QGst/Buffer>
+#include <QGst/Element>
+#include <QGst/ElementFactory>
 #include <QGst/Caps>
+#include <QGst/Pad>
+#include <QGst/Event>
 
 class StructureTest : public QGstTest
 {
@@ -107,23 +110,36 @@ void StructureTest::valueTest()
 
 void StructureTest::sharedStructureTest()
 {
-    QGst::BufferPtr buffer = QGst::Buffer::create(10);
+    QGst::ElementPtr queue = QGst::ElementFactory::make("queue", NULL);
+    QGst::PadPtr pad = queue->getStaticPad("sink");
+    queue->setState(QGst::StatePlaying);
+
     {
-        QGst::CapsPtr caps = QGst::Caps::createSimple("video/x-raw-yuv");
+        QGst::CapsPtr caps = QGst::Caps::createSimple("video/x-raw");
         caps->setValue("width", 320);
         caps->setValue("height", 240);
-        buffer->setCaps(caps);
+
+        // verify the Caps was created correctly
+        QGst::StructurePtr structure = caps->internalStructure(0);
+        QCOMPARE(caps->size(), static_cast<unsigned int>(1));
+        QCOMPARE(structure->name(), QString("video/x-raw"));
+
+        QGst::CapsEventPtr event = QGst::CapsEvent::create(caps);
+        QVERIFY(pad->sendEvent(event));
     }
 
-    QGst::StructurePtr structure = buffer->caps()->internalStructure(0);
-    QCOMPARE(structure->name(), QString("video/x-raw-yuv"));
+    QCOMPARE(pad->currentCaps()->size(), static_cast<unsigned int>(1));
+    QGst::StructurePtr structure = pad->currentCaps()->internalStructure(0);
+    QCOMPARE(structure->name(), QString("video/x-raw"));
     QCOMPARE(structure->value("width").toInt(), 320);
     QCOMPARE(structure->value("height").toInt(), 240);
 
     QGst::Structure s = structure->copy();
-    QCOMPARE(s.name(), QString("video/x-raw-yuv"));
+    QCOMPARE(s.name(), QString("video/x-raw"));
     QCOMPARE(s.value("width").toInt(), 320);
     QCOMPARE(s.value("height").toInt(), 240);
+
+    queue->setState(QGst::StateNull);
 }
 
 

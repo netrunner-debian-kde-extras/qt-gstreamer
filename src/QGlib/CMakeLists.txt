@@ -22,7 +22,7 @@ set(QtGLib_INSTALLED_HEADERS
     paramspec.h   ParamSpec
     object.h      Object
     value.h       Value
-    signal.h      Signal
+    qglib_signal.h Signal
     emitimpl.h
     connect.h     Connect
     connectimpl.h
@@ -39,19 +39,19 @@ set(QtGLib_CODEGEN_INCLUDES
 # Setup the environment
 set(QTGLIB_API_VERSION 2.0)
 set(QTGLIB_SOVERSION 0)
-include_directories(${CMAKE_CURRENT_BINARY_DIR} ${GOBJECT_INCLUDE_DIR} ${GLIB2_INCLUDE_DIR})
+include_directories(${GOBJECT_INCLUDE_DIR} ${GLIB2_INCLUDE_DIR})
 
 # Add command to generate gen.cpp using codegen
 run_codegen("QGlib" "${QtGLib_CODEGEN_INCLUDES}" "${QtGLib_CODEGEN_HEADERS}")
 
 # Build and link QtGLib
-automoc4_add_library(QtGLib ${SHARED_OR_STATIC} ${QtGLib_SRCS})
-set_target_properties(QtGLib PROPERTIES OUTPUT_NAME QtGLib-${QTGLIB_API_VERSION}
+add_library(${QTGLIB_LIBRARY} ${SHARED_OR_STATIC} ${QtGLib_SRCS})
+set_target_properties(${QTGLIB_LIBRARY} PROPERTIES OUTPUT_NAME ${QTGLIB_LIBRARY}-${QTGLIB_API_VERSION}
                                           SOVERSION ${QTGLIB_SOVERSION}
                                             VERSION ${QTGSTREAMER_VERSION})
-target_link_libraries(QtGLib ${QT_QTCORE_LIBRARY} ${GOBJECT_LIBRARIES})
-target_link_libraries(QtGLib LINK_INTERFACE_LIBRARIES ${QT_QTCORE_LIBRARY})
+target_link_libraries(${QTGLIB_LIBRARY} LINK_PRIVATE ${GOBJECT_LIBRARIES})
+qt4or5_use_modules(${QTGLIB_LIBRARY} LINK_PUBLIC Core)
 
 # Install
-install(TARGETS QtGLib DESTINATION ${LIB_INSTALL_DIR} EXPORT ${EXPORT_TARGET_SET})
+install(TARGETS ${QTGLIB_LIBRARY} EXPORT ${EXPORT_TARGET_SET} ${QTGSTREAMER_INSTALL_TARGET_DEFAULT_ARGS})
 install_headers("QGlib" ${QtGLib_INSTALLED_HEADERS})

@@ -42,16 +42,20 @@ private Q_SLOTS:
 
 void RefPointerTest::refTest1()
 {
-    GstObject *bin = GST_OBJECT(gst_object_ref(GST_OBJECT(gst_bin_new(NULL))));
-    gst_object_sink(bin);
-    QGst::ObjectPtr object = QGst::ObjectPtr::wrap(bin, false);
-    QCOMPARE(GST_OBJECT_REFCOUNT_VALUE(bin), 1);
+    GstElement *element = gst_bin_new(NULL);
+    GstObject *bin1 = GST_OBJECT(element);
+    QCOMPARE(GST_OBJECT_REFCOUNT_VALUE(element), 1);
+
+    GstObject *bin2 = GST_OBJECT(gst_object_ref_sink(bin1));
+    QCOMPARE(GST_OBJECT_REFCOUNT_VALUE(bin2), 1);
+    QGst::ObjectPtr object = QGst::ObjectPtr::wrap(bin2, false);
+    QCOMPARE(GST_OBJECT_REFCOUNT_VALUE(bin2), 1);
 }
 
 void RefPointerTest::refTest2()
 {
-    GstObject *bin = GST_OBJECT(gst_object_ref(GST_OBJECT(gst_bin_new(NULL))));
-    gst_object_sink(bin);
+    GstObject *bin = GST_OBJECT(gst_object_ref_sink(GST_OBJECT(gst_bin_new(NULL))));
+
     {
         QGst::ObjectPtr object = QGst::ObjectPtr::wrap(bin);
         QCOMPARE(GST_OBJECT_REFCOUNT_VALUE(bin), 2);
@@ -66,8 +70,7 @@ void RefPointerTest::refTest2()
 
 void RefPointerTest::dynamicCastTest()
 {
-    GstObject *bin = GST_OBJECT(gst_object_ref(GST_OBJECT(gst_bin_new(NULL))));
-    gst_object_sink(bin);
+    GstObject *bin = GST_OBJECT(gst_object_ref_sink(GST_OBJECT(gst_bin_new(NULL))));
 
     {
         QGst::ObjectPtr object = QGst::ObjectPtr::wrap(bin);
@@ -84,8 +87,7 @@ void RefPointerTest::dynamicCastTest()
 
 void RefPointerTest::dynamicCastDownObjectTest()
 {
-    GstObject *bin = GST_OBJECT(gst_object_ref(gst_bin_new(NULL)));
-    gst_object_sink(bin);
+    GstObject *bin = GST_OBJECT(gst_object_ref_sink(gst_bin_new(NULL)));
 
     {
         QGlib::ObjectPtr object = QGlib::ObjectPtr::wrap(G_OBJECT(bin));
@@ -99,8 +101,7 @@ void RefPointerTest::dynamicCastDownObjectTest()
 
 void RefPointerTest::dynamicCastUpObjectTest()
 {
-    GstBin *bin = GST_BIN(gst_object_ref(gst_bin_new(NULL)));
-    gst_object_sink(bin);
+    GstBin *bin = GST_BIN(gst_object_ref_sink(gst_bin_new(NULL)));
 
     {
         QGst::BinPtr object = QGst::BinPtr::wrap(bin);
@@ -135,7 +136,7 @@ void RefPointerTest::dynamicCastIfaceToObjectTest()
 
 void RefPointerTest::cppWrappersTest()
 {
-    QGst::ElementPtr e = QGst::ElementFactory::make("playbin2");
+    QGst::ElementPtr e = QGst::ElementFactory::make("playbin");
     QVERIFY(!e.isNull());
 
     {

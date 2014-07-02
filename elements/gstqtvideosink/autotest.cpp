@@ -15,26 +15,33 @@
     You should have received a copy of the GNU Lesser General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#define QT_GUI_LIB 1 //enable QtGui in QtTest
-
 #include <gst/gst.h>
 #include <gst/video/video.h>
-#include <gst/interfaces/colorbalance.h>
-#include <QtTest/QTest>
-#include <QtGui/QWidget>
-#include <QtGui/QPainter>
-#include <QtGui/QLabel>
-#include <QtGui/QGridLayout>
-#include <QtCore/QDebug>
 
-#ifndef GST_QT_VIDEO_SINK_NO_OPENGL
-# include "openglsurfacepainter.h"
-# include <QtOpenGL/QGLWidget>
-# include <QtOpenGL/QGLPixelBuffer>
+#include <QTest>
+#include <QPainter>
+#include <QDebug>
+#include <QWidget>
+#include <QLabel>
+#include <QGridLayout>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+# define SkipSingle 0
+# define SkipAll 0
+# define QSKIP_PORT(m, a) QSKIP(m)
+#else
+# define QSKIP_PORT(m, a) QSKIP(m, a)
 #endif
 
-#include "genericsurfacepainter.h"
+#ifndef GST_QT_VIDEO_SINK_NO_OPENGL
+# include "painters/openglsurfacepainter.h"
+# include <QGLWidget>
+# include <QGLPixelBuffer>
+#endif
 
+#include "painters/genericsurfacepainter.h"
+
+Q_DECLARE_METATYPE(Qt::AspectRatioMode)
 
 struct PipelineDeleter
 {
@@ -61,16 +68,16 @@ struct ElementDeleter
 typedef QScopedPointer<GstElement, ElementDeleter> GstElementPtr;
 
 
-struct BufferDeleter
+struct SampleDeleter
 {
-    static inline void cleanup(GstBuffer *ptr) {
+    static inline void cleanup(GstSample *ptr) {
         if (ptr) {
-            gst_buffer_unref(ptr);
+            gst_sample_unref(ptr);
         }
     }
 };
 
-typedef QScopedPointer<GstBuffer, BufferDeleter> GstBufferPtr;
+typedef QScopedPointer<GstSample, SampleDeleter> GstSamplePtr;
 
 //------------------------------------
 
@@ -151,7 +158,7 @@ private Q_SLOTS:
     void cleanupTestCase();
 
 private:
-    GstBuffer *generateTestBuffer(GstVideoFormat format, int pattern);
+    GstSample *generateTestSample(GstVideoFormat format, int pattern);
     GstPipeline *constructPipeline(GstCaps *caps, GstCaps *fakesinkCaps,
                                    bool forceAspectRatio, void *context);
     void imageCompare(const QImage & image1, const QImage & image2, const QSize & sourceSize);
@@ -239,27 +246,31 @@ void QtVideoSinkTest::paintAreasTest_data()
     QTest::addColumn<QRectF>("blackArea1");
     QTest::addColumn<QRectF>("videoArea");
     QTest::addColumn<QRectF>("blackArea2");
+    QTest::addColumn<Qt::AspectRatioMode>("mode");
 
     QTest::newRow("targetArea == videoArea")
         << QRectF(0.0, 0.0, 320.0, 240.0)
         << QSize(320, 240) << Fraction(1, 1) << Fraction(1, 1)
         << QRectF(0.0, 0.0, 0.0, 0.0)
         << QRectF(0.0, 0.0, 320.0, 240.0)
-        << QRectF(0.0, 0.0, 0.0, 0.0);
+        << QRectF(0.0, 0.0, 0.0, 0.0)
+        << Qt::KeepAspectRatio;
 
     QTest::newRow("targetArea wide")
         << QRectF(0.0, 0.0, 400.0, 240.0)
         << QSize(320, 240) << Fraction(1, 1) << Fraction(1, 1)
         << QRectF(0.0, 0.0, 40.0, 240.0)
         << QRectF(40.0, 0.0, 320.0, 240.0)
-        << QRectF(360.0, 0.0, 40.0, 240.0);
+        << QRectF(360.0, 0.0, 40.0, 240.0)
+        << Qt::KeepAspectRatio;
 
     QTest::newRow("targetArea tall")
         << QRectF(0.0, 0.0, 320.0, 300.0)
         << QSize(320, 240) << Fraction(1, 1) << Fraction(1, 1)
         << QRectF(0.0, 0.0, 320.0, 30.0)
         << QRectF(0.0, 30.0, 320.0, 240.0)
-        << QRectF(0.0, 270.0, 320.0, 30.0);
+        << QRectF(0.0, 270.0, 320.0, 30.0)
+        << Qt::KeepAspectRatio;
 
 
     QTest::newRow("targetArea == videoArea @ (2, 3)")
@@ -267,21 +278,24 @@ void QtVideoSinkTest::paintAreasTest_data()
         << QSize(320, 240) << Fraction(1, 1) << Fraction(1, 1)
         << QRectF(0.0, 0.0, 0.0, 0.0)
         << QRectF(2.0, 3.0, 320.0, 240.0)
-        << QRectF(0.0, 0.0, 0.0, 0.0);
+        << QRectF(0.0, 0.0, 0.0, 0.0)
+        << Qt::KeepAspectRatio;
 
     QTest::newRow("targetArea wide @ (2, 3)")
         << QRectF(2.0, 3.0, 400.0, 240.0)
         << QSize(320, 240) << Fraction(1, 1) << Fraction(1, 1)
         << QRectF(2.0, 3.0, 40.0, 240.0)
         << QRectF(42.0, 3.0, 320.0, 240.0)
-        << QRectF(362.0, 3.0, 40.0, 240.0);
+        << QRectF(362.0, 3.0, 40.0, 240.0)
+        << Qt::KeepAspectRatio;
 
     QTest::newRow("targetArea tall @ (2, 3)")
         << QRectF(2.0, 3.0, 320.0, 300.0)
         << QSize(320, 240) << Fraction(1, 1) << Fraction(1, 1)
         << QRectF(2.0, 3.0, 320.0, 30.0)
         << QRectF(2.0, 33.0, 320.0, 240.0)
-        << QRectF(2.0, 273.0, 320.0, 30.0);
+        << QRectF(2.0, 273.0, 320.0, 30.0)
+        << Qt::KeepAspectRatio;
 
 
     QTest::newRow("targetArea.size() == videoSize w/ par 2/1")
@@ -289,14 +303,16 @@ void QtVideoSinkTest::paintAreasTest_data()
         << QSize(160, 240) << Fraction(2, 1) << Fraction(1, 1)
         << QRectF(0.0, 0.0, 160.0, 60.0)
         << QRectF(0.0, 60.0, 160.0, 120.0)
-        << QRectF(0.0, 180.0, 160.0, 60.0);
+        << QRectF(0.0, 180.0, 160.0, 60.0)
+        << Qt::KeepAspectRatio;
 
     QTest::newRow("dar 2/1")
         << QRectF(0.0, 0.0, 160.0, 240.0)
         << QSize(320, 240) << Fraction(1, 1) << Fraction(2, 1)
         << QRectF(0.0, 0.0, 0.0, 0.0)
         << QRectF(0.0, 0.0, 160.0, 240.0)
-        << QRectF(0.0, 0.0, 0.0, 0.0);
+        << QRectF(0.0, 0.0, 0.0, 0.0)
+        << Qt::KeepAspectRatio;
 }
 
 void QtVideoSinkTest::paintAreasTest()
@@ -308,9 +324,10 @@ void QtVideoSinkTest::paintAreasTest()
     QFETCH(QRectF, blackArea1);
     QFETCH(QRectF, videoArea);
     QFETCH(QRectF, blackArea2);
+    QFETCH(Qt::AspectRatioMode, mode);
 
     PaintAreas areas;
-    areas.calculate(targetArea, frameSize, pixelAspectRatio, displayAspectRatio);
+    areas.calculate(targetArea, frameSize, pixelAspectRatio, displayAspectRatio, mode);
     QCOMPARE(areas.targetArea, targetArea);
     QCOMPARE(areas.videoArea, videoArea);
     QCOMPARE(areas.blackArea1, blackArea1);
@@ -346,6 +363,7 @@ void QtVideoSinkTest::genericSurfacePainterFormatsTest()
     PaintAreas areas;
     areas.targetArea = QRectF(QPointF(0,0), bufferFormat.frameSize());
     areas.videoArea = areas.targetArea;
+    areas.sourceRect = QRectF(0, 0, 1, 1);
 
     GenericSurfacePainter genericSurfacePainter;
     QVERIFY(genericSurfacePainter.supportsFormat(format));
@@ -359,32 +377,41 @@ void QtVideoSinkTest::genericSurfacePainterFormatsTest()
     targetImage.fill(Qt::black);
     QPainter painter(&targetImage);
 
-    GstBufferPtr buffer(generateTestBuffer(format, 4)); //pattern = red
-    QVERIFY(!buffer.isNull());
+    GstSamplePtr sample(generateTestSample(format, 4)); //pattern = red
+    QVERIFY(!sample.isNull());
+    GstBuffer *buffer = gst_sample_get_buffer(sample.data());
+    QVERIFY(buffer);
+    GstMapInfo info;
+    QVERIFY(gst_buffer_map(buffer, &info, GST_MAP_READ));
     genericSurfacePainter.paint(
-        GST_BUFFER_DATA(buffer.data()),
+        info.data,
         bufferFormat,
-        areas.targetArea,
         &painter,
         areas);
     QCOMPARE(targetImage.pixel(50, 50), qRgb(255, 0, 0));
+    gst_buffer_unmap(buffer, &info);
 
-    buffer.reset(generateTestBuffer(format, 5)); //pattern = green
-    QVERIFY(!buffer.isNull());
+    sample.reset(generateTestSample(format, 5)); //pattern = green
+    QVERIFY(!sample.isNull());
+    buffer = gst_sample_get_buffer(sample.data());
+    QVERIFY(buffer);
+    QVERIFY(gst_buffer_map(buffer, &info, GST_MAP_READ));
     genericSurfacePainter.paint(
-        GST_BUFFER_DATA(buffer.data()),
+        info.data,
         bufferFormat,
-        areas.targetArea,
         &painter,
         areas);
     QCOMPARE(targetImage.pixel(50, 50), qRgb(0, 255, 0));
+    gst_buffer_unmap(buffer, &info);
 
-    buffer.reset(generateTestBuffer(format, 6)); //pattern = blue
-    QVERIFY(!buffer.isNull());
+    sample.reset(generateTestSample(format, 6)); //pattern = blue
+    QVERIFY(!sample.isNull());
+    buffer = gst_sample_get_buffer(sample.data());
+    QVERIFY(buffer);
+    QVERIFY(gst_buffer_map(buffer, &info, GST_MAP_READ));
     genericSurfacePainter.paint(
-        GST_BUFFER_DATA(buffer.data()),
+        info.data,
         bufferFormat,
-        areas.targetArea,
         &painter,
         areas);
     QCOMPARE(targetImage.pixel(50, 50), qRgb(0, 0, 255));
@@ -392,12 +419,12 @@ void QtVideoSinkTest::genericSurfacePainterFormatsTest()
 
     QBENCHMARK {
         genericSurfacePainter.paint(
-            GST_BUFFER_DATA(buffer.data()),
+            info.data,
             bufferFormat,
-            areas.targetArea,
             &painter,
             areas);
     }
+    gst_buffer_unmap(buffer, &info);
 }
 
 //------------------------------------
@@ -429,11 +456,11 @@ void QtVideoSinkTest::glSurfacePainterFormatsTest()
     QVERIFY(format != GST_VIDEO_FORMAT_UNKNOWN);
 
     if (glsl && !haveGlsl) {
-        QSKIP("Skipping because the system does not support GLSL", SkipSingle);
+        QSKIP_PORT("Skipping because the system does not support GLSL", SkipSingle);
     }
 
     if (!glsl && !haveArbFp) {
-        QSKIP("Skipping because the system does not support ARB Fragment Programs", SkipSingle);
+        QSKIP_PORT("Skipping because the system does not support ARB Fragment Programs", SkipSingle);
     }
 
     GstCaps *caps = BufferFormat::newCaps(format, QSize(100, 100), Fraction(1, 1), Fraction(1, 1));
@@ -443,6 +470,7 @@ void QtVideoSinkTest::glSurfacePainterFormatsTest()
     PaintAreas areas;
     areas.targetArea = QRectF(QPointF(0,0), bufferFormat.frameSize());
     areas.videoArea = areas.targetArea;
+    areas.sourceRect = QRectF(0, 0, 1, 1);
 
     QGLPixelBuffer pixelBuffer(100, 100);
     pixelBuffer.makeCurrent();
@@ -467,12 +495,16 @@ void QtVideoSinkTest::glSurfacePainterFormatsTest()
     glSurfacePainter->updateColors(0, 0, 0, 0);
     QPainter painter(&pixelBuffer);
 
-    GstBufferPtr buffer(generateTestBuffer(format, 4)); //pattern = red
-    QVERIFY(!buffer.isNull());
+    GstSamplePtr sample(generateTestSample(format, 4)); //pattern = red
+    QVERIFY(!sample.isNull());
+    GstMapInfo info;
+    GstBuffer *buffer = gst_sample_get_buffer(sample.data());
+    QVERIFY(buffer);
+
+    QVERIFY(gst_buffer_map(buffer, &info, GST_MAP_READ));
     glSurfacePainter->paint(
-        GST_BUFFER_DATA(buffer.data()),
+        info.data,
         bufferFormat,
-        areas.targetArea,
         &painter,
         areas);
     QRgb pixel1 = pixelBuffer.toImage().pixel(50, 50);
@@ -483,13 +515,16 @@ void QtVideoSinkTest::glSurfacePainterFormatsTest()
                 qRed(pixel2), qGreen(pixel2), qBlue(pixel2));
         QFAIL("Failing due to differences in the compared images");
     }
+    gst_buffer_unmap(buffer, &info);
 
-    buffer.reset(generateTestBuffer(format, 5)); //pattern = green
-    QVERIFY(!buffer.isNull());
+    sample.reset(generateTestSample(format, 5)); //pattern = green
+    QVERIFY(!sample.isNull());
+    buffer = gst_sample_get_buffer(sample.data());
+    QVERIFY(buffer);
+    QVERIFY(gst_buffer_map(buffer, &info, GST_MAP_READ));
     glSurfacePainter->paint(
-        GST_BUFFER_DATA(buffer.data()),
+        info.data,
         bufferFormat,
-        areas.targetArea,
         &painter,
         areas);
     pixel1 = pixelBuffer.toImage().pixel(50, 50);
@@ -499,13 +534,16 @@ void QtVideoSinkTest::glSurfacePainterFormatsTest()
                 qRed(pixel1), qGreen(pixel1), qBlue(pixel1),
                 qRed(pixel2), qGreen(pixel2), qBlue(pixel2));
     }
+    gst_buffer_unmap(buffer, &info);
 
-    buffer.reset(generateTestBuffer(format, 6)); //pattern = blue
-    QVERIFY(!buffer.isNull());
+    sample.reset(generateTestSample(format, 6)); //pattern = blue
+    QVERIFY(!sample.isNull());
+    buffer = gst_sample_get_buffer(sample.data());
+    QVERIFY(buffer);
+    QVERIFY(gst_buffer_map(buffer, &info, GST_MAP_READ));
     glSurfacePainter->paint(
-        GST_BUFFER_DATA(buffer.data()),
+        info.data,
         bufferFormat,
-        areas.targetArea,
         &painter,
         areas);
     pixel1 = pixelBuffer.toImage().pixel(50, 50);
@@ -519,12 +557,13 @@ void QtVideoSinkTest::glSurfacePainterFormatsTest()
 
     QBENCHMARK {
         glSurfacePainter->paint(
-            GST_BUFFER_DATA(buffer.data()),
+            info.data,
             bufferFormat,
-            areas.targetArea,
             &painter,
             areas);
     }
+    gst_buffer_unmap(buffer, &info);
+
 }
 
 #endif
@@ -613,7 +652,7 @@ void QtVideoSinkTest::qtVideoSinkTest()
             QVERIFY(context != 0);
         } else
 #endif
-            QSKIP("Skipping because we have no OpenGL support", SkipSingle);
+            QSKIP_PORT("Skipping because we have no OpenGL support", SkipSingle);
     } else {
         widget.reset(new VideoWidget);
     }
@@ -749,12 +788,16 @@ void QtVideoSinkTest::qtVideoSinkTest()
         QVERIFY(w);
         w->setVideoSink(GST_ELEMENT(g_object_ref(qtvideosink.data())));
     }
-    widget->setWindowTitle("qtvideosink");
+    widget->setWindowTitle(G_STRINGIFY(QTVIDEOSINK_NAME));
     widget->resize(widgetSize);
     widget->show();
     widget->raise();
 
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+    QTest::qWaitForWindowExposed(widget.data()->windowHandle());
+#else
     QTest::qWaitForWindowShown(widget.data());
+#endif
 
     GstStateChangeReturn stateReturn = gst_element_set_state(
             GST_ELEMENT(pipeline.data()), GST_STATE_PAUSED);
@@ -769,16 +812,24 @@ void QtVideoSinkTest::qtVideoSinkTest()
     //and wait a bit for X/window manager/GPU/whatever to actually render the window
     QTest::qWait(1000);
 
-    GstBuffer *bufferPtr = NULL;
-    gst_child_proxy_get(GST_OBJECT(pipeline.data()), "fakesink::last-buffer", &bufferPtr, NULL);
+    GstSample *samplePtr = NULL;
+    gst_child_proxy_get(GST_CHILD_PROXY(pipeline.data()), "fakesink::last-sample", &samplePtr, NULL);
 
-    GstBufferPtr buffer(bufferPtr);
+    GstSamplePtr sample(samplePtr);
+    GstMapInfo info;
+    QVERIFY(!sample.isNull());
+    GstBuffer *buffer = gst_sample_get_buffer(sample.data());
     QVERIFY(buffer);
+    QVERIFY(gst_buffer_map(buffer, &info, GST_MAP_READ));
 
-    { //increased scope so that expectedImage gets deleted before the buffer
-        QImage expectedImage(GST_BUFFER_DATA(buffer.data()),
+    { //increased scope so that expectedImage gets deleted before the sample
+        // replacing gst_video_format_get_row_stride(imageFormat, 0, widgetSize.width())
+        const GstVideoFormatInfo *video_info = gst_video_format_get_info(imageFormat);
+        QVERIFY(video_info);
+
+        QImage expectedImage(info.data,
                 widgetSize.width(), widgetSize.height(),
-                gst_video_format_get_row_stride(imageFormat, 0, widgetSize.width()),
+                GST_VIDEO_FORMAT_INFO_PSTRIDE(video_info, 0) * widgetSize.width(),
                 QImage::Format_ARGB32);
         QImage actualImage = QPixmap::grabWindow(widget->winId()).toImage();
 
@@ -812,6 +863,7 @@ void QtVideoSinkTest::qtVideoSinkTest()
 #endif
 
         imageCompare(actualImage, expectedImage, forceAspectRatio ? sourceSize : QSize());
+        gst_buffer_unmap(buffer, &info);
     }
 }
 
@@ -826,15 +878,15 @@ void QtVideoSinkTest::qtVideoSinkTest()
         gst_bin_add(GST_BIN(pipeline.data()), variable); \
     }
 
-GstBuffer* QtVideoSinkTest::generateTestBuffer(GstVideoFormat format, int pattern)
+GstSample* QtVideoSinkTest::generateTestSample(GstVideoFormat format, int pattern)
 {
-    GstPipelinePtr pipeline(GST_PIPELINE(gst_pipeline_new("generate-test-buffer-pipeline")));
+    GstPipelinePtr pipeline(GST_PIPELINE(gst_pipeline_new("generate-test-sample-pipeline")));
     if (!pipeline) {
         return NULL;
     }
 
     MAKE_ELEMENT(videotestsrc, "videotestsrc");
-    MAKE_ELEMENT(ffmpegcolorspace, "ffmpegcolorspace");
+    MAKE_ELEMENT(videoconvert, "videoconvert");
     MAKE_ELEMENT(capsfilter, "capsfilter");
     MAKE_ELEMENT(fakesink, "fakesink");
 
@@ -843,10 +895,10 @@ GstBuffer* QtVideoSinkTest::generateTestBuffer(GstVideoFormat format, int patter
     gst_caps_unref(caps);
 
     g_object_set(videotestsrc, "pattern", pattern, NULL);
-    g_object_set(fakesink, "enable-last-buffer", TRUE, NULL);
+    g_object_set(fakesink, "enable-last-sample", TRUE, NULL);
 
-    if (!gst_element_link_many(videotestsrc, ffmpegcolorspace, capsfilter, fakesink, NULL)) {
-        QWARN("Failed to link generate-test-buffer-pipeline");
+    if (!gst_element_link_many(videotestsrc, videoconvert, capsfilter, fakesink, NULL)) {
+        QWARN("Failed to link generate-test-sample-pipeline");
         return NULL;
     }
 
@@ -856,13 +908,13 @@ GstBuffer* QtVideoSinkTest::generateTestBuffer(GstVideoFormat format, int patter
     GstStateChangeReturn stateReturn = gst_element_get_state(GST_ELEMENT(pipeline.data()),
                                                              &state, NULL, 10 * GST_SECOND);
     if (stateReturn != GST_STATE_CHANGE_SUCCESS || state != GST_STATE_PAUSED) {
-        QWARN("Failed to set generate-test-buffer-pipeline to PAUSED");
+        QWARN("Failed to set generate-test-sample-pipeline to PAUSED");
         return NULL;
     }
 
-    GstBuffer *bufferPtr = NULL;
-    g_object_get(fakesink, "last-buffer", &bufferPtr, NULL);
-    return bufferPtr;
+    GstSample *samplePtr = NULL;
+    g_object_get(fakesink, "last-sample", &samplePtr, NULL);
+    return samplePtr;
 }
 
 GstPipeline *QtVideoSinkTest::constructPipeline(GstCaps *caps,
@@ -878,10 +930,11 @@ GstPipeline *QtVideoSinkTest::constructPipeline(GstCaps *caps,
     MAKE_ELEMENT(tee, "tee");
 
     MAKE_ELEMENT(queue, "queue");
-    MAKE_ELEMENT(qtvideosink, context ? "qtglvideosink" : "qtvideosink");
+    MAKE_ELEMENT(qtvideosink, context ?
+        G_STRINGIFY(QTGLVIDEOSINK_NAME) : G_STRINGIFY(QTVIDEOSINK_NAME));
 
     MAKE_ELEMENT(queue2, "queue");
-    MAKE_ELEMENT(colorspace, "ffmpegcolorspace");
+    MAKE_ELEMENT(colorspace, "videoconvert");
     MAKE_ELEMENT(videoscale, "videoscale");
     MAKE_ELEMENT(capsfilter2, "capsfilter");
     MAKE_ELEMENT(fakesink, "fakesink");
@@ -889,7 +942,7 @@ GstPipeline *QtVideoSinkTest::constructPipeline(GstCaps *caps,
     g_object_set(videotestsrc, "pattern", 19, NULL); //color bars
     g_object_set(capsfilter, "caps", caps, NULL);
     g_object_set(capsfilter2, "caps", fakesinkCaps, NULL);
-    g_object_set(fakesink, "enable-last-buffer", TRUE, NULL);
+    g_object_set(fakesink, "enable-last-sample", TRUE, NULL);
 
     if (context) {
         g_object_set(qtvideosink, "glcontext", context, NULL);
@@ -908,7 +961,7 @@ GstPipeline *QtVideoSinkTest::constructPipeline(GstCaps *caps,
         return NULL;
     }
 
-    if (!gst_element_link_pads(tee, "src%d", queue, "sink")) {
+    if (!gst_element_link_pads(tee, "src_%u", queue, "sink")) {
         QWARN("Failed to link tee to qtvideosink");
         return NULL;
     }
@@ -918,7 +971,7 @@ GstPipeline *QtVideoSinkTest::constructPipeline(GstCaps *caps,
         return NULL;
     }
 
-    if (!gst_element_link_pads(tee, "src%d", queue2, "sink")) {
+    if (!gst_element_link_pads(tee, "src_%u", queue2, "sink")) {
         QWARN("Failed to link tee to fakesink branch");
         return NULL;
     }
@@ -936,7 +989,7 @@ void QtVideoSinkTest::imageCompare(const QImage & image1, const QImage & image2,
     QRect barsArea;
     if (sourceSize.isValid() && sourceSize != image1.size()) {
         PaintAreas areas;
-        areas.calculate(image1.rect(), sourceSize, Fraction(1,1), Fraction(1,1));
+        areas.calculate(image1.rect(), sourceSize, Fraction(1,1), Fraction(1,1), Qt::KeepAspectRatio);
         barsArea = areas.videoArea.toRect();
     } else {
         barsArea = image1.rect();
@@ -945,8 +998,8 @@ void QtVideoSinkTest::imageCompare(const QImage & image1, const QImage & image2,
     // do not compare scaling artifacts - this algorithm depends on videotestsrc's pattern 19
     qreal colorChangePoint = barsArea.width() / 7.0;
 
-    // omit 6% of the pixels before and after the color change
-    int area = qRound(colorChangePoint * 0.06);
+    // omit 9% of the pixels before and after the color change
+    int area = qRound(colorChangePoint * 0.09);
     hStartStopPoints.append(barsArea.left() + 2);
     for (int i = 1; i < 7; i++) {
         hStartStopPoints.append(barsArea.left() + int(colorChangePoint * i) - area);

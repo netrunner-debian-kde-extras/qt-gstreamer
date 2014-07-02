@@ -16,11 +16,16 @@
 */
 
 #include "gstqtvideosinkbase.h"
-#include "qtvideosinkdelegate.h"
-#include "genericsurfacepainter.h"
+#include "delegates/qtvideosinkdelegate.h"
+#include "painters/genericsurfacepainter.h"
 #include <cstring>
-#include <QtCore/QCoreApplication>
+#include <QCoreApplication>
 
+#if Q_BYTE_ORDER == Q_BIG_ENDIAN
+# define CAPS_FORMATS "{ ARGB, xRGB, RGB, RGB16 }"
+#else
+# define CAPS_FORMATS "{ BGRA, BGRx, RGB, RGB16 }"
+#endif
 
 GstVideoSinkClass *GstQtVideoSinkBase::s_parent_class = NULL;
 
@@ -34,13 +39,7 @@ void GstQtVideoSinkBase::base_init(gpointer g_class)
 
     static GstStaticPadTemplate sink_pad_template =
         GST_STATIC_PAD_TEMPLATE("sink", GST_PAD_SINK, GST_PAD_ALWAYS,
-            GST_STATIC_CAPS(
-                "video/x-raw-rgb, "
-                "framerate = (fraction) [ 0, MAX ], "
-                "width = (int) [ 1, MAX ], "
-                "height = (int) [ 1, MAX ]"
-                "; "
-            )
+            GST_STATIC_CAPS (GST_VIDEO_CAPS_MAKE (CAPS_FORMATS))
         );
 
     gst_element_class_add_pad_template(
@@ -62,7 +61,6 @@ void GstQtVideoSinkBase::class_init(gpointer g_class, gpointer class_data)
     element_class->change_state = GstQtVideoSinkBase::change_state;
 
     GstBaseSinkClass *base_sink_class = GST_BASE_SINK_CLASS(g_class);
-    base_sink_class->get_caps = GstQtVideoSinkBase::get_caps;
     base_sink_class->set_caps = GstQtVideoSinkBase::set_caps;
 
     GstVideoSinkClass *video_sink_class = GST_VIDEO_SINK_CLASS(g_class);
@@ -94,10 +92,9 @@ void GstQtVideoSinkBase::class_init(gpointer g_class, gpointer class_data)
 
 void GstQtVideoSinkBase::init(GTypeInstance *instance, gpointer g_class)
 {
-    GstQtVideoSinkBase *sink = GST_QT_VIDEO_SINK_BASE(instance);
+    Q_UNUSED(instance);
     Q_UNUSED(g_class);
 
-    sink->formatDirty = true;
     /* sink->delegate is initialized in the subclasses */
 }
 
@@ -189,26 +186,19 @@ GstStateChangeReturn GstQtVideoSinkBase::change_state(GstElement *element, GstSt
 
 //------------------------------
 
-GstCaps *GstQtVideoSinkBase::get_caps(GstBaseSink *base)
-{
-    Q_UNUSED(base);
-
-    GstCaps *caps = gst_caps_new_empty();
-
-    Q_FOREACH(GstVideoFormat format, GenericSurfacePainter::supportedPixelFormats()) {
-        gst_caps_append(caps, BufferFormat::newTemplateCaps(format));
-    }
-
-    return caps;
-}
-
 gboolean GstQtVideoSinkBase::set_caps(GstBaseSink *base, GstCaps *caps)
 {
     GstQtVideoSinkBase *sink = GST_QT_VIDEO_SINK_BASE(base);
 
     GST_LOG_OBJECT(sink, "new caps %" GST_PTR_FORMAT, caps);
-    sink->formatDirty = true;
-    return TRUE;
+    BufferFormat format = BufferFormat::fromCaps(caps);
+    if (GenericSurfacePainter::supportedPixelFormats().contains(format.videoFormat())) {
+        QCoreApplication::postEvent(sink->delegate,
+                                    new BaseDelegate::BufferFormatEvent(format));
+        return TRUE;
+    } else {
+        return FALSE;
+    }
 }
 
 //------------------------------
@@ -217,12 +207,9 @@ GstFlowReturn GstQtVideoSinkBase::show_frame(GstVideoSink *video_sink, GstBuffer
 {
     GstQtVideoSinkBase *sink = GST_QT_VIDEO_SINK_BASE(video_sink);
 
-    GST_TRACE_OBJECT(sink, "Posting new buffer (%"GST_PTR_FORMAT") for rendering. "
-                           "Format dirty: %d", buffer, (int)sink->formatDirty);
+    GST_TRACE_OBJECT(sink, "Posting new buffer (%"GST_PTR_FORMAT") for rendering.", buffer);
 
-    QCoreApplication::postEvent(sink->delegate,
-            new QtVideoSinkDelegate::BufferEvent(buffer, sink->formatDirty));
+    QCoreApplication::postEvent(sink->delegate, new BaseDelegate::BufferEvent(buffer));
 
-    sink->formatDirty = false;
     return GST_FLOW_OK;
 }
