@@ -139,6 +139,7 @@ Package: qtgstreamer-dbg
 Section: debug
 Priority: extra
 Architecture: any
+Multi-Arch: same
 Depends: ${misc:Depends},
          libqtglib-2.0-0 (= ${binary:Version}),
          libqtgstreamer-1.0-0 (= ${binary:Version}),
