@@ -1,4 +1,4 @@
-# SymbolsHelper-Confirmed: 0.10.2 amd64
+# SymbolsHelper-Confirmed: 1.1.90 amd64
 libQtGLib-2.0.so.0 libqtglib-2.0-0 #MINVER#
 * Build-Depends-Package: libqtgstreamer-dev
  _ZN5QGlib10ObjectBase11setPropertyEPKcRKNS_5ValueE@Base 0.10.1
@@ -8,6 +8,7 @@ libQtGLib-2.0.so.0 libqtglib-2.0-0 #MINVER#
  _ZN5QGlib10ObjectBase7setDataEPKcPvPFvS3_E@Base 0.10.1
  _ZN5QGlib11GetTypeImplI6QFlagsINS_9ParamSpec9ParamFlagEEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplINS_4TypeEEcvS1_Ev@Base 0.10.1
+ _ZN5QGlib11GetTypeImplINS_5ErrorEEcvNS_4TypeEEv@Base 1.1.90
  _ZN5QGlib11GetTypeImplINS_5ValueEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplINS_6ObjectEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplINS_9InterfaceEEcvNS_4TypeEEv@Base 0.10.1
@@ -17,6 +18,7 @@ libQtGLib-2.0.so.0 libqtglib-2.0-0 #MINVER#
  _ZN5QGlib4Type12setQuarkDataERKNS_5QuarkEPv@Base 0.10.1
  _ZN5QGlib4Type8fromNameEPKc@Base 0.10.1
  _ZN5QGlib4initEv@Base 0.10.1
+ _ZN5QGlib5Error4copyEP7_GError@Base 1.1.90
  _ZN5QGlib5ErrorC1ENS_5QuarkEiRK7QString@Base 0.10.1
  _ZN5QGlib5ErrorC1EP7_GError@Base 0.10.1
  _ZN5QGlib5ErrorC1ERKS0_@Base 0.10.1
@@ -163,7 +165,6 @@ libQtGLib-2.0.so.0 libqtglib-2.0-0 #MINVER#
  _ZNK5QGlib5Quark8toStringEv@Base 0.10.1
  _ZNK5QGlib5Value11transformToENS_4TypeE@Base 0.10.1
  _ZNK5QGlib5Value14canTransformToENS_4TypeE@Base 0.10.1
- (optional=templinst)_ZNK5QGlib5Value3getI7QStringEET_Pb@Base 0.10.1
  _ZNK5QGlib5Value4typeEv@Base 0.10.1
  _ZNK5QGlib5Value7getDataENS_4TypeEPv@Base 0.10.1
  _ZNK5QGlib5Value7isValidEv@Base 0.10.1
@@ -183,10 +184,6 @@ libQtGLib-2.0.so.0 libqtglib-2.0-0 #MINVER#
  _ZNK5QGlib9ParamSpec9ownerTypeEv@Base 0.10.1
  _ZNK5QGlib9ParamSpec9quarkDataERKNS_5QuarkE@Base 0.10.1
  _ZNK5QGlib9ParamSpec9valueTypeEv@Base 0.10.1
- (optional=templinst)_ZSt13__adjust_heapIPN5boost11multi_index6detail14copy_map_entryINS2_20sequenced_index_nodeINS2_18ordered_index_nodeINS5_INS5_INS2_15index_node_baseIN5QGlib7Private16ConnectionsStore10ConnectionESaISA_EEEEEEEEEEEEElSH_EvT_T0_SK_T1_@Base 0.10.1
- (optional=templinst)_ZSt16__insertion_sortIPN5boost11multi_index6detail14copy_map_entryINS2_20sequenced_index_nodeINS2_18ordered_index_nodeINS5_INS5_INS2_15index_node_baseIN5QGlib7Private16ConnectionsStore10ConnectionESaISA_EEEEEEEEEEEEEEvT_SJ_@Base 0.10.1
- (optional=templinst)_ZSt16__introsort_loopIPN5boost11multi_index6detail14copy_map_entryINS2_20sequenced_index_nodeINS2_18ordered_index_nodeINS5_INS5_INS2_15index_node_baseIN5QGlib7Private16ConnectionsStore10ConnectionESaISA_EEEEEEEEEEEEElEvT_SJ_T0_@Base 0.10.1
- (optional=templinst)_ZSt19__move_median_firstIPN5boost11multi_index6detail14copy_map_entryINS2_20sequenced_index_nodeINS2_18ordered_index_nodeINS5_INS5_INS2_15index_node_baseIN5QGlib7Private16ConnectionsStore10ConnectionESaISA_EEEEEEEEEEEEEEvT_SJ_SJ_@Base 0.10.1
  (optional=templinst)_ZStplIcSt11char_traitsIcESaIcEESbIT_T0_T1_EPKS3_RKS6_@Base 0.10.1
  _ZTIN5QGlib10ObjectBaseE@Base 0.10.1
  _ZTIN5QGlib16RefCountedObjectE@Base 0.10.1

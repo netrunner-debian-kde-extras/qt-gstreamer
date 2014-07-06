@@ -1,0 +1,4 @@
+# SymbolsHelper-Confirmed: 1.1.90 amd64
+libQtGStreamerQuick1.so qtgstreamer-declarative #MINVER#
+ qt_plugin_instance@Base 1.1.90
+ qt_plugin_query_verification_data@Base 1.1.90

@@ -1,17 +1,15 @@
-# SymbolsHelper-Confirmed: 0.10.1 amd64
+# SymbolsHelper-Confirmed: 1.1.90 amd64
 libQtGStreamerUtils-1.0.so.0 libqtgstreamerutils-1.0-0 #MINVER#
 * Build-Depends-Package: libqtgstreamer-dev
  _ZN4QGst5Utils15ApplicationSink10enableDropEb@Base 0.10.1
  _ZN4QGst5Utils15ApplicationSink10newPrerollEv@Base 0.10.1
- _ZN4QGst5Utils15ApplicationSink10pullBufferEv@Base 0.10.1
+ _ZN4QGst5Utils15ApplicationSink10pullSampleEv@Base 1.1.90
  _ZN4QGst5Utils15ApplicationSink10setElementERKN5QGlib10RefPointerINS_7ElementEEE@Base 0.10.1
  _ZN4QGst5Utils15ApplicationSink11pullPrerollEv@Base 0.10.1
- _ZN4QGst5Utils15ApplicationSink13newBufferListEv@Base 0.10.1
  _ZN4QGst5Utils15ApplicationSink13setMaxBuffersEj@Base 0.10.1
- _ZN4QGst5Utils15ApplicationSink14pullBufferListEv@Base 0.10.1
  _ZN4QGst5Utils15ApplicationSink3eosEv@Base 0.10.1
  _ZN4QGst5Utils15ApplicationSink7setCapsERKN5QGlib10RefPointerINS_4CapsEEE@Base 0.10.1
- _ZN4QGst5Utils15ApplicationSink9newBufferEv@Base 0.10.1
+ _ZN4QGst5Utils15ApplicationSink9newSampleEv@Base 1.1.90
  _ZN4QGst5Utils15ApplicationSinkC1Ev@Base 0.10.1
  _ZN4QGst5Utils15ApplicationSinkC2Ev@Base 0.10.1
  _ZN4QGst5Utils15ApplicationSinkD0Ev@Base 0.10.1

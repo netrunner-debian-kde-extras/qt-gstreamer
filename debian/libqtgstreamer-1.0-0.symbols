@@ -1,7 +1,12 @@
-# SymbolsHelper-Confirmed: 0.10.2 amd64
+# SymbolsHelper-Confirmed: 1.1.90 amd64
 libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
 * Build-Depends-Package: libqtgstreamer-dev
  _ZN4QGst10BufferList6createEv@Base 0.10.1
+ _ZN4QGst10Discoverer11discoverUriEPKc@Base 1.1.90
+ _ZN4QGst10Discoverer16discoverUriAsyncEPKc@Base 1.1.90
+ _ZN4QGst10Discoverer4stopEv@Base 1.1.90
+ _ZN4QGst10Discoverer5startEv@Base 1.1.90
+ _ZN4QGst10Discoverer6createENS_9ClockTimeE@Base 1.1.90
  _ZN4QGst10EosMessage6createERKN5QGlib10RefPointerINS_6ObjectEEE@Base 0.10.1
  _ZN4QGst10MiniObject3refEb@Base 0.10.1
  _ZN4QGst10MiniObject5unrefEv@Base 0.10.1
@@ -24,11 +29,18 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZN4QGst12LatencyQuery9setValuesEbNS_9ClockTimeES1_@Base 0.10.1
  _ZN4QGst12SeekingQuery6createENS_6FormatE@Base 0.10.1
  _ZN4QGst12SeekingQuery9setValuesENS_6FormatEbxx@Base 0.10.1
+ _ZN4QGst12SegmentEvent6createERKNS_7SegmentE@Base 1.1.90
  _ZN4QGst12SegmentQuery6createENS_6FormatE@Base 0.10.1
  _ZN4QGst12SegmentQuery9setValuesENS_6FormatEdxx@Base 0.10.1
  _ZN4QGst12StreamVolume7convertENS_18StreamVolumeFormatES1_d@Base 0.10.1
  _ZN4QGst12StreamVolume8setMutedEb@Base 0.10.1
  _ZN4QGst12StreamVolume9setVolumeEdNS_18StreamVolumeFormatE@Base 0.10.1
+ _ZN4QGst12VideoOverlay15setWindowHandleEm@Base 1.1.90
+ _ZN4QGst12VideoOverlay18setRenderRectangleERK5QRect@Base 1.1.90
+ _ZN4QGst12VideoOverlay18setRenderRectangleEiiii@Base 1.1.90
+ _ZN4QGst12VideoOverlay19enableEventHandlingEb@Base 1.1.90
+ _ZN4QGst12VideoOverlay28isPrepareWindowHandleMessageERKN5QGlib10RefPointerINS_7MessageEEE@Base 1.1.90
+ _ZN4QGst12VideoOverlay6exposeEv@Base 1.1.90
  _ZN4QGst13DurationQuery6createENS_6FormatE@Base 0.10.1
  _ZN4QGst13DurationQuery9setValuesENS_6FormatEx@Base 0.10.1
  _ZN4QGst13PluginFeature4loadEv@Base 0.10.1
@@ -36,10 +48,6 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZN4QGst13PluginFeature7setRankEj@Base 0.10.1
  _ZN4QGst13PositionQuery6createENS_6FormatE@Base 0.10.1
  _ZN4QGst13PositionQuery9setValuesENS_6FormatEx@Base 0.10.1
- _ZN4QGst13PropertyProbe17probeAndGetValuesEPKc@Base 0.10.1
- _ZN4QGst13PropertyProbe17probeAndGetValuesERKN5QGlib10RefPointerINS1_9ParamSpecEEE@Base 0.10.1
- _ZN4QGst13PropertyProbe5probeEPKc@Base 0.10.1
- _ZN4QGst13PropertyProbe5probeERKN5QGlib10RefPointerINS1_9ParamSpecEEE@Base 0.10.1
  _ZN4QGst14BufferingQuery17setBufferingRangeENS_6FormatExxx@Base 0.10.1
  _ZN4QGst14BufferingQuery17setBufferingStatsENS_13BufferingModeEiix@Base 0.10.1
  _ZN4QGst14BufferingQuery19setBufferingPercentEbi@Base 0.10.1
@@ -47,44 +55,45 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZN4QGst14ElementFactory4findEPKc@Base 0.10.1
  _ZN4QGst14ElementFactory4makeEPKcS2_@Base 0.10.1
  _ZN4QGst14ElementMessage6createERKN5QGlib10RefPointerINS_6ObjectEEERKNS_9StructureE@Base 0.10.1
- _ZN4QGst14FlushStopEvent6createEv@Base 0.10.1
+ _ZN4QGst14FlushStopEvent6createEb@Base 1.1.90
  _ZN4QGst14LatencyMessage6createERKN5QGlib10RefPointerINS_6ObjectEEE@Base 0.10.1
  _ZN4QGst14WarningMessage6createERKN5QGlib10RefPointerINS_6ObjectEEERKNS1_5ErrorEPKc@Base 0.10.1
  _ZN4QGst15BufferSizeEvent6createENS_6FormatExxb@Base 0.10.1
- _ZN4QGst15DurationMessage6createERKN5QGlib10RefPointerINS_6ObjectEEENS_6FormatEx@Base 0.10.1
  _ZN4QGst15FlushStartEvent6createEv@Base 0.10.1
  _ZN4QGst15NavigationEvent6createERKNS_9StructureE@Base 0.10.1
- _ZN4QGst15NewSegmentEvent6createEbddNS_6FormatExxx@Base 0.10.1
  _ZN4QGst15SharedStructureD0Ev@Base 0.10.1
  _ZN4QGst15SharedStructureD1Ev@Base 0.10.1
  _ZN4QGst15SharedStructureD2Ev@Base 0.10.1
  _ZN4QGst15StepDoneMessage6createERKN5QGlib10RefPointerINS_6ObjectEEENS_6FormatEydbbyb@Base 0.10.1
- _ZN4QGst16AsyncDoneMessage6createERKN5QGlib10RefPointerINS_6ObjectEEE@Base 0.10.1
+ _ZN4QGst16AllocationParams10setPaddingEm@Base 1.1.90
+ _ZN4QGst16AllocationParams8setAlignEm@Base 1.1.90
+ _ZN4QGst16AllocationParams8setFlagsE6QFlagsINS_10MemoryFlagEE@Base 1.1.90
+ _ZN4QGst16AllocationParams9setPrefixEm@Base 1.1.90
+ _ZN4QGst16AllocationParamsC1ERKS0_@Base 1.1.90
+ _ZN4QGst16AllocationParamsC1Ev@Base 1.1.90
+ _ZN4QGst16AllocationParamsC2ERKS0_@Base 1.1.90
+ _ZN4QGst16AllocationParamsC2Ev@Base 1.1.90
+ _ZN4QGst16AllocationParamsD0Ev@Base 1.1.90
+ _ZN4QGst16AllocationParamsD1Ev@Base 1.1.90
+ _ZN4QGst16AllocationParamsD2Ev@Base 1.1.90
+ _ZN4QGst16AllocationParamsaSERKS0_@Base 1.1.90
+ _ZN4QGst16AllocationParamscvP20_GstAllocationParamsEv@Base 1.1.90
+ _ZN4QGst16AsyncDoneMessage6createERKN5QGlib10RefPointerINS_6ObjectEEENS_9ClockTimeE@Base 1.1.90
  _ZN4QGst16BufferingMessage6createERKN5QGlib10RefPointerINS_6ObjectEEEi@Base 0.10.1
  _ZN4QGst16BufferingMessage8setStatsENS_13BufferingModeEiix@Base 0.10.1
- _ZN4QGst16SinkMessageEvent6createERKN5QGlib10RefPointerINS_7MessageEEE@Base 0.10.1
+ _ZN4QGst16SinkMessageEvent6createERK7QStringRKN5QGlib10RefPointerINS_7MessageEEE@Base 1.1.90
  _ZN4QGst16StepStartMessage6createERKN5QGlib10RefPointerINS_6ObjectEEEbNS_6FormatEydbb@Base 0.10.1
  _ZN4QGst16VideoOrientation17setVerticalCenterEi@Base 0.10.1
  _ZN4QGst16VideoOrientation18enableVerticalFlipEb@Base 0.10.1
  _ZN4QGst16VideoOrientation19setHorizontalCenterEi@Base 0.10.1
  _ZN4QGst16VideoOrientation20enableHorizontalFlipEb@Base 0.10.1
  _ZN4QGst18ApplicationMessage6createERKN5QGlib10RefPointerINS_6ObjectEEERKNS_9StructureE@Base 0.10.1
- _ZN4QGst18BufferListIterator4nextEv@Base 0.10.1
- _ZN4QGst18BufferListIterator4takeEv@Base 0.10.1
- _ZN4QGst18BufferListIterator6insertERKN5QGlib10RefPointerINS_6BufferEEE@Base 0.10.1
- _ZN4QGst18BufferListIterator6removeEv@Base 0.10.1
- _ZN4QGst18BufferListIterator7replaceERKN5QGlib10RefPointerINS_6BufferEEE@Base 0.10.1
- _ZN4QGst18BufferListIterator8addGroupEv@Base 0.10.1
- _ZN4QGst18BufferListIterator9nextGroupEv@Base 0.10.1
- _ZN4QGst18BufferListIteratorC1ERKN5QGlib10RefPointerINS_10BufferListEEE@Base 0.10.1
- _ZN4QGst18BufferListIteratorC2ERKN5QGlib10RefPointerINS_10BufferListEEE@Base 0.10.1
- _ZN4QGst18BufferListIteratorD1Ev@Base 0.10.1
- _ZN4QGst18BufferListIteratorD2Ev@Base 0.10.1
  _ZN4QGst18SegmentDoneMessage6createERKN5QGlib10RefPointerINS_6ObjectEEENS_6FormatEx@Base 0.10.1
  _ZN4QGst19RequestStateMessage6createERKN5QGlib10RefPointerINS_6ObjectEEENS_5StateE@Base 0.10.1
  _ZN4QGst19StateChangedMessage6createERKN5QGlib10RefPointerINS_6ObjectEEENS_5StateES7_S7_@Base 0.10.1
  _ZN4QGst19StreamStatusMessage21setStreamStatusObjectERKN5QGlib5ValueE@Base 0.10.1
  _ZN4QGst19StreamStatusMessage6createERKN5QGlib10RefPointerINS_6ObjectEEENS_16StreamStatusTypeERKNS2_INS_7ElementEEE@Base 0.10.1
+ _ZN4QGst22DurationChangedMessage6createERKN5QGlib10RefPointerINS_6ObjectEEE@Base 1.1.90
  _ZN4QGst3Bin15fromDescriptionEPKcNS0_24BinFromDescriptionOptionE@Base 0.10.1
  _ZN4QGst3Bin18recalculateLatencyEv@Base 0.10.1
  _ZN4QGst3Bin3addERKN5QGlib10RefPointerINS_7ElementEEE@Base 0.10.1
@@ -99,29 +108,26 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZN4QGst3Bus3popENS_9ClockTimeE@Base 0.10.1
  _ZN4QGst3Bus4postERKN5QGlib10RefPointerINS_7MessageEEE@Base 0.10.1
  _ZN4QGst3Bus6createEv@Base 0.10.1
- _ZN4QGst3Pad10setBlockedEb@Base 0.10.1
  _ZN4QGst3Pad4linkERKN5QGlib10RefPointerIS0_EE@Base 0.10.1
  _ZN4QGst3Pad5queryERKN5QGlib10RefPointerINS_5QueryEEE@Base 0.10.1
  _ZN4QGst3Pad6createENS_12PadDirectionEPKc@Base 0.10.1
  _ZN4QGst3Pad6unlinkERKN5QGlib10RefPointerIS0_EE@Base 0.10.1
- _ZN4QGst3Pad7setCapsERKN5QGlib10RefPointerINS_4CapsEEE@Base 0.10.1
  _ZN4QGst3Pad9sendEventERKN5QGlib10RefPointerINS_5EventEEE@Base 0.10.1
  _ZN4QGst3Pad9setActiveEb@Base 0.10.2
  _ZN4QGst4Caps10fromStringEPKc@Base 0.10.1
  _ZN4QGst4Caps11createEmptyEv@Base 0.10.1
  _ZN4QGst4Caps12createSimpleEPKc@Base 0.10.1
- _ZN4QGst4Caps14mergeStructureERKNS_9StructureE@Base 0.10.1
+ _ZN4QGst4Caps14mergeStructureERNS_9StructureE@Base 1.1.90
  _ZN4QGst4Caps15appendStructureERKNS_9StructureE@Base 0.10.1
  _ZN4QGst4Caps15removeStructureEj@Base 0.10.1
  _ZN4QGst4Caps17internalStructureEj@Base 0.10.1
- _ZN4QGst4Caps3refEb@Base 0.10.1
- _ZN4QGst4Caps5mergeERKN5QGlib10RefPointerIS0_EE@Base 0.10.1
- _ZN4QGst4Caps5unrefEv@Base 0.10.1
+ _ZN4QGst4Caps5mergeERN5QGlib10RefPointerIS0_EE@Base 1.1.90
  _ZN4QGst4Caps6appendERKN5QGlib10RefPointerIS0_EE@Base 0.10.1
  _ZN4QGst4Caps8setValueEPKcRKN5QGlib5ValueE@Base 0.10.1
  _ZN4QGst4Caps8simplifyEv@Base 0.10.1
  _ZN4QGst4Caps8truncateEv@Base 0.10.1
  _ZN4QGst4Caps9createAnyEv@Base 0.10.1
+ _ZN4QGst4Caps9getNormalEv@Base 1.1.90
  _ZN4QGst4initEPiPPPc@Base 0.10.1
  _ZN4QGst4initEv@Base 0.10.1
  _ZN4QGst5Clock11systemClockEv@Base 0.10.1
@@ -130,14 +136,20 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZN4QGst5Parse6launchEPKc@Base 0.10.1
  _ZN4QGst5Parse6launchEPPKc@Base 0.10.1
  _ZN4QGst5Query17internalStructureEv@Base 0.10.1
+ _ZN4QGst6Buffer3mapERNS_7MapInfoE6QFlagsINS_7MapFlagEE@Base 1.1.90
+ _ZN4QGst6Buffer5unmapERNS_7MapInfoE@Base 1.1.90
  _ZN4QGst6Buffer6createEj@Base 0.10.1
- _ZN4QGst6Buffer7setCapsERKN5QGlib10RefPointerINS_4CapsEEE@Base 0.10.1
+ _ZN4QGst6Buffer7extractEjPvj@Base 1.1.90
+ _ZN4QGst6Buffer7setSizeEj@Base 1.1.90
  _ZN4QGst6Buffer8setFlagsE6QFlagsINS_10BufferFlagEE@Base 0.10.1
+ _ZN4QGst6Memory3mapERNS_7MapInfoE6QFlagsINS_7MapFlagEE@Base 1.1.90
+ _ZN4QGst6Memory5unmapERNS_7MapInfoE@Base 1.1.90
  _ZN4QGst6Object3refEb@Base 0.10.1
  _ZN4QGst6Object5unrefEv@Base 0.10.1
  _ZN4QGst6Object7setNameEPKc@Base 0.10.1
  _ZN4QGst6Object8unparentEv@Base 0.10.1
  _ZN4QGst6Object9setParentERKN5QGlib10RefPointerIS0_EE@Base 0.10.1
+ _ZN4QGst6Sample6createERKN5QGlib10RefPointerINS_6BufferEEERKNS2_INS_4CapsEEERKNS_7SegmentERKNS_9StructureE@Base 1.1.90
  _ZN4QGst7Element12getStaticPadEPKc@Base 0.10.1
  _ZN4QGst7Element13getRequestPadEPKc@Base 0.10.1
  _ZN4QGst7Element14setStateLockedEb@Base 0.10.1
@@ -156,10 +168,28 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZN4QGst7Element8setStateENS_5StateE@Base 0.10.1
  _ZN4QGst7Element9removePadERKN5QGlib10RefPointerINS_3PadEEE@Base 0.10.2
  _ZN4QGst7Element9sendEventERKN5QGlib10RefPointerINS_5EventEEE@Base 0.10.1
+ _ZN4QGst7MapInfoC1Ev@Base 1.1.90
+ _ZN4QGst7MapInfoC2Ev@Base 1.1.90
+ _ZN4QGst7MapInfoD0Ev@Base 1.1.90
+ _ZN4QGst7MapInfoD1Ev@Base 1.1.90
+ _ZN4QGst7MapInfoD2Ev@Base 1.1.90
  _ZN4QGst7Message17internalStructureEv@Base 0.10.1
  _ZN4QGst7Message17setSequenceNumberEj@Base 0.10.1
  _ZN4QGst7Private14wrapMiniObjectEPv@Base 0.10.1
- _ZN4QGst7Private8wrapCapsEPv@Base 0.10.1
+ _ZN4QGst7Segment4initENS_6FormatE@Base 1.1.90
+ _ZN4QGst7SegmentC1ENS_6FormatE@Base 1.1.90
+ _ZN4QGst7SegmentC1EPK11_GstSegment@Base 1.1.90
+ _ZN4QGst7SegmentC1ERKS0_@Base 1.1.90
+ _ZN4QGst7SegmentC1Ev@Base 1.1.90
+ _ZN4QGst7SegmentC2ENS_6FormatE@Base 1.1.90
+ _ZN4QGst7SegmentC2EPK11_GstSegment@Base 1.1.90
+ _ZN4QGst7SegmentC2ERKS0_@Base 1.1.90
+ _ZN4QGst7SegmentC2Ev@Base 1.1.90
+ _ZN4QGst7SegmentD0Ev@Base 1.1.90
+ _ZN4QGst7SegmentD1Ev@Base 1.1.90
+ _ZN4QGst7SegmentD2Ev@Base 1.1.90
+ _ZN4QGst7SegmentaSERKS0_@Base 1.1.90
+ _ZN4QGst7SegmentcvP11_GstSegmentEv@Base 1.1.90
  _ZN4QGst7TagList10setBitrateEj@Base 0.10.1
  _ZN4QGst7TagList10setCommentERK7QStringNS_12TagMergeModeE@Base 0.10.1
  _ZN4QGst7TagList10setContactERK7QStringNS_12TagMergeModeE@Base 0.10.1
@@ -181,7 +211,7 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZN4QGst7TagList12setPerformerERK7QStringNS_12TagMergeModeE@Base 0.10.1
  _ZN4QGst7TagList12setTrackGainEd@Base 0.10.1
  _ZN4QGst7TagList12setTrackPeakEd@Base 0.10.1
- _ZN4QGst7TagList13setAttachmentERKN5QGlib10RefPointerINS_6BufferEEENS_12TagMergeModeE@Base 0.10.1
+ _ZN4QGst7TagList13setAttachmentERKN5QGlib10RefPointerINS_6SampleEEENS_12TagMergeModeE@Base 1.1.90
  _ZN4QGst7TagList13setAudioCodecERK7QString@Base 0.10.1
  _ZN4QGst7TagList13setLicenseUriERK7QString@Base 0.10.1
  _ZN4QGst7TagList13setTrackCountEj@Base 0.10.1
@@ -193,7 +223,7 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZN4QGst7TagList15setCopyrightUriERK7QString@Base 0.10.1
  _ZN4QGst7TagList15setLanguageCodeERK7QString@Base 0.10.1
  _ZN4QGst7TagList15setOrganizationERK7QStringNS_12TagMergeModeE@Base 0.10.1
- _ZN4QGst7TagList15setPreviewImageERKN5QGlib10RefPointerINS_6BufferEEE@Base 0.10.1
+ _ZN4QGst7TagList15setPreviewImageERKN5QGlib10RefPointerINS_6SampleEEE@Base 1.1.90
  _ZN4QGst7TagList15setShowSortNameERK7QString@Base 0.10.1
  _ZN4QGst7TagList16setSubtitleCodecERK7QString@Base 0.10.1
  _ZN4QGst7TagList16setTitleSortNameERK7QString@Base 0.10.1
@@ -205,7 +235,7 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZN4QGst7TagList17setMinimumBitrateEj@Base 0.10.1
  _ZN4QGst7TagList17setNominalBitrateEj@Base 0.10.1
  _ZN4QGst7TagList17setReferenceLevelEd@Base 0.10.1
- _ZN4QGst7TagList18setApplicationDataERKN5QGlib10RefPointerINS_6BufferEEE@Base 0.10.1
+ _ZN4QGst7TagList18setApplicationDataERKN5QGlib10RefPointerINS_6SampleEEE@Base 1.1.90
  _ZN4QGst7TagList18setApplicationNameERK7QString@Base 0.10.1
  _ZN4QGst7TagList18setContainerFormatERK7QString@Base 0.10.1
  _ZN4QGst7TagList18setExtendedCommentERK7QStringNS_12TagMergeModeE@Base 0.10.1
@@ -233,23 +263,23 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZN4QGst7TagList7setIsrcERK7QString@Base 0.10.1
  _ZN4QGst7TagList8setCodecERK7QString@Base 0.10.1
  _ZN4QGst7TagList8setGenreERK7QStringNS_12TagMergeModeE@Base 0.10.1
- _ZN4QGst7TagList8setImageERKN5QGlib10RefPointerINS_6BufferEEENS_12TagMergeModeE@Base 0.10.1
+ _ZN4QGst7TagList8setImageERKN5QGlib10RefPointerINS_6SampleEEENS_12TagMergeModeE@Base 1.1.90
  _ZN4QGst7TagList8setTitleERK7QStringNS_12TagMergeModeE@Base 0.10.1
  _ZN4QGst7TagList9removeTagEPKc@Base 0.10.1
  _ZN4QGst7TagList9setArtistERK7QStringNS_12TagMergeModeE@Base 0.10.1
  _ZN4QGst7TagList9setLyricsERK7QStringNS_12TagMergeModeE@Base 0.10.1
  _ZN4QGst7TagList9setSerialEj@Base 0.10.1
- _ZN4QGst7TagListC1EPK13_GstStructure@Base 0.10.1
+ _ZN4QGst7TagListC1EPK11_GstTagList@Base 1.1.90
  _ZN4QGst7TagListC1ERKS0_@Base 0.10.1
  _ZN4QGst7TagListC1Ev@Base 0.10.1
- _ZN4QGst7TagListC2EPK13_GstStructure@Base 0.10.1
+ _ZN4QGst7TagListC2EPK11_GstTagList@Base 1.1.90
  _ZN4QGst7TagListC2ERKS0_@Base 0.10.1
  _ZN4QGst7TagListC2Ev@Base 0.10.1
  _ZN4QGst7TagListD0Ev@Base 0.10.1
  _ZN4QGst7TagListD1Ev@Base 0.10.1
  _ZN4QGst7TagListD2Ev@Base 0.10.1
  _ZN4QGst7TagListaSERKS0_@Base 0.10.1
- _ZN4QGst7TagListcvP13_GstStructureEv@Base 0.10.1
+ _ZN4QGst7TagListcvP11_GstTagListEv@Base 1.1.90
  _ZN4QGst7cleanupEv@Base 0.10.1
  _ZN4QGst8EosEvent6createEv@Base 0.10.1
  _ZN4QGst8GhostPad6createENS_12PadDirectionEPKc@Base 0.10.1
@@ -259,15 +289,16 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZN4QGst8Pipeline6createEPKc@Base 0.10.1
  _ZN4QGst8Pipeline8setClockERKN5QGlib10RefPointerINS_5ClockEEE@Base 0.10.1
  _ZN4QGst8Pipeline8useClockERKN5QGlib10RefPointerINS_5ClockEEE@Base 0.10.1
- _ZN4QGst8QosEvent6createEdxNS_9ClockTimeE@Base 0.10.1
+ _ZN4QGst8QosEvent6createENS_7QosTypeEdxNS_9ClockTimeE@Base 1.1.90
  _ZN4QGst8TagEvent6createERKNS_7TagListE@Base 0.10.1
  _ZN4QGst8UriQuery6createEv@Base 0.10.1
  _ZN4QGst8UriQuery6setUriERK4QUrl@Base 0.10.1
- _ZN4QGst8XOverlay15setWindowHandleEm@Base 0.10.1
- _ZN4QGst8XOverlay18setRenderRectangleERK5QRect@Base 0.10.1
- _ZN4QGst8XOverlay18setRenderRectangleEiiii@Base 0.10.1
- _ZN4QGst8XOverlay19enableEventHandlingEb@Base 0.10.1
- _ZN4QGst8XOverlay6exposeEv@Base 0.10.1
+ _ZN4QGst9Allocator10getDefaultEv@Base 1.1.90
+ _ZN4QGst9Allocator15getSystemMemoryEv@Base 1.1.90
+ _ZN4QGst9Allocator4findEPKc@Base 1.1.90
+ _ZN4QGst9Allocator4freeERN5QGlib10RefPointerINS_6MemoryEEE@Base 1.1.90
+ _ZN4QGst9Allocator5allocEmRKNS_16AllocationParamsE@Base 1.1.90
+ _ZN4QGst9CapsEvent6createERKN5QGlib10RefPointerINS_4CapsEEE@Base 1.1.90
  _ZN4QGst9ClockTime8fromTimeERK5QTime@Base 0.10.1
  _ZN4QGst9SeekEvent6createEdNS_6FormatE6QFlagsINS_8SeekFlagEENS_8SeekTypeExS5_x@Base 0.10.1
  _ZN4QGst9StepEvent6createENS_6FormatEydbb@Base 0.10.1
@@ -289,42 +320,54 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZN4QGst9StructureD2Ev@Base 0.10.1
  _ZN4QGst9StructureaSERKS0_@Base 0.10.1
  _ZN4QGst9StructurecvP13_GstStructureEv@Base 0.10.1
+ _ZN4QGstlsE6QDebugNS_16DiscovererResultE@Base 1.1.90
+ _ZN4QGstlsE6QDebugRKN5QGlib10RefPointerINS_14DiscovererInfoEEE@Base 1.1.90
+ _ZN4QGstlsE6QDebugRKN5QGlib10RefPointerINS_20DiscovererStreamInfoEEE@Base 1.1.90
  _ZN4QGstlsE6QDebugRKN5QGlib10RefPointerINS_4CapsEEE@Base 0.10.1
  _ZN4QGstlsE6QDebugRKNS_7TagListE@Base 0.10.1
  _ZN4QGstlsE6QDebugRKNS_9StructureE@Base 0.10.1
  _ZN5QGlib11GetTypeImplI5QDateEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplI6QFlagsIN4QGst10BufferFlagEEEcvNS_4TypeEEv@Base 0.10.1
+ _ZN5QGlib11GetTypeImplI6QFlagsIN4QGst10MemoryFlagEEEcvNS_4TypeEEv@Base 1.1.90
  _ZN5QGlib11GetTypeImplI6QFlagsIN4QGst10ObjectFlagEEEcvNS_4TypeEEv@Base 0.10.1
+ _ZN5QGlib11GetTypeImplI6QFlagsIN4QGst11SegmentFlagEEEcvNS_4TypeEEv@Base 1.1.90
  _ZN5QGlib11GetTypeImplI6QFlagsIN4QGst13EventTypeFlagEEEcvNS_4TypeEEv@Base 0.10.1
+ _ZN5QGlib11GetTypeImplI6QFlagsIN4QGst13QueryTypeFlagEEEcvNS_4TypeEEv@Base 1.1.90
  _ZN5QGlib11GetTypeImplI6QFlagsIN4QGst14MiniObjectFlagEEEcvNS_4TypeEEv@Base 0.10.1
+ _ZN5QGlib11GetTypeImplI6QFlagsIN4QGst7MapFlagEEEcvNS_4TypeEEv@Base 1.1.90
  _ZN5QGlib11GetTypeImplI6QFlagsIN4QGst7PadFlagEEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplI6QFlagsIN4QGst7TagFlagEEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplI6QFlagsIN4QGst8SeekFlagEEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplI9QDateTimeEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst10BufferListEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst10ChildProxyEEcvNS_4TypeEEv@Base 0.10.1
+ _ZN5QGlib11GetTypeImplIN4QGst10DiscovererEEcvNS_4TypeEEv@Base 1.1.90
  _ZN5QGlib11GetTypeImplIN4QGst10FlowReturnEEcvNS_4TypeEEv@Base 0.10.1
- _ZN5QGlib11GetTypeImplIN4QGst10MiniObjectEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst10ParseErrorEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst10UriHandlerEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst11MessageTypeEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst11StateChangeEEcvNS_4TypeEEv@Base 0.10.1
- _ZN5QGlib11GetTypeImplIN4QGst12ActivateModeEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst12ColorBalanceEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst12PadDirectionEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst12StreamVolumeEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst12TagMergeModeEEcvNS_4TypeEEv@Base 0.10.1
+ _ZN5QGlib11GetTypeImplIN4QGst12VideoOverlayEEcvNS_4TypeEEv@Base 1.1.90
  _ZN5QGlib11GetTypeImplIN4QGst13BufferingModeEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst13PadLinkReturnEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst13PluginFeatureEEcvNS_4TypeEEv@Base 0.10.1
- _ZN5QGlib11GetTypeImplIN4QGst13PropertyProbeEEcvNS_4TypeEEv@Base 0.10.1
+ _ZN5QGlib11GetTypeImplIN4QGst14DiscovererInfoEEcvNS_4TypeEEv@Base 1.1.90
  _ZN5QGlib11GetTypeImplIN4QGst14ElementFactoryEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst16ColorBalanceTypeEEcvNS_4TypeEEv@Base 0.10.1
+ _ZN5QGlib11GetTypeImplIN4QGst16DiscovererResultEEcvNS_4TypeEEv@Base 1.1.90
  _ZN5QGlib11GetTypeImplIN4QGst16StreamStatusTypeEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst16VideoOrientationEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst17StateChangeReturnEEcvNS_4TypeEEv@Base 0.10.1
- _ZN5QGlib11GetTypeImplIN4QGst18StreamVolumeFormatEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst19ColorBalanceChannelEEcvNS_4TypeEEv@Base 0.10.1
+ _ZN5QGlib11GetTypeImplIN4QGst19DiscovererAudioInfoEEcvNS_4TypeEEv@Base 1.1.90
+ _ZN5QGlib11GetTypeImplIN4QGst19DiscovererVideoInfoEEcvNS_4TypeEEv@Base 1.1.90
+ _ZN5QGlib11GetTypeImplIN4QGst20DiscovererStreamInfoEEcvNS_4TypeEEv@Base 1.1.90
+ _ZN5QGlib11GetTypeImplIN4QGst22DiscovererSubtitleInfoEEcvNS_4TypeEEv@Base 1.1.90
+ _ZN5QGlib11GetTypeImplIN4QGst23DiscovererContainerInfoEEcvNS_4TypeEEv@Base 1.1.90
  _ZN5QGlib11GetTypeImplIN4QGst3BinEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst3BusEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst3PadEEcvNS_4TypeEEv@Base 0.10.1
@@ -337,31 +380,36 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZN5QGlib11GetTypeImplIN4QGst6BufferEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst6FormatEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst6FourccEEcvNS_4TypeEEv@Base 0.10.1
+ _ZN5QGlib11GetTypeImplIN4QGst6MemoryEEcvNS_4TypeEEv@Base 1.1.90
  _ZN5QGlib11GetTypeImplIN4QGst6ObjectEEcvNS_4TypeEEv@Base 0.10.1
+ _ZN5QGlib11GetTypeImplIN4QGst6SampleEEcvNS_4TypeEEv@Base 1.1.90
  _ZN5QGlib11GetTypeImplIN4QGst7ElementEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst7MessageEEcvNS_4TypeEEv@Base 0.10.1
+ _ZN5QGlib11GetTypeImplIN4QGst7PadModeEEcvNS_4TypeEEv@Base 1.1.90
  _ZN5QGlib11GetTypeImplIN4QGst7Private5RangeINS1_8FractionEEEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst7Private5RangeIdEEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst7Private5RangeIiEEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst7Private5RangeIxEEEcvNS_4TypeEEv@Base 0.10.1
+ _ZN5QGlib11GetTypeImplIN4QGst7QosTypeEEcvNS_4TypeEEv@Base 1.1.90
+ _ZN5QGlib11GetTypeImplIN4QGst7SegmentEEcvNS_4TypeEEv@Base 1.1.90
  _ZN5QGlib11GetTypeImplIN4QGst7TagListEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst7UriTypeEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst8FractionEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst8GhostPadEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst8PipelineEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst8SeekTypeEEcvNS_4TypeEEv@Base 0.10.1
- _ZN5QGlib11GetTypeImplIN4QGst8XOverlayEEcvNS_4TypeEEv@Base 0.10.1
+ _ZN5QGlib11GetTypeImplIN4QGst9AllocatorEEcvNS_4TypeEEv@Base 1.1.90
  _ZN5QGlib11GetTypeImplIN4QGst9ClockTimeEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst9EventTypeEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst9QueryTypeEEcvNS_4TypeEEv@Base 0.10.1
  _ZN5QGlib11GetTypeImplIN4QGst9StructureEEcvNS_4TypeEEv@Base 0.10.1
- _ZNK4QGst10BufferList11groupsCountEv@Base 0.10.1
- _ZNK4QGst10BufferList8bufferAtEjj@Base 0.10.1
+ _ZNK4QGst10BufferList6lengthEv@Base 1.1.90
+ _ZNK4QGst10BufferList8bufferAtEj@Base 1.1.90
  _ZNK4QGst10ChildProxy11childByNameEPKc@Base 0.10.1
  _ZNK4QGst10ChildProxy12childByIndexEj@Base 0.10.1
  _ZNK4QGst10ChildProxy13childPropertyEPKc@Base 0.10.1
  _ZNK4QGst10ChildProxy13childrenCountEv@Base 0.10.1
- _ZNK4QGst10ChildProxy17findChildPropertyEPKcPN5QGlib10RefPointerINS_6ObjectEEEPNS4_INS3_9ParamSpecEEE@Base 0.10.1
+ _ZNK4QGst10ChildProxy17findChildPropertyEPKcPN5QGlib10RefPointerINS3_6ObjectEEEPNS4_INS3_9ParamSpecEEE@Base 1.1.90
  _ZNK4QGst10MiniObject10isWritableEv@Base 0.10.1
  _ZNK4QGst10MiniObject12makeWritableEv@Base 0.10.1
  _ZNK4QGst10MiniObject4copyEv@Base 0.10.1
@@ -400,6 +448,7 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZNK4QGst12SeekingQuery12segmentStartEv@Base 0.10.1
  _ZNK4QGst12SeekingQuery6formatEv@Base 0.10.1
  _ZNK4QGst12SeekingQuery8seekableEv@Base 0.10.1
+ _ZNK4QGst12SegmentEvent7segmentEv@Base 1.1.90
  _ZNK4QGst12SegmentQuery10startValueEv@Base 0.10.1
  _ZNK4QGst12SegmentQuery4rateEv@Base 0.10.1
  _ZNK4QGst12SegmentQuery6formatEv@Base 0.10.1
@@ -413,13 +462,6 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZNK4QGst13PluginFeature4rankEv@Base 0.10.1
  _ZNK4QGst13PositionQuery6formatEv@Base 0.10.1
  _ZNK4QGst13PositionQuery8positionEv@Base 0.10.1
- _ZNK4QGst13PropertyProbe10needsProbeEPKc@Base 0.10.1
- _ZNK4QGst13PropertyProbe10needsProbeERKN5QGlib10RefPointerINS1_9ParamSpecEEE@Base 0.10.1
- _ZNK4QGst13PropertyProbe10propertiesEv@Base 0.10.1
- _ZNK4QGst13PropertyProbe21propertySupportsProbeEPKc@Base 0.10.1
- _ZNK4QGst13PropertyProbe21propertySupportsProbeERKN5QGlib10RefPointerINS1_9ParamSpecEEE@Base 0.10.1
- _ZNK4QGst13PropertyProbe6valuesEPKc@Base 0.10.1
- _ZNK4QGst13PropertyProbe6valuesERKN5QGlib10RefPointerINS1_9ParamSpecEEE@Base 0.10.1
  _ZNK4QGst14BufferingQuery10averageOutEv@Base 0.10.1
  _ZNK4QGst14BufferingQuery10rangeStartEv@Base 0.10.1
  _ZNK4QGst14BufferingQuery11rangeFormatEv@Base 0.10.1
@@ -430,34 +472,36 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZNK4QGst14BufferingQuery7percentEv@Base 0.10.1
  _ZNK4QGst14BufferingQuery9averageInEv@Base 0.10.1
  _ZNK4QGst14BufferingQuery9rangeStopEv@Base 0.10.1
- _ZNK4QGst14ElementFactory10canSrcCapsERKN5QGlib10RefPointerINS_4CapsEEE@Base 0.10.1
- _ZNK4QGst14ElementFactory11canSinkCapsERKN5QGlib10RefPointerINS_4CapsEEE@Base 0.10.1
- _ZNK4QGst14ElementFactory11descriptionEv@Base 0.10.1
+ _ZNK4QGst14DiscovererInfo10streamInfoEv@Base 1.1.90
+ _ZNK4QGst14DiscovererInfo12audioStreamsEv@Base 1.1.90
+ _ZNK4QGst14DiscovererInfo12videoStreamsEv@Base 1.1.90
+ _ZNK4QGst14DiscovererInfo15subtitleStreamsEv@Base 1.1.90
+ _ZNK4QGst14DiscovererInfo16containerStreamsEv@Base 1.1.90
+ _ZNK4QGst14DiscovererInfo3uriEv@Base 1.1.90
+ _ZNK4QGst14DiscovererInfo4miscEv@Base 1.1.90
+ _ZNK4QGst14DiscovererInfo4tagsEv@Base 1.1.90
+ _ZNK4QGst14DiscovererInfo6resultEv@Base 1.1.90
+ _ZNK4QGst14DiscovererInfo7streamsEN5QGlib4TypeE@Base 1.1.90
+ _ZNK4QGst14DiscovererInfo7streamsEv@Base 1.1.90
+ _ZNK4QGst14DiscovererInfo8durationEv@Base 1.1.90
+ _ZNK4QGst14DiscovererInfo8seekableEv@Base 1.1.90
  _ZNK4QGst14ElementFactory11elementTypeEv@Base 0.10.1
  _ZNK4QGst14ElementFactory12hasInterfaceEPKc@Base 0.10.1
- _ZNK4QGst14ElementFactory16documentationUriEv@Base 0.10.1
+ _ZNK4QGst14ElementFactory13canSrcAllCapsERKN5QGlib10RefPointerINS_4CapsEEE@Base 1.1.90
+ _ZNK4QGst14ElementFactory13canSrcAnyCapsERKN5QGlib10RefPointerINS_4CapsEEE@Base 1.1.90
+ _ZNK4QGst14ElementFactory14canSinkAllCapsERKN5QGlib10RefPointerINS_4CapsEEE@Base 1.1.90
+ _ZNK4QGst14ElementFactory14canSinkAnyCapsERKN5QGlib10RefPointerINS_4CapsEEE@Base 1.1.90
  _ZNK4QGst14ElementFactory17padTemplatesCountEv@Base 0.10.1
- _ZNK4QGst14ElementFactory5klassEv@Base 0.10.1
- _ZNK4QGst14ElementFactory6authorEv@Base 0.10.1
  _ZNK4QGst14ElementFactory6createEPKc@Base 0.10.1
  _ZNK4QGst14ElementFactory7uriTypeEv@Base 0.10.1
- _ZNK4QGst14ElementFactory8iconNameEv@Base 0.10.1
- _ZNK4QGst14ElementFactory8longNameEv@Base 0.10.1
+ _ZNK4QGst14ElementFactory8metadataEPKc@Base 1.1.90
+ _ZNK4QGst14FlushStopEvent9resetTimeEv@Base 1.1.90
  _ZNK4QGst14WarningMessage12debugMessageEv@Base 0.10.1
  _ZNK4QGst14WarningMessage5errorEv@Base 0.10.1
  _ZNK4QGst15BufferSizeEvent6formatEv@Base 0.10.1
  _ZNK4QGst15BufferSizeEvent7isAsyncEv@Base 0.10.1
  _ZNK4QGst15BufferSizeEvent7maxSizeEv@Base 0.10.1
  _ZNK4QGst15BufferSizeEvent7minSizeEv@Base 0.10.1
- _ZNK4QGst15DurationMessage6formatEv@Base 0.10.1
- _ZNK4QGst15DurationMessage8durationEv@Base 0.10.1
- _ZNK4QGst15NewSegmentEvent11appliedRateEv@Base 0.10.1
- _ZNK4QGst15NewSegmentEvent4rateEv@Base 0.10.1
- _ZNK4QGst15NewSegmentEvent4stopEv@Base 0.10.1
- _ZNK4QGst15NewSegmentEvent5startEv@Base 0.10.1
- _ZNK4QGst15NewSegmentEvent6formatEv@Base 0.10.1
- _ZNK4QGst15NewSegmentEvent8isUpdateEv@Base 0.10.1
- _ZNK4QGst15NewSegmentEvent8positionEv@Base 0.10.1
  _ZNK4QGst15SharedStructure4copyEv@Base 0.10.1
  _ZNK4QGst15StepDoneMessage14isFlushingStepEv@Base 0.10.1
  _ZNK4QGst15StepDoneMessage18isIntermediateStepEv@Base 0.10.1
@@ -466,6 +510,12 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZNK4QGst15StepDoneMessage6formatEv@Base 0.10.1
  _ZNK4QGst15StepDoneMessage8durationEv@Base 0.10.1
  _ZNK4QGst15StepDoneMessage9causedEosEv@Base 0.10.1
+ _ZNK4QGst16AllocationParams5alignEv@Base 1.1.90
+ _ZNK4QGst16AllocationParams5flagsEv@Base 1.1.90
+ _ZNK4QGst16AllocationParams6prefixEv@Base 1.1.90
+ _ZNK4QGst16AllocationParams7paddingEv@Base 1.1.90
+ _ZNK4QGst16AllocationParamscvPK20_GstAllocationParamsEv@Base 1.1.90
+ _ZNK4QGst16AsyncDoneMessage11runningTimeEv@Base 1.1.90
  _ZNK4QGst16BufferingMessage16averageInputRateEv@Base 0.10.1
  _ZNK4QGst16BufferingMessage17averageOutputRateEv@Base 0.10.1
  _ZNK4QGst16BufferingMessage17bufferingTimeLeftEv@Base 0.10.1
@@ -482,13 +532,26 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZNK4QGst16VideoOrientation16horizontalCenterEv@Base 0.10.1
  _ZNK4QGst16VideoOrientation19verticalFlipEnabledEv@Base 0.10.1
  _ZNK4QGst16VideoOrientation21horizontalFlipEnabledEv@Base 0.10.1
- _ZNK4QGst18BufferListIterator10mergeGroupEv@Base 0.10.1
- _ZNK4QGst18BufferListIterator21buffersInCurrentGroupEv@Base 0.10.1
  _ZNK4QGst18SegmentDoneMessage6formatEv@Base 0.10.1
  _ZNK4QGst18SegmentDoneMessage8positionEv@Base 0.10.1
  _ZNK4QGst19ColorBalanceChannel5labelEv@Base 0.10.1
  _ZNK4QGst19ColorBalanceChannel8maxValueEv@Base 0.10.1
  _ZNK4QGst19ColorBalanceChannel8minValueEv@Base 0.10.1
+ _ZNK4QGst19DiscovererAudioInfo10maxBitrateEv@Base 1.1.90
+ _ZNK4QGst19DiscovererAudioInfo10sampleRateEv@Base 1.1.90
+ _ZNK4QGst19DiscovererAudioInfo5depthEv@Base 1.1.90
+ _ZNK4QGst19DiscovererAudioInfo7bitrateEv@Base 1.1.90
+ _ZNK4QGst19DiscovererAudioInfo8channelsEv@Base 1.1.90
+ _ZNK4QGst19DiscovererAudioInfo8languageEv@Base 1.1.90
+ _ZNK4QGst19DiscovererVideoInfo10maxBitrateEv@Base 1.1.90
+ _ZNK4QGst19DiscovererVideoInfo12isInterlacedEv@Base 1.1.90
+ _ZNK4QGst19DiscovererVideoInfo16pixelAspectRatioEv@Base 1.1.90
+ _ZNK4QGst19DiscovererVideoInfo5depthEv@Base 1.1.90
+ _ZNK4QGst19DiscovererVideoInfo5widthEv@Base 1.1.90
+ _ZNK4QGst19DiscovererVideoInfo6heightEv@Base 1.1.90
+ _ZNK4QGst19DiscovererVideoInfo7bitrateEv@Base 1.1.90
+ _ZNK4QGst19DiscovererVideoInfo7isImageEv@Base 1.1.90
+ _ZNK4QGst19DiscovererVideoInfo9framerateEv@Base 1.1.90
  _ZNK4QGst19RequestStateMessage5stateEv@Base 0.10.1
  _ZNK4QGst19StateChangedMessage12pendingStateEv@Base 0.10.1
  _ZNK4QGst19StateChangedMessage8newStateEv@Base 0.10.1
@@ -496,6 +559,14 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZNK4QGst19StreamStatusMessage10statusTypeEv@Base 0.10.1
  _ZNK4QGst19StreamStatusMessage18streamStatusObjectEv@Base 0.10.1
  _ZNK4QGst19StreamStatusMessage5ownerEv@Base 0.10.1
+ _ZNK4QGst20DiscovererStreamInfo14streamTypeNickEv@Base 1.1.90
+ _ZNK4QGst20DiscovererStreamInfo4capsEv@Base 1.1.90
+ _ZNK4QGst20DiscovererStreamInfo4miscEv@Base 1.1.90
+ _ZNK4QGst20DiscovererStreamInfo4nextEv@Base 1.1.90
+ _ZNK4QGst20DiscovererStreamInfo4tagsEv@Base 1.1.90
+ _ZNK4QGst20DiscovererStreamInfo8previousEv@Base 1.1.90
+ _ZNK4QGst22DiscovererSubtitleInfo8languageEv@Base 1.1.90
+ _ZNK4QGst23DiscovererContainerInfo7streamsEv@Base 1.1.90
  _ZNK4QGst3Bin15findUnlinkedPadENS_12PadDirectionE@Base 0.10.1
  _ZNK4QGst3Bin16getElementByNameEPKcNS0_13RecursionTypeE@Base 0.10.1
  _ZNK4QGst3Bin21getElementByInterfaceEN5QGlib4TypeE@Base 0.10.1
@@ -503,9 +574,9 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZNK4QGst3Bus4peekEv@Base 0.10.1
  _ZNK4QGst3Pad10isBlockingEv@Base 0.10.1
  _ZNK4QGst3Pad11allowedCapsEv@Base 0.10.1
+ _ZNK4QGst3Pad11currentCapsEv@Base 1.1.90
  _ZNK4QGst3Pad13parentElementEv@Base 0.10.1
- _ZNK4QGst3Pad14negotiatedCapsEv@Base 0.10.1
- _ZNK4QGst3Pad4capsEv@Base 0.10.1
+ _ZNK4QGst3Pad15padTemplateCapsEv@Base 1.1.90
  _ZNK4QGst3Pad4peerEv@Base 0.10.1
  _ZNK4QGst3Pad7canLinkERKN5QGlib10RefPointerIS0_EE@Base 0.10.1
  _ZNK4QGst3Pad8isActiveEv@Base 0.10.1
@@ -513,9 +584,7 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZNK4QGst3Pad9directionEv@Base 0.10.1
  _ZNK4QGst3Pad9isBlockedEv@Base 0.10.1
  _ZNK4QGst4Caps10isSubsetOfERKN5QGlib10RefPointerIS0_EE@Base 0.10.1
- _ZNK4QGst4Caps10isWritableEv@Base 0.10.1
  _ZNK4QGst4Caps12canIntersectERKN5QGlib10RefPointerIS0_EE@Base 0.10.1
- _ZNK4QGst4Caps12makeWritableEv@Base 0.10.1
  _ZNK4QGst4Caps15getIntersectionERKN5QGlib10RefPointerIS0_EE@Base 0.10.1
  _ZNK4QGst4Caps22isAlwaysCompatibleWithERKN5QGlib10RefPointerIS0_EE@Base 0.10.1
  _ZNK4QGst4Caps4copyEv@Base 0.10.1
@@ -525,45 +594,70 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZNK4QGst4Caps7copyNthEj@Base 0.10.1
  _ZNK4QGst4Caps7isEmptyEv@Base 0.10.1
  _ZNK4QGst4Caps7isFixedEv@Base 0.10.1
- _ZNK4QGst4Caps8getUnionERKN5QGlib10RefPointerIS0_EE@Base 0.10.1
  _ZNK4QGst4Caps8isSimpleEv@Base 0.10.1
  _ZNK4QGst4Caps8subtractERKN5QGlib10RefPointerIS0_EE@Base 0.10.1
  _ZNK4QGst4Caps8toStringEv@Base 0.10.1
- _ZNK4QGst4Caps9getNormalEv@Base 0.10.1
  _ZNK4QGst5Clock10resolutionEv@Base 0.10.1
  _ZNK4QGst5Clock4timeEv@Base 0.10.1
  _ZNK4QGst5Clock9clockTimeEv@Base 0.10.1
  _ZNK4QGst5Event14sequenceNumberEv@Base 0.10.1
  _ZNK4QGst5Event4copyEv@Base 0.10.1
  _ZNK4QGst5Event4typeEv@Base 0.10.1
- _ZNK4QGst5Event6sourceEv@Base 0.10.1
+ _ZNK4QGst5Event7hasNameEPKc@Base 1.1.90
  _ZNK4QGst5Event8typeNameEv@Base 0.10.1
  _ZNK4QGst5Event9timestampEv@Base 0.10.1
  _ZNK4QGst5Query4typeEv@Base 0.10.1
  _ZNK4QGst5Query8typeNameEv@Base 0.10.1
- _ZNK4QGst6Buffer4capsEv@Base 0.10.1
+ _ZNK4QGst6Buffer11memoryCountEv@Base 1.1.90
+ _ZNK4QGst6Buffer17decodingTimeStampEv@Base 1.1.90
+ _ZNK4QGst6Buffer21presentationTimeStampEv@Base 1.1.90
  _ZNK4QGst6Buffer4copyEv@Base 0.10.1
- _ZNK4QGst6Buffer4dataEv@Base 0.10.1
  _ZNK4QGst6Buffer4sizeEv@Base 0.10.1
  _ZNK4QGst6Buffer5flagsEv@Base 0.10.1
  _ZNK4QGst6Buffer6offsetEv@Base 0.10.1
  _ZNK4QGst6Buffer8durationEv@Base 0.10.1
+ _ZNK4QGst6Buffer9getMemoryEj@Base 1.1.90
  _ZNK4QGst6Buffer9offsetEndEv@Base 0.10.1
- _ZNK4QGst6Buffer9timeStampEv@Base 0.10.1
+ _ZNK4QGst6Memory4sizeEv@Base 1.1.90
+ _ZNK4QGst6Memory6isTypeEPKc@Base 1.1.90
+ _ZNK4QGst6Memory6offsetEv@Base 1.1.90
+ _ZNK4QGst6Memory7maxSizeEv@Base 1.1.90
+ _ZNK4QGst6Memory9allocatorEv@Base 1.1.90
  _ZNK4QGst6Object10pathStringEv@Base 0.10.1
  _ZNK4QGst6Object12isAncestorOfERKN5QGlib10RefPointerIS0_EE@Base 0.10.1
  _ZNK4QGst6Object4nameEv@Base 0.10.1
  _ZNK4QGst6Object6parentEv@Base 0.10.1
+ _ZNK4QGst6Sample4capsEv@Base 1.1.90
+ _ZNK4QGst6Sample4infoEv@Base 1.1.90
+ _ZNK4QGst6Sample6bufferEv@Base 1.1.90
+ _ZNK4QGst6Sample7segmentEv@Base 1.1.90
  _ZNK4QGst7Element12currentStateEv@Base 0.10.1
  _ZNK4QGst7Element12pendingStateEv@Base 0.10.1
  _ZNK4QGst7Element13stateIsLockedEv@Base 0.10.1
  _ZNK4QGst7Element5clockEv@Base 0.10.1
  _ZNK4QGst7Element8getStateEPNS_5StateES2_NS_9ClockTimeE@Base 0.10.1
+ _ZNK4QGst7MapInfo4dataEv@Base 1.1.90
+ _ZNK4QGst7MapInfo4sizeEv@Base 1.1.90
+ _ZNK4QGst7MapInfo5flagsEv@Base 1.1.90
+ _ZNK4QGst7MapInfo7maxSizeEv@Base 1.1.90
  _ZNK4QGst7Message14sequenceNumberEv@Base 0.10.1
  _ZNK4QGst7Message4typeEv@Base 0.10.1
  _ZNK4QGst7Message6sourceEv@Base 0.10.1
  _ZNK4QGst7Message8typeNameEv@Base 0.10.1
  _ZNK4QGst7Message9timestampEv@Base 0.10.1
+ _ZNK4QGst7Segment11appliedRateEv@Base 1.1.90
+ _ZNK4QGst7Segment4baseEv@Base 1.1.90
+ _ZNK4QGst7Segment4rateEv@Base 1.1.90
+ _ZNK4QGst7Segment4stopEv@Base 1.1.90
+ _ZNK4QGst7Segment4timeEv@Base 1.1.90
+ _ZNK4QGst7Segment5flagsEv@Base 1.1.90
+ _ZNK4QGst7Segment5startEv@Base 1.1.90
+ _ZNK4QGst7Segment6formatEv@Base 1.1.90
+ _ZNK4QGst7Segment6offsetEv@Base 1.1.90
+ _ZNK4QGst7Segment7isValidEv@Base 1.1.90
+ _ZNK4QGst7Segment8durationEv@Base 1.1.90
+ _ZNK4QGst7Segment8positionEv@Base 1.1.90
+ _ZNK4QGst7SegmentcvPK11_GstSegmentEv@Base 1.1.90
  _ZNK4QGst7TagList10attachmentEi@Base 0.10.1
  _ZNK4QGst7TagList10audioCodecEv@Base 0.10.1
  _ZNK4QGst7TagList10genreCountEv@Base 0.10.1
@@ -658,15 +752,17 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZNK4QGst7TagList9performerEi@Base 0.10.1
  _ZNK4QGst7TagList9trackGainEv@Base 0.10.1
  _ZNK4QGst7TagList9trackPeakEv@Base 0.10.1
- _ZNK4QGst7TagListcvPK13_GstStructureEv@Base 0.10.1
+ _ZNK4QGst7TagListcvPK11_GstTagListEv@Base 1.1.90
  _ZNK4QGst8GhostPad6targetEv@Base 0.10.1
  _ZNK4QGst8Pipeline3busEv@Base 0.10.1
  _ZNK4QGst8Pipeline5clockEv@Base 0.10.1
  _ZNK4QGst8QosEvent10proportionEv@Base 0.10.1
  _ZNK4QGst8QosEvent4diffEv@Base 0.10.1
+ _ZNK4QGst8QosEvent7qosTypeEv@Base 1.1.90
  _ZNK4QGst8QosEvent9timestampEv@Base 0.10.1
  _ZNK4QGst8TagEvent7taglistEv@Base 0.10.1
  _ZNK4QGst8UriQuery3uriEv@Base 0.10.1
+ _ZNK4QGst9CapsEvent4capsEv@Base 1.1.90
  _ZNK4QGst9ClockTime6toTimeEv@Base 0.10.1
  _ZNK4QGst9SeekEvent4rateEv@Base 0.10.1
  _ZNK4QGst9SeekEvent4stopEv@Base 0.10.1
@@ -692,6 +788,7 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZNK4QGst9StructurecvPK13_GstStructureEv@Base 0.10.1
  _ZTIN4QGst10BufferListE@Base 0.10.1
  _ZTIN4QGst10ChildProxyE@Base 0.10.1
+ _ZTIN4QGst10DiscovererE@Base 1.1.90
  _ZTIN4QGst10EosMessageE@Base 0.10.1
  _ZTIN4QGst10MiniObjectE@Base 0.10.1
  _ZTIN4QGst10QosMessageE@Base 0.10.1
@@ -705,25 +802,26 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZTIN4QGst12LatencyEventE@Base 0.10.1
  _ZTIN4QGst12LatencyQueryE@Base 0.10.1
  _ZTIN4QGst12SeekingQueryE@Base 0.10.1
+ _ZTIN4QGst12SegmentEventE@Base 1.1.90
  _ZTIN4QGst12SegmentQueryE@Base 0.10.1
  _ZTIN4QGst12StreamVolumeE@Base 0.10.1
+ _ZTIN4QGst12VideoOverlayE@Base 1.1.90
  _ZTIN4QGst13DurationQueryE@Base 0.10.1
  _ZTIN4QGst13PluginFeatureE@Base 0.10.1
  _ZTIN4QGst13PositionQueryE@Base 0.10.1
- _ZTIN4QGst13PropertyProbeE@Base 0.10.1
  _ZTIN4QGst14BufferingQueryE@Base 0.10.1
+ _ZTIN4QGst14DiscovererInfoE@Base 1.1.90
  _ZTIN4QGst14ElementFactoryE@Base 0.10.1
  _ZTIN4QGst14ElementMessageE@Base 0.10.1
  _ZTIN4QGst14FlushStopEventE@Base 0.10.1
  _ZTIN4QGst14LatencyMessageE@Base 0.10.1
  _ZTIN4QGst14WarningMessageE@Base 0.10.1
  _ZTIN4QGst15BufferSizeEventE@Base 0.10.1
- _ZTIN4QGst15DurationMessageE@Base 0.10.1
  _ZTIN4QGst15FlushStartEventE@Base 0.10.1
  _ZTIN4QGst15NavigationEventE@Base 0.10.1
- _ZTIN4QGst15NewSegmentEventE@Base 0.10.1
  _ZTIN4QGst15SharedStructureE@Base 0.10.1
  _ZTIN4QGst15StepDoneMessageE@Base 0.10.1
+ _ZTIN4QGst16AllocationParamsE@Base 1.1.90
  _ZTIN4QGst16AsyncDoneMessageE@Base 0.10.1
  _ZTIN4QGst16BufferingMessageE@Base 0.10.1
  _ZTIN4QGst16SinkMessageEventE@Base 0.10.1
@@ -732,9 +830,15 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZTIN4QGst18ApplicationMessageE@Base 0.10.1
  _ZTIN4QGst18SegmentDoneMessageE@Base 0.10.1
  _ZTIN4QGst19ColorBalanceChannelE@Base 0.10.1
+ _ZTIN4QGst19DiscovererAudioInfoE@Base 1.1.90
+ _ZTIN4QGst19DiscovererVideoInfoE@Base 1.1.90
  _ZTIN4QGst19RequestStateMessageE@Base 0.10.1
  _ZTIN4QGst19StateChangedMessageE@Base 0.10.1
  _ZTIN4QGst19StreamStatusMessageE@Base 0.10.1
+ _ZTIN4QGst20DiscovererStreamInfoE@Base 1.1.90
+ _ZTIN4QGst22DiscovererSubtitleInfoE@Base 1.1.90
+ _ZTIN4QGst22DurationChangedMessageE@Base 1.1.90
+ _ZTIN4QGst23DiscovererContainerInfoE@Base 1.1.90
  _ZTIN4QGst3BinE@Base 0.10.1
  _ZTIN4QGst3BusE@Base 0.10.1
  _ZTIN4QGst3PadE@Base 0.10.1
@@ -743,9 +847,13 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZTIN4QGst5EventE@Base 0.10.1
  _ZTIN4QGst5QueryE@Base 0.10.1
  _ZTIN4QGst6BufferE@Base 0.10.1
+ _ZTIN4QGst6MemoryE@Base 1.1.90
  _ZTIN4QGst6ObjectE@Base 0.10.1
+ _ZTIN4QGst6SampleE@Base 1.1.90
  _ZTIN4QGst7ElementE@Base 0.10.1
+ _ZTIN4QGst7MapInfoE@Base 1.1.90
  _ZTIN4QGst7MessageE@Base 0.10.1
+ _ZTIN4QGst7SegmentE@Base 1.1.90
  _ZTIN4QGst7TagListE@Base 0.10.1
  _ZTIN4QGst8EosEventE@Base 0.10.1
  _ZTIN4QGst8GhostPadE@Base 0.10.1
@@ -753,12 +861,14 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZTIN4QGst8QosEventE@Base 0.10.1
  _ZTIN4QGst8TagEventE@Base 0.10.1
  _ZTIN4QGst8UriQueryE@Base 0.10.1
- _ZTIN4QGst8XOverlayE@Base 0.10.1
+ _ZTIN4QGst9AllocatorE@Base 1.1.90
+ _ZTIN4QGst9CapsEventE@Base 1.1.90
  _ZTIN4QGst9SeekEventE@Base 0.10.1
  _ZTIN4QGst9StepEventE@Base 0.10.1
  _ZTIN4QGst9StructureE@Base 0.10.1
  _ZTSN4QGst10BufferListE@Base 0.10.1
  _ZTSN4QGst10ChildProxyE@Base 0.10.1
+ _ZTSN4QGst10DiscovererE@Base 1.1.90
  _ZTSN4QGst10EosMessageE@Base 0.10.1
  _ZTSN4QGst10MiniObjectE@Base 0.10.1
  _ZTSN4QGst10QosMessageE@Base 0.10.1
@@ -772,25 +882,26 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZTSN4QGst12LatencyEventE@Base 0.10.1
  _ZTSN4QGst12LatencyQueryE@Base 0.10.1
  _ZTSN4QGst12SeekingQueryE@Base 0.10.1
+ _ZTSN4QGst12SegmentEventE@Base 1.1.90
  _ZTSN4QGst12SegmentQueryE@Base 0.10.1
  _ZTSN4QGst12StreamVolumeE@Base 0.10.1
+ _ZTSN4QGst12VideoOverlayE@Base 1.1.90
  _ZTSN4QGst13DurationQueryE@Base 0.10.1
  _ZTSN4QGst13PluginFeatureE@Base 0.10.1
  _ZTSN4QGst13PositionQueryE@Base 0.10.1
- _ZTSN4QGst13PropertyProbeE@Base 0.10.1
  _ZTSN4QGst14BufferingQueryE@Base 0.10.1
+ _ZTSN4QGst14DiscovererInfoE@Base 1.1.90
  _ZTSN4QGst14ElementFactoryE@Base 0.10.1
  _ZTSN4QGst14ElementMessageE@Base 0.10.1
  _ZTSN4QGst14FlushStopEventE@Base 0.10.1
  _ZTSN4QGst14LatencyMessageE@Base 0.10.1
  _ZTSN4QGst14WarningMessageE@Base 0.10.1
  _ZTSN4QGst15BufferSizeEventE@Base 0.10.1
- _ZTSN4QGst15DurationMessageE@Base 0.10.1
  _ZTSN4QGst15FlushStartEventE@Base 0.10.1
  _ZTSN4QGst15NavigationEventE@Base 0.10.1
- _ZTSN4QGst15NewSegmentEventE@Base 0.10.1
  _ZTSN4QGst15SharedStructureE@Base 0.10.1
  _ZTSN4QGst15StepDoneMessageE@Base 0.10.1
+ _ZTSN4QGst16AllocationParamsE@Base 1.1.90
  _ZTSN4QGst16AsyncDoneMessageE@Base 0.10.1
  _ZTSN4QGst16BufferingMessageE@Base 0.10.1
  _ZTSN4QGst16SinkMessageEventE@Base 0.10.1
@@ -799,9 +910,15 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZTSN4QGst18ApplicationMessageE@Base 0.10.1
  _ZTSN4QGst18SegmentDoneMessageE@Base 0.10.1
  _ZTSN4QGst19ColorBalanceChannelE@Base 0.10.1
+ _ZTSN4QGst19DiscovererAudioInfoE@Base 1.1.90
+ _ZTSN4QGst19DiscovererVideoInfoE@Base 1.1.90
  _ZTSN4QGst19RequestStateMessageE@Base 0.10.1
  _ZTSN4QGst19StateChangedMessageE@Base 0.10.1
  _ZTSN4QGst19StreamStatusMessageE@Base 0.10.1
+ _ZTSN4QGst20DiscovererStreamInfoE@Base 1.1.90
+ _ZTSN4QGst22DiscovererSubtitleInfoE@Base 1.1.90
+ _ZTSN4QGst22DurationChangedMessageE@Base 1.1.90
+ _ZTSN4QGst23DiscovererContainerInfoE@Base 1.1.90
  _ZTSN4QGst3BinE@Base 0.10.1
  _ZTSN4QGst3BusE@Base 0.10.1
  _ZTSN4QGst3PadE@Base 0.10.1
@@ -810,9 +927,13 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZTSN4QGst5EventE@Base 0.10.1
  _ZTSN4QGst5QueryE@Base 0.10.1
  _ZTSN4QGst6BufferE@Base 0.10.1
+ _ZTSN4QGst6MemoryE@Base 1.1.90
  _ZTSN4QGst6ObjectE@Base 0.10.1
+ _ZTSN4QGst6SampleE@Base 1.1.90
  _ZTSN4QGst7ElementE@Base 0.10.1
+ _ZTSN4QGst7MapInfoE@Base 1.1.90
  _ZTSN4QGst7MessageE@Base 0.10.1
+ _ZTSN4QGst7SegmentE@Base 1.1.90
  _ZTSN4QGst7TagListE@Base 0.10.1
  _ZTSN4QGst8EosEventE@Base 0.10.1
  _ZTSN4QGst8GhostPadE@Base 0.10.1
@@ -820,19 +941,27 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZTSN4QGst8QosEventE@Base 0.10.1
  _ZTSN4QGst8TagEventE@Base 0.10.1
  _ZTSN4QGst8UriQueryE@Base 0.10.1
- _ZTSN4QGst8XOverlayE@Base 0.10.1
+ _ZTSN4QGst9AllocatorE@Base 1.1.90
+ _ZTSN4QGst9CapsEventE@Base 1.1.90
  _ZTSN4QGst9SeekEventE@Base 0.10.1
  _ZTSN4QGst9StepEventE@Base 0.10.1
  _ZTSN4QGst9StructureE@Base 0.10.1
  _ZTTN4QGst10ChildProxyE@Base 0.10.1
+ _ZTTN4QGst10DiscovererE@Base 1.1.90
  _ZTTN4QGst10UriHandlerE@Base 0.10.1
  _ZTTN4QGst12ColorBalanceE@Base 0.10.1
  _ZTTN4QGst12StreamVolumeE@Base 0.10.1
+ _ZTTN4QGst12VideoOverlayE@Base 1.1.90
  _ZTTN4QGst13PluginFeatureE@Base 0.10.1
- _ZTTN4QGst13PropertyProbeE@Base 0.10.1
+ _ZTTN4QGst14DiscovererInfoE@Base 1.1.90
  _ZTTN4QGst14ElementFactoryE@Base 0.10.1
  _ZTTN4QGst16VideoOrientationE@Base 0.10.1
  _ZTTN4QGst19ColorBalanceChannelE@Base 0.10.1
+ _ZTTN4QGst19DiscovererAudioInfoE@Base 1.1.90
+ _ZTTN4QGst19DiscovererVideoInfoE@Base 1.1.90
+ _ZTTN4QGst20DiscovererStreamInfoE@Base 1.1.90
+ _ZTTN4QGst22DiscovererSubtitleInfoE@Base 1.1.90
+ _ZTTN4QGst23DiscovererContainerInfoE@Base 1.1.90
  _ZTTN4QGst3BinE@Base 0.10.1
  _ZTTN4QGst3BusE@Base 0.10.1
  _ZTTN4QGst3PadE@Base 0.10.1
@@ -841,9 +970,10 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZTTN4QGst7ElementE@Base 0.10.1
  _ZTTN4QGst8GhostPadE@Base 0.10.1
  _ZTTN4QGst8PipelineE@Base 0.10.1
- _ZTTN4QGst8XOverlayE@Base 0.10.1
+ _ZTTN4QGst9AllocatorE@Base 1.1.90
  _ZTVN4QGst10BufferListE@Base 0.10.1
  _ZTVN4QGst10ChildProxyE@Base 0.10.1
+ _ZTVN4QGst10DiscovererE@Base 1.1.90
  _ZTVN4QGst10EosMessageE@Base 0.10.1
  _ZTVN4QGst10MiniObjectE@Base 0.10.1
  _ZTVN4QGst10QosMessageE@Base 0.10.1
@@ -857,25 +987,26 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZTVN4QGst12LatencyEventE@Base 0.10.1
  _ZTVN4QGst12LatencyQueryE@Base 0.10.1
  _ZTVN4QGst12SeekingQueryE@Base 0.10.1
+ _ZTVN4QGst12SegmentEventE@Base 1.1.90
  _ZTVN4QGst12SegmentQueryE@Base 0.10.1
  _ZTVN4QGst12StreamVolumeE@Base 0.10.1
+ _ZTVN4QGst12VideoOverlayE@Base 1.1.90
  _ZTVN4QGst13DurationQueryE@Base 0.10.1
  _ZTVN4QGst13PluginFeatureE@Base 0.10.1
  _ZTVN4QGst13PositionQueryE@Base 0.10.1
- _ZTVN4QGst13PropertyProbeE@Base 0.10.1
  _ZTVN4QGst14BufferingQueryE@Base 0.10.1
+ _ZTVN4QGst14DiscovererInfoE@Base 1.1.90
  _ZTVN4QGst14ElementFactoryE@Base 0.10.1
  _ZTVN4QGst14ElementMessageE@Base 0.10.1
  _ZTVN4QGst14FlushStopEventE@Base 0.10.1
  _ZTVN4QGst14LatencyMessageE@Base 0.10.1
  _ZTVN4QGst14WarningMessageE@Base 0.10.1
  _ZTVN4QGst15BufferSizeEventE@Base 0.10.1
- _ZTVN4QGst15DurationMessageE@Base 0.10.1
  _ZTVN4QGst15FlushStartEventE@Base 0.10.1
  _ZTVN4QGst15NavigationEventE@Base 0.10.1
- _ZTVN4QGst15NewSegmentEventE@Base 0.10.1
  _ZTVN4QGst15SharedStructureE@Base 0.10.1
  _ZTVN4QGst15StepDoneMessageE@Base 0.10.1
+ _ZTVN4QGst16AllocationParamsE@Base 1.1.90
  _ZTVN4QGst16AsyncDoneMessageE@Base 0.10.1
  _ZTVN4QGst16BufferingMessageE@Base 0.10.1
  _ZTVN4QGst16SinkMessageEventE@Base 0.10.1
@@ -884,9 +1015,15 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZTVN4QGst18ApplicationMessageE@Base 0.10.1
  _ZTVN4QGst18SegmentDoneMessageE@Base 0.10.1
  _ZTVN4QGst19ColorBalanceChannelE@Base 0.10.1
+ _ZTVN4QGst19DiscovererAudioInfoE@Base 1.1.90
+ _ZTVN4QGst19DiscovererVideoInfoE@Base 1.1.90
  _ZTVN4QGst19RequestStateMessageE@Base 0.10.1
  _ZTVN4QGst19StateChangedMessageE@Base 0.10.1
  _ZTVN4QGst19StreamStatusMessageE@Base 0.10.1
+ _ZTVN4QGst20DiscovererStreamInfoE@Base 1.1.90
+ _ZTVN4QGst22DiscovererSubtitleInfoE@Base 1.1.90
+ _ZTVN4QGst22DurationChangedMessageE@Base 1.1.90
+ _ZTVN4QGst23DiscovererContainerInfoE@Base 1.1.90
  _ZTVN4QGst3BinE@Base 0.10.1
  _ZTVN4QGst3BusE@Base 0.10.1
  _ZTVN4QGst3PadE@Base 0.10.1
@@ -895,9 +1032,13 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZTVN4QGst5EventE@Base 0.10.1
  _ZTVN4QGst5QueryE@Base 0.10.1
  _ZTVN4QGst6BufferE@Base 0.10.1
+ _ZTVN4QGst6MemoryE@Base 1.1.90
  _ZTVN4QGst6ObjectE@Base 0.10.1
+ _ZTVN4QGst6SampleE@Base 1.1.90
  _ZTVN4QGst7ElementE@Base 0.10.1
+ _ZTVN4QGst7MapInfoE@Base 1.1.90
  _ZTVN4QGst7MessageE@Base 0.10.1
+ _ZTVN4QGst7SegmentE@Base 1.1.90
  _ZTVN4QGst7TagListE@Base 0.10.1
  _ZTVN4QGst8EosEventE@Base 0.10.1
  _ZTVN4QGst8GhostPadE@Base 0.10.1
@@ -905,45 +1046,10 @@ libQtGStreamer-1.0.so.0 libqtgstreamer-1.0-0 #MINVER#
  _ZTVN4QGst8QosEventE@Base 0.10.1
  _ZTVN4QGst8TagEventE@Base 0.10.1
  _ZTVN4QGst8UriQueryE@Base 0.10.1
- _ZTVN4QGst8XOverlayE@Base 0.10.1
+ _ZTVN4QGst9AllocatorE@Base 1.1.90
+ _ZTVN4QGst9CapsEventE@Base 1.1.90
  _ZTVN4QGst9SeekEventE@Base 0.10.1
  _ZTVN4QGst9StepEventE@Base 0.10.1
  _ZTVN4QGst9StructureE@Base 0.10.1
- (c++)"construction vtable for QGlib::Interface-in-QGst::Bin@Base" 0.10.1
- (c++)"construction vtable for QGlib::Interface-in-QGst::ChildProxy@Base" 0.10.1
- (c++)"construction vtable for QGlib::Interface-in-QGst::ColorBalance@Base" 0.10.1
- (c++)"construction vtable for QGlib::Interface-in-QGst::Pipeline@Base" 0.10.1
- (c++)"construction vtable for QGlib::Interface-in-QGst::PropertyProbe@Base" 0.10.1
- (c++)"construction vtable for QGlib::Interface-in-QGst::StreamVolume@Base" 0.10.1
- (c++)"construction vtable for QGlib::Interface-in-QGst::UriHandler@Base" 0.10.1
- (c++)"construction vtable for QGlib::Interface-in-QGst::VideoOrientation@Base" 0.10.1
- (c++)"construction vtable for QGlib::Interface-in-QGst::XOverlay@Base" 0.10.1
- (c++)"construction vtable for QGlib::Object-in-QGst::Bin@Base" 0.10.1
- (c++)"construction vtable for QGlib::Object-in-QGst::Bus@Base" 0.10.1
- (c++)"construction vtable for QGlib::Object-in-QGst::Clock@Base" 0.10.1
- (c++)"construction vtable for QGlib::Object-in-QGst::ColorBalanceChannel@Base" 0.10.1
- (c++)"construction vtable for QGlib::Object-in-QGst::Element@Base" 0.10.1
- (c++)"construction vtable for QGlib::Object-in-QGst::ElementFactory@Base" 0.10.1
- (c++)"construction vtable for QGlib::Object-in-QGst::GhostPad@Base" 0.10.1
- (c++)"construction vtable for QGlib::Object-in-QGst::Object@Base" 0.10.1
- (c++)"construction vtable for QGlib::Object-in-QGst::Pad@Base" 0.10.1
- (c++)"construction vtable for QGlib::Object-in-QGst::Pipeline@Base" 0.10.1
- (c++)"construction vtable for QGlib::Object-in-QGst::PluginFeature@Base" 0.10.1
- (c++)"construction vtable for QGst::Bin-in-QGst::Pipeline@Base" 0.10.1
- (c++)"construction vtable for QGst::ChildProxy-in-QGst::Bin@Base" 0.10.1
- (c++)"construction vtable for QGst::ChildProxy-in-QGst::Pipeline@Base" 0.10.1
- (c++)"construction vtable for QGst::Element-in-QGst::Bin@Base" 0.10.1
- (c++)"construction vtable for QGst::Element-in-QGst::Pipeline@Base" 0.10.1
- (c++)"construction vtable for QGst::Object-in-QGst::Bin@Base" 0.10.1
- (c++)"construction vtable for QGst::Object-in-QGst::Bus@Base" 0.10.1
- (c++)"construction vtable for QGst::Object-in-QGst::Clock@Base" 0.10.1
- (c++)"construction vtable for QGst::Object-in-QGst::Element@Base" 0.10.1
- (c++)"construction vtable for QGst::Object-in-QGst::ElementFactory@Base" 0.10.1
- (c++)"construction vtable for QGst::Object-in-QGst::GhostPad@Base" 0.10.1
- (c++)"construction vtable for QGst::Object-in-QGst::Pad@Base" 0.10.1
- (c++)"construction vtable for QGst::Object-in-QGst::Pipeline@Base" 0.10.1
- (c++)"construction vtable for QGst::Object-in-QGst::PluginFeature@Base" 0.10.1
- (c++)"construction vtable for QGst::Pad-in-QGst::GhostPad@Base" 0.10.1
- (c++)"construction vtable for QGst::PluginFeature-in-QGst::ElementFactory@Base" 0.10.1
  (c++)"virtual thunk to QGst::Object::ref(bool)@Base" 0.10.1
  (c++)"virtual thunk to QGst::Object::unref()@Base" 0.10.1
