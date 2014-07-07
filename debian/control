@@ -126,7 +126,7 @@ Description: Development headers for QtGStreamer
 Package: qtgstreamer-doc
 Section: doc
 Architecture: all
-Depends: ${misc:Depends}
+Depends: ${misc:Depends}, libjs-jquery
 Suggests: libqtgstreamer-dev
 Description: QtGStreamer API documentation
  QtGStreamer provides C++ bindings for GStreamer with a Qt-style API,
