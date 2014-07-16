@@ -1,6 +1,6 @@
-qt-gstreamer (1.1.90-1) UNRELEASED; urgency=medium
+qt-gstreamer (1.2.0-1) UNRELEASED; urgency=medium
 
-  * Import upstream version 1.1.90
+  * Import upstream version 1.2.0
   * Add watch file.
   * Bump Standards-Version to 3.9.5. No changes needed.
   * Add myself to uploaders.
