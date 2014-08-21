@@ -1,7 +1,7 @@
 Source: qt-gstreamer
 Section: libs
 Priority: optional
-Maintainer: Maintainers of GStreamer packages <pkg-gstreamer-maintainers@lists.alioth.debian.org>
+Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
 Uploaders: George Kiagiadakis <kiagiadakis.george@gmail.com>,
            Diane Trout <diane@ghic.org>
 Build-Depends: debhelper (>= 9),
