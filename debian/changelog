@@ -14,6 +14,7 @@ qt-gstreamer (1.2.0-1) UNRELEASED; urgency=medium
   * Update libqtgstreamer for amd64 and i386
   * Add dependency on pkg-kde-tools to use pkgkde-symbolshelper to manage symbols.
   * Change maintainer to Debian KDE Extras Team
+  * Add vcs-git and vcs-browser tags.
 
  -- Diane Trout <diane@ghic.org>  Tue, 01 Jul 2014 20:13:24 -0700
 
