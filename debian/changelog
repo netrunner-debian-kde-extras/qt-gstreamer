@@ -12,7 +12,8 @@ qt-gstreamer (1.2.0-1) UNRELEASED; urgency=medium
   * Add Multi-Arch: same to qtgstreamer-dbg
   * Link to debian provided jquery.
   * Update libqtgstreamer for amd64 and i386
-  * Add dependency on pkg-kde-tools to use pkgkde-symbolshelper to manage symbols.
+  * Add dependency on pkg-kde-tools to use pkgkde-symbolshelper to
+    manage symbols.
   * Change maintainer to Debian KDE Extras Team
   * Add vcs-git and vcs-browser tags.
 
