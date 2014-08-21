@@ -1,4 +1,4 @@
-qt-gstreamer (1.2.0-1) UNRELEASED; urgency=medium
+qt-gstreamer (1.2.0-1) experimental; urgency=medium
 
   * Import upstream version 1.2.0
   * Add watch file.
