@@ -242,6 +242,7 @@ Depends: libboost-dev (>= 1.39),
          libqt5gstreamer-1.0-0 (= ${binary:Version}),
          libqt5gstreamerui-1.0-0 (= ${binary:Version}),
          libqt5gstreamerutils-1.0-0 (= ${binary:Version}),
+         libqt5gstreamerquick-1.0-0 (= ${binary:Version}),
          qtbase5-dev,
          ${misc:Depends}
 Suggests: qtgstreamer-doc
