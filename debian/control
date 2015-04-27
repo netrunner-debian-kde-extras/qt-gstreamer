@@ -208,6 +208,7 @@ Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}
+Recommends: qml-module-qtgstreamer (= ${binary:Version})
 Description: QtGStreamerQuick library - Qt 5 build
  This package contains the QtGStreamerQuick library, a library that provides
  some high level utility classes that can be used with QtGStreamer.
@@ -252,6 +253,16 @@ Description: Development headers for QtGStreamer - Qt 5 build
  .
  This package provides the necessary development files for building
  C++/Qt applications that use the QtGStreamer library.
+
+Package: qml-module-qtgstreamer
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: QML plugins from QtGStreamer - Qt 5 build
+ This package contains QML plugins that are shipped together with the
+ QtGStreamer bindings library. These plugins provide QML elements that
+ enable better integration of GStreamer in QML-based GUI applications.
 
 Package: qt5gstreamer-dbg
 Section: debug
