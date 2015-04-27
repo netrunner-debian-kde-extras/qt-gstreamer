@@ -11,6 +11,7 @@ qt-gstreamer (1.2.0-2) UNRELEASED; urgency=medium
       libqt5gstreamerutils-1.0, and qtgstreamer-plugins-qt5
     - I copied work from Jonathan Riddell for the .install and
       .symbols files.
+  * Differentiate package long descriptions between Qt4 and Qt5 packages.
 
  -- Diane Trout <diane@ghic.org>  Mon, 09 Mar 2015 21:38:06 -0700
 
