@@ -13,6 +13,7 @@ qt-gstreamer (1.2.0-2) UNRELEASED; urgency=medium
       .symbols files.
   * Differentiate package long descriptions between Qt4 and Qt5 packages.
   * Build doc files in an architecture independent step.
+  * Correctly build dbg packages for Qt4 and Qt5 packages.
 
  -- Diane Trout <diane@ghic.org>  Mon, 09 Mar 2015 21:38:06 -0700
 

@@ -23,6 +23,17 @@ override_dh_auto_build-arch:
 override_dh_auto_build-indep:
 	dh_auto_build --parallel --builddirectory=$(BUILD_QT5) -- doc
 
+override_dh_strip:
+	dh_strip -p libqtglib-2.0-0 \
+                 -p libqtgstreamer-1.0-0 \
+                 -p libqtgstreamerui-1.0-0 \
+                 -p libqtgstreamerutils-1.0-0 \
+                 -p qml-module-qtgstreamer \
+                 -p qtgstreamer-declarative \
+                 -p qtgstreamer-plugins \
+                 --dbg-package=qtgstreamer-dbg
+	dh_strip --remaining-packages --dbg-package=qt5gstreamer-dbg
+
 override_dh_auto_install:
 	dh_auto_install --parallel
 	dh_auto_install --parallel --builddirectory=$(BUILD_QT5)
@@ -43,4 +54,4 @@ override_dh_gencontrol:
 	dh_gencontrol
 
 %:
-	dh $@ --parallel --dbg-package=qtgstreamer-dbg --with=pkgkde-symbolshelper
+	dh $@ --parallel --with=pkgkde-symbolshelper
