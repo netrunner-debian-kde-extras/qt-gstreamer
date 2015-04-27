@@ -12,6 +12,7 @@ qt-gstreamer (1.2.0-2) UNRELEASED; urgency=medium
     - I copied work from Jonathan Riddell for the .install and
       .symbols files.
   * Differentiate package long descriptions between Qt4 and Qt5 packages.
+  * Build doc files in an architecture independent step.
 
  -- Diane Trout <diane@ghic.org>  Mon, 09 Mar 2015 21:38:06 -0700
 
