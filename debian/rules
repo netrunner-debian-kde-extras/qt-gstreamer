@@ -49,7 +49,6 @@ override_dh_gencontrol:
 	mkdir -p debian/fake-home
 	HOME=debian/fake-home \
 	LD_LIBRARY_PATH=debian/qtgstreamer-plugins/usr/lib/$(DEB_HOST_MULTIARCH):$(LD_LIBRARY_PATH) \
-	    dh_gstscancodecs
 	rm -rf debian/fake-home
 	dh_gencontrol
 
