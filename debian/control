@@ -219,7 +219,7 @@ Package: libqt5gstreamerquick-1.0-0
 Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
-Depends: ${misc:Depends}, ${shlibs:Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}, qtgstreamer-plugins-qt5 (= ${binary:Version})
 Recommends: qml-module-qtgstreamer (= ${binary:Version})
 Description: QtGStreamerQuick library - Qt 5 build
  This package contains the QtGStreamerQuick library, a library that provides
