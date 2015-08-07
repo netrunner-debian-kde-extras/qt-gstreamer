@@ -1,1 +1,2 @@
 disable-doxygen-timestamp.patch
+find_gstconfig_properly.diff

@@ -1,3 +1,11 @@
+qt-gstreamer (1.2.0-2ubuntu1) UNRELEASED; urgency=medium
+
+  * Fix FTBFS because of latest gstreamer:
+    - add find_gstconfig_properly.diff
+    - add pkg-config to build depends (needed by the above patch)
+
+ -- José Manuel Santamaría Lema <panfaust@gmail.com>  Fri, 07 Aug 2015 21:47:07 +0200
+
 qt-gstreamer (1.2.0-2) unstable; urgency=medium
 
   * Add disable-doxygen-timestamp.patch to help make package

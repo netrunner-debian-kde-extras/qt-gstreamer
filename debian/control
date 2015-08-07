@@ -15,6 +15,7 @@ Build-Depends: cmake (>= 2.8.6),
                libqt4-dev (>= 4:4.8.1),
                libqt4-opengl-dev (>= 4:4.8.1),
                libqt5opengl5-dev,
+               pkg-config,
                pkg-kde-tools (>= 0.12),
                qtbase5-dev,
                qtdeclarative5-dev
