@@ -103,24 +103,24 @@ libQtGLib-2.0.so.0 libqtglib-2.0-0 #MINVER#
  _ZN5QGlib7Private10wrapObjectEPv@Base 0.10.1
  _ZN5QGlib7Private13wrapInterfaceENS_4TypeEPv@Base 0.10.1
  _ZN5QGlib7Private13wrapParamSpecEPv@Base 0.10.1
- _ZN5QGlib7Private20InvalidTypeExceptionD0Ev@Base 0.10.2
- _ZN5QGlib7Private20InvalidTypeExceptionD1Ev@Base 0.10.2
- _ZN5QGlib7Private20InvalidTypeExceptionD2Ev@Base 0.10.2
- _ZN5QGlib7Private21InvalidValueExceptionD0Ev@Base 0.10.2
- _ZN5QGlib7Private21InvalidValueExceptionD1Ev@Base 0.10.2
- _ZN5QGlib7Private21InvalidValueExceptionD2Ev@Base 0.10.2
+ (optional=templinst)_ZN5QGlib7Private20InvalidTypeExceptionD0Ev@Base 0.10.2
+ (optional=templinst)_ZN5QGlib7Private20InvalidTypeExceptionD1Ev@Base 0.10.2
+ (optional=templinst)_ZN5QGlib7Private20InvalidTypeExceptionD2Ev@Base 0.10.2
+ (optional=templinst)_ZN5QGlib7Private21InvalidValueExceptionD0Ev@Base 0.10.2
+ (optional=templinst)_ZN5QGlib7Private21InvalidValueExceptionD1Ev@Base 0.10.2
+ (optional=templinst)_ZN5QGlib7Private21InvalidValueExceptionD2Ev@Base 0.10.2
  _ZN5QGlib7Private22QObjectDestroyNotifier10disconnectEPvP7QObject@Base 0.10.1
  _ZN5QGlib7Private22QObjectDestroyNotifier7connectEPvP7QObjectPKc@Base 0.10.1
  _ZN5QGlib7Private22QObjectDestroyNotifier8instanceEv@Base 0.10.1
- _ZN5QGlib7Private22QObjectDestroyNotifierD0Ev@Base 0.10.2
- _ZN5QGlib7Private22QObjectDestroyNotifierD1Ev@Base 0.10.2
- _ZN5QGlib7Private22QObjectDestroyNotifierD2Ev@Base 0.10.2
- _ZN5QGlib7Private25UnregisteredTypeExceptionD0Ev@Base 0.10.2
- _ZN5QGlib7Private25UnregisteredTypeExceptionD1Ev@Base 0.10.2
- _ZN5QGlib7Private25UnregisteredTypeExceptionD2Ev@Base 0.10.2
- _ZN5QGlib7Private29TransformationFailedExceptionD0Ev@Base 0.10.2
- _ZN5QGlib7Private29TransformationFailedExceptionD1Ev@Base 0.10.2
- _ZN5QGlib7Private29TransformationFailedExceptionD2Ev@Base 0.10.2
+ (optional=templinst)_ZN5QGlib7Private22QObjectDestroyNotifierD0Ev@Base 0.10.2
+ (optional=templinst)_ZN5QGlib7Private22QObjectDestroyNotifierD1Ev@Base 0.10.2
+ (optional=templinst)_ZN5QGlib7Private22QObjectDestroyNotifierD2Ev@Base 0.10.2
+ (optional=templinst)_ZN5QGlib7Private25UnregisteredTypeExceptionD0Ev@Base 0.10.2
+ (optional=templinst)_ZN5QGlib7Private25UnregisteredTypeExceptionD1Ev@Base 0.10.2
+ (optional=templinst)_ZN5QGlib7Private25UnregisteredTypeExceptionD2Ev@Base 0.10.2
+ (optional=templinst)_ZN5QGlib7Private29TransformationFailedExceptionD0Ev@Base 0.10.2
+ (optional=templinst)_ZN5QGlib7Private29TransformationFailedExceptionD1Ev@Base 0.10.2
+ (optional=templinst)_ZN5QGlib7Private29TransformationFailedExceptionD2Ev@Base 0.10.2
  _ZN5QGlib7Private4emitEPvPKcNS_5QuarkERK5QListINS_5ValueEE@Base 0.10.1
  _ZN5QGlib7Private7connectEPvPKcNS_5QuarkES1_RK14QSharedPointerINS0_20DestroyNotifierIfaceEEjPNS0_15ClosureDataBaseE6QFlagsINS_11ConnectFlagEE@Base 0.10.1
  _ZN5QGlib9ParamSpec12setQuarkDataERKNS_5QuarkEPvPFvS4_E@Base 0.10.1
@@ -184,14 +184,14 @@ libQtGLib-2.0.so.0 libqtglib-2.0-0 #MINVER#
  _ZNK5QGlib9ParamSpec9ownerTypeEv@Base 0.10.1
  _ZNK5QGlib9ParamSpec9quarkDataERKNS_5QuarkE@Base 0.10.1
  _ZNK5QGlib9ParamSpec9valueTypeEv@Base 0.10.1
- (optional=templinst)_ZStplIcSt11char_traitsIcESaIcEESbIT_T0_T1_EPKS3_RKS6_@Base 0.10.1
+ (optional=templinst)_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEPKS5_RKS8_@Base 0.10.1
  _ZTIN5QGlib10ObjectBaseE@Base 0.10.1
- _ZTIN5QGlib16RefCountedObjectE@Base 0.10.1
+ (optional=templinst)_ZTIN5QGlib16RefCountedObjectE@Base 0.10.1
  _ZTIN5QGlib5ErrorE@Base 0.10.1
  _ZTIN5QGlib5ValueE@Base 0.10.1
  _ZTIN5QGlib6ObjectE@Base 0.10.1
  _ZTIN5QGlib6SignalE@Base 0.10.1
- _ZTIN5QGlib7Private20DestroyNotifierIfaceE@Base 0.10.1
+ (optional=templinst)_ZTIN5QGlib7Private20DestroyNotifierIfaceE@Base 0.10.1
  _ZTIN5QGlib7Private20InvalidTypeExceptionE@Base 0.10.1
  _ZTIN5QGlib7Private21InvalidValueExceptionE@Base 0.10.1
  _ZTIN5QGlib7Private22QObjectDestroyNotifierE@Base 0.10.1
@@ -216,12 +216,12 @@ libQtGLib-2.0.so.0 libqtglib-2.0-0 #MINVER#
  _ZTTN5QGlib6ObjectE@Base 0.10.1
  _ZTTN5QGlib9InterfaceE@Base 0.10.1
  _ZTVN5QGlib10ObjectBaseE@Base 0.10.1
- _ZTVN5QGlib16RefCountedObjectE@Base 0.10.1
+ (optional=templinst)_ZTVN5QGlib16RefCountedObjectE@Base 0.10.1
  _ZTVN5QGlib5ErrorE@Base 0.10.1
  _ZTVN5QGlib5ValueE@Base 0.10.1
  _ZTVN5QGlib6ObjectE@Base 0.10.1
  _ZTVN5QGlib6SignalE@Base 0.10.1
- _ZTVN5QGlib7Private20DestroyNotifierIfaceE@Base 0.10.1
+ (optional=templinst)_ZTVN5QGlib7Private20DestroyNotifierIfaceE@Base 0.10.1
  _ZTVN5QGlib7Private20InvalidTypeExceptionE@Base 0.10.1
  _ZTVN5QGlib7Private21InvalidValueExceptionE@Base 0.10.1
  _ZTVN5QGlib7Private22QObjectDestroyNotifierE@Base 0.10.1
