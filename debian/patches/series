@@ -1,1 +1,3 @@
 disable-doxygen-timestamp.patch
+find_gstconfig_properly.diff
+upstream_workaround_boost_ftbfs.diff

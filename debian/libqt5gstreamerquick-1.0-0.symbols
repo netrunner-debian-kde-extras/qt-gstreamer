@@ -30,5 +30,5 @@ libQt5GStreamerQuick-1.0.so.0 libqt5gstreamerquick-1.0-0 #MINVER#
  _ZTSN5QGlib7Private15ClosureDataBaseE@Base 1.2.0
  _ZTVN4QGst5Quick12VideoSurfaceE@Base 1.2.0
  _ZTVN4QGst5Quick9VideoItemE@Base 1.2.0
- _ZTVN5QGlib7Private15ClosureDataBaseE@Base 1.2.0
+ (optional=templinst)_ZTVN5QGlib7Private15ClosureDataBaseE@Base 1.2.0
  (c++)"non-virtual thunk to QGst::Quick::VideoItem::~VideoItem()@Base" 1.2.0

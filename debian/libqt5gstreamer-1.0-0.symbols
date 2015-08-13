@@ -1061,6 +1061,6 @@ libQt5GStreamer-1.0.so.0 libqt5gstreamer-1.0-0 #MINVER#
  _ZTVN4QGst9SeekEventE@Base 1.2.0
  _ZTVN4QGst9StepEventE@Base 1.2.0
  _ZTVN4QGst9StructureE@Base 1.2.0
- _ZTVN5QGlib16RefCountedObjectE@Base 1.2.0
+ (optional=templinst)_ZTVN5QGlib16RefCountedObjectE@Base 1.2.0
  (c++)"virtual thunk to QGst::Object::ref(bool)@Base" 1.2.0
  (c++)"virtual thunk to QGst::Object::unref()@Base" 1.2.0

@@ -4,6 +4,29 @@ qt-gstreamer (1.2.0-3~) UNRELEASED; urgency=medium
 
  -- Maximiliano Curia <maxy@debian.org>  Wed, 12 Aug 2015 22:11:45 +0200
 
+qt-gstreamer (1.2.0-2ubuntu3) UNRELEASED; urgency=medium
+
+  * Fix FTBFS because of latest gstreamer:
+    - add find_gstconfig_properly.diff
+    - add pkg-config to build depends (needed by the above patch)
+  * Workaround FTBFS with boost >= 1.57:
+    - add upstream_workaround_boost_ftbfs.diff
+
+ -- José Manuel Santamaría Lema <panfaust@gmail.com>  Mon, 10 Aug 2015 14:07:34 +0200
+
+qt-gstreamer (1.2.0-2ubuntu2) wily; urgency=medium
+
+  * Revert package rename; on closer inspection the only symbol changes are
+    all to templates.
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Sun, 09 Aug 2015 22:08:38 +0000
+
+qt-gstreamer (1.2.0-2ubuntu1) wily; urgency=medium
+
+  * Rename library packages for g++5 ABI transition.
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Fri, 07 Aug 2015 06:42:22 +0000
+
 qt-gstreamer (1.2.0-2) unstable; urgency=medium
 
   * Add disable-doxygen-timestamp.patch to help make package
