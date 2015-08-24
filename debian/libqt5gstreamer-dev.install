@@ -1,4 +1,3 @@
-
 usr/include/Qt5GStreamer/*
 usr/lib/*/cmake/Qt5GStreamer/*
 usr/lib/*/libQt5GLib*.so
