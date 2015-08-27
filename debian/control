@@ -18,7 +18,8 @@ Build-Depends: cmake (>= 2.8.6),
                pkg-config,
                pkg-kde-tools (>= 0.12),
                qtbase5-dev,
-               qtdeclarative5-dev
+               qtdeclarative5-dev,
+               qtquick1-5-dev
 Standards-Version: 3.9.6
 Homepage: http://gstreamer.freedesktop.org
 Vcs-Git: git://anonscm.debian.org/pkg-kde/kde-extras/qt-gstreamer.git
