@@ -1,4 +1,4 @@
-# SymbolsHelper-Confirmed: 1.2.0 amd64
+# SymbolsHelper-Confirmed: 1.2.0+git20151112.0036+16.04 amd64 i386
 libQt5GStreamerUi-1.0.so.0 libqt5gstreamerui-1.0-0 #MINVER#
  _ZN4QGst2Ui11VideoWidget10paintEventEP11QPaintEvent@Base 1.2.0
  _ZN4QGst2Ui11VideoWidget11qt_metacallEN11QMetaObject4CallEiPPv@Base 1.2.0
@@ -60,7 +60,7 @@ libQt5GStreamerUi-1.0.so.0 libqt5gstreamerui-1.0-0 #MINVER#
  _ZTVN4QGst2Ui11VideoWidgetE@Base 1.2.0
  _ZTVN4QGst2Ui19GraphicsVideoWidgetE@Base 1.2.0
  _ZTVN4QGst2Ui20GraphicsVideoSurfaceE@Base 1.2.0
- (optional=templinst)_ZTVN5QGlib7Private15ClosureDataBaseE@Base 1.2.0
+#MISSING: 1.2.0+git20151112.0036+16.04# (optional=templinst)_ZTVN5QGlib7Private15ClosureDataBaseE@Base 1.2.0
  (c++)"non-virtual thunk to QGst::Ui::GraphicsVideoWidget::paint(QPainter*, QStyleOptionGraphicsItem const*, QWidget*)@Base" 1.2.0
  (c++)"non-virtual thunk to QGst::Ui::GraphicsVideoWidget::~GraphicsVideoWidget()@Base" 1.2.0
  (c++)"non-virtual thunk to QGst::Ui::VideoWidget::~VideoWidget()@Base" 1.2.0
