@@ -1,4 +1,4 @@
-# SymbolsHelper-Confirmed: 1.2.0+git20151120.0028+16.04 amd64 i386
+# SymbolsHelper-Confirmed: 1.2.0+git20151121.0027+16.04 amd64 i386
 libQt5GStreamerQuick-1.0.so.0 libqt5gstreamerquick-1.0-0 #MINVER#
  _ZN4QGst5Quick12VideoSurface11qt_metacallEN11QMetaObject4CallEiPPv@Base 1.2.0
  _ZN4QGst5Quick12VideoSurface11qt_metacastEPKc@Base 1.2.0
