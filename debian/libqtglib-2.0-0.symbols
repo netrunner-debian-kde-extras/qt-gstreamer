@@ -1,4 +1,4 @@
-# SymbolsHelper-Confirmed: 1.2.0+git20151130.0028+16.04 amd64 i386
+# SymbolsHelper-Confirmed: 1.2.0+git20151201.0027+16.04 amd64 i386
 libQtGLib-2.0.so.0 libqtglib-2.0-0 #MINVER#
 * Build-Depends-Package: libqtgstreamer-dev
  _ZN5QGlib10ObjectBase11setPropertyEPKcRKNS_5ValueE@Base 0.10.1
