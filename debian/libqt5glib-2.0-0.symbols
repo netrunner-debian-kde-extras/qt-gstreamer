@@ -1,4 +1,4 @@
-# SymbolsHelper-Confirmed: 1.2.0+git20151203.0031+16.04 amd64 i386
+# SymbolsHelper-Confirmed: 1.2.0+git20151204.0029+16.04 amd64 i386
 libQt5GLib-2.0.so.0 libqt5glib-2.0-0 #MINVER#
  _ZN5QGlib10ObjectBase11setPropertyEPKcRKNS_5ValueE@Base 1.2.0
  _ZN5QGlib10ObjectBase12setQuarkDataERKNS_5QuarkEPvPFvS4_E@Base 1.2.0
