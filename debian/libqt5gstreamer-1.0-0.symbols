@@ -1,4 +1,4 @@
-# SymbolsHelper-Confirmed: 1.2.0+git20151204.0029+16.04 amd64 i386
+# SymbolsHelper-Confirmed: 1.2.0+git20151205.0029+16.04 amd64 i386
 libQt5GStreamer-1.0.so.0 libqt5gstreamer-1.0-0 #MINVER#
  _ZN4QGst10BufferList6createEv@Base 1.2.0
  _ZN4QGst10Discoverer11discoverUriEPKc@Base 1.2.0
