@@ -1,4 +1,4 @@
-# SymbolsHelper-Confirmed: 1.2.0+git20151205.0029+16.04 amd64 i386
+# SymbolsHelper-Confirmed: 1.2.0+git20151206.0027+16.04 amd64 i386
 libQt5GStreamerUi-1.0.so.0 libqt5gstreamerui-1.0-0 #MINVER#
  _ZN4QGst2Ui11VideoWidget10paintEventEP11QPaintEvent@Base 1.2.0
  _ZN4QGst2Ui11VideoWidget11qt_metacallEN11QMetaObject4CallEiPPv@Base 1.2.0
